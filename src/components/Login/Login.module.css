@@ -3,5 +3,12 @@
 }
 
 .inputField {
+    position: absolute;
+    width: 413px;
+    height: 600px;
+    left: 434px;
+    top: 60px;
 
+    background: #F9F9FE;
+    border-radius: 8px;
 }
