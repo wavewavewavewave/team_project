@@ -1,0 +1,198 @@
+.profilePage {
+    position: absolute;
+    width: 413px;
+    height: 540px;
+    left: 434px;
+    top: 84px;
+
+    background: #F9F9FE;
+    border-radius: 8px;
+}
+
+.titleBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 200px;
+    border: 1px solid;
+
+}
+
+.title {
+    /*position: relative;*/
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    /*text-align: right;*/
+
+    color: #2D2E46;
+}
+
+.personalPhotoBox {
+    width: 96px;
+    height: 96px;
+    /*position: relative;*/
+}
+
+.personalPhoto {
+    position: absolute;
+    width: 96px;
+    height: 96px;
+    /*left: 593px;*/
+    /*top: 168px;*/
+    border-radius: 50px;
+}
+
+.photoButtonBox {
+    margin-top: 65px;
+    margin-left: 60px;
+
+    position: absolute;
+    /*border: 1px solid;*/
+    /*position:relative;*/
+    height: 32px;
+    width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.downloadPhotoButton {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    /*left: 657px;*/
+    /*top:0;*/
+    opacity: 50%;
+    background-color: gray;
+
+    /*background: rgba(45, 46, 70, 0.5);*/
+    border: 2px solid white;
+    border-radius: 50%;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.photoaparate {
+    position: absolute;
+    /*left: 6.25%;*/
+    /*right: 6.25%;*/
+    /*top:0;*/
+    /*bottom: 18.75%;*/
+    /*border: solid 1px #2D2E46;*/
+    background: rgba(45, 46, 70, 0.5);
+
+    /*opacity: 50%;*/
+    width: 20px;
+    z-index: 2;
+    /*background: #FFFFFF;*/
+}
+
+.inputContainer {
+    border: 1px solid;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    /*justify-content: space-around;*/
+}
+
+.buttonContainer {
+    border: 1px solid;
+    height: 133px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.nameBox {
+    display: flex;
+    flex-direction: row;
+}
+
+.saveButton {
+    border: none;
+    width: 127px;
+    height: 36px;
+    border-radius: 30px;
+    color: #ECECF9;
+    background: #21268F;
+    box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+
+    font-family: 'SF UI Display';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+
+    text-align: center;
+    letter-spacing: 0.01em;
+
+
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+
+}
+
+.logoutButton {
+    color: #21268F;
+    width: 127px;
+    height: 36px;
+    border-radius: 30px;
+    background: #D7D8EF;
+    font-family: 'SF UI Display';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+    border: none;
+    text-align: center;
+    letter-spacing: 0.01em;
+
+    /*opacity: 0.8;*/
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.logoutButton:hover {
+    background: #21268F;
+    color: #3a7999;
+    box-shadow: inset 0 0 0 3px #3a7999;
+}
+
+.saveButton:hover {
+    background: #D7D8EF;
+    color: #3a7999;
+    box-shadow: inset 0 0 0 3px #3a7999;
+}
+
+.rowName {
+
+    font-family: 'SF UI Display';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 20px;
+    /* identical to box height, or 154% */
+
+
+    color: #24254A;
+
+    opacity: 0.5;
+}
+
+.personalText {
+    font-family: 'SF UI Display';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+
+    display: flex;
+    align-items: center;
+
+    color: #2D2E46;
+
+}
