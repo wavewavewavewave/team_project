@@ -1,5 +1,8 @@
-.loginPage {
-    background: #E5E5E5;
+.box {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%);
 }
 
 .inputField {
@@ -9,6 +12,77 @@
     left: 434px;
     top: 60px;
 
-    background: #F9F9FE;
+    background: rgba(249, 249, 254, 1);
     border-radius: 8px;
+}
+.itIncubator {
+    position: absolute;
+    width: 163px;
+    height: 39px;
+    left: 559px;
+    top: 85px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 39px;
+
+    color: #2D2E46;
+}
+.signIn {
+    position: absolute;
+    width: 75px;
+    height: 33px;
+    left: 598px;
+    top: 156px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+
+
+    text-align: right;
+
+    color: #2D2E46;
+}
+.email {
+    position: absolute;
+    left: 0%;
+    right: 91.07%;
+    top: 0%;
+    bottom: 58.33%;
+
+    font-family: 'SF UI Display';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+
+    color: #24254A;
+
+    opacity: 0.5;
+}
+.inputEmail {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 96.7%;
+    bottom: 0%;
+
+    background: #24254A;
+    opacity: 0.2;
+}
+.loginButton {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+
+    background: #21268F;
+    box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
 }

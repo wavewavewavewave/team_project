@@ -17,9 +17,34 @@ export const Login = () => {
 
 
     return (
-        <div className={s.loginPage}>
-            <div>
-                <input/>
+        <div className={s.box}>
+            <div className={s.inputField}>
+                <div className={s.itIncubator}>
+                    It-incubator
+                </div>
+                <div className={s.signIn}>
+                    Sign In
+                </div>
+                <div>
+                        Email
+                </div>
+                <div>
+                    <input/>
+                </div>
+                <div>
+                    Password
+                </div>
+                <div>
+                    <input/>
+                </div>
+                <div>
+                    Forgot Password
+                </div>
+                <div>
+                    <button>
+                        Login
+                    </button>
+                </div>
             </div>
         </div>
     )
