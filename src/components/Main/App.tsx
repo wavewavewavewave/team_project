@@ -1,8 +1,6 @@
 import React from 'react';
 import s from './App.module.css';
-import {SupButton} from "../common/button/SupButton";
-import {SupInput} from "../common/input/SupInput";
-import {SupCheckbox} from "../common/checkbox/SupCheckbox";
+
 import {Navigate, NavLink, Route, Routes} from "react-router-dom";
 import {Login} from "../Login/Login";
 import {Profile} from "../Profile/Profile";
@@ -13,11 +11,6 @@ import {RecoveryPassword} from "../Registration/Password/RecoveryPassword";
 function App() {
     return (
         <div className={s.App}>
-            <div>SupComponents</div>
-            <SupButton/>
-            <SupInput/>
-            <SupCheckbox/>
-            <div>
                 <NavLink to={'/login'}>Login</NavLink>---
                 <NavLink to={'/registration'}>Registration</NavLink>---
                 <NavLink to={'/profile'}>Profile</NavLink>---
@@ -35,7 +28,6 @@ function App() {
                     <Route path="*" element={<Navigate to={"/404"}/>}/>
                 </Routes>
             </div>
-        </div>
     );
 }
 
