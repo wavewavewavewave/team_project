@@ -1,4 +1,8 @@
-
+import {Dispatch} from "redux";
+import {cardsAPI} from "../api/cards-api";
+import {AxiosResponse} from "axios";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {AppRootReducerType} from "../../store";
 
 export type AuthStateType = {
     _id: string;
@@ -11,11 +15,16 @@ export type AuthStateType = {
     updated: Date | null;
     isAdmin: boolean;
     verified: boolean; // подтвердил ли почту
-    rememberMe: boolean  | null;
+    rememberMe: boolean | null;
     error?: string;
 }
 
-type ActionsType = {}
+export type ResponseEditNameType = {
+    updatedUser: AuthStateType,
+    error?: string
+}
+
+type ActionsType = EditNameActionType | ErrorActionType
 
 const initialState: AuthStateType = {
     _id: "",
@@ -34,15 +43,64 @@ const initialState: AuthStateType = {
 
 export type EditNameActionType = {
     type: "EDIT-NAME"
-    name: string,
-    avatar: string
+    payload: {
+        name: string,
+        avatar: string | undefined,
+    }
+}
+export type ErrorActionType = {
+    type: "ERROR"
+    payload: {
+        error: string,
+    }
 }
 
-export const authReducer = (state: AuthStateType = initialState, action: EditNameActionType): AuthStateType => {
+export const authReducer = (state: AuthStateType = initialState, action: ActionsType): AuthStateType => {
     switch (action.type) {
         case "EDIT-NAME":
-            return {...state, name: action.name}
+        case "ERROR":
+            return {...state, ...action.payload}
 
         default:
             return state;
-    }}
+    }
+}
+
+export const editNameAC = (name: string, avatar: string | undefined): EditNameActionType => {
+    return {
+        type: "EDIT-NAME",
+        payload: {
+            name: name,
+            avatar: avatar,
+        }
+    }
+}
+
+export const errorMessageAC = (error: string): ErrorActionType => {
+    return {
+        type: "ERROR",
+        payload: {
+            error
+        }
+    }
+}
+
+type ThunkType = ThunkAction<void, AppRootReducerType, unknown, ActionsType>
+
+export const editNameTC = (name: string, avatar?: string | undefined): ThunkType => {
+
+    return (dispatch: Dispatch<ActionsType>) => {
+        // диспатчим крутилку
+        cardsAPI.editName({name, avatar})
+            .then((res) => {
+                dispatch(editNameAC(res.data.updatedUser.name, res.data.updatedUser.avatar))
+                //выключаем крутилку
+            })
+            .catch((err) => {
+              dispatch(errorMessageAC("some error"))
+            })
+            .finally(() => {
+                //выключаем крутилку
+            })
+    }
+}

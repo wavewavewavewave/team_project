@@ -1,7 +1,8 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers} from "redux";
 import thunkMiddleware from 'redux-thunk'
 import {authReducer} from "./components/Bll/auth-reducer";
 import {profileReducer} from "./components/Bll/profile-reducer";
+import { legacy_createStore as createStore} from 'redux'
 
 
 const rootReducer = combineReducers({
