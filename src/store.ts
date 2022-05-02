@@ -6,7 +6,7 @@ import {profileReducer} from "./components/Bll/profile-reducer";
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    profile: profileReducer,
+    // profile: profileReducer,
 
 })
 
