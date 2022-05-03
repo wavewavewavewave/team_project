@@ -83,9 +83,9 @@ export const Login = () => {
                                         onChange={formik.handleChange}
                                         value={formik.values.rememberMe}
                                         name="rememberMe"/>}/>
-                                    <Button type={'submit'} variant={'contained'} color={'primary'} size={'small'}>
-                                        Login
-                                    </Button>
+                                        <button  className={s.loginButton}>
+                                            Login
+                                        </button>
                                 </FormGroup>
                             </div>
                         </div>
@@ -93,5 +93,5 @@ export const Login = () => {
                 </form>
             </Grid>
         </Grid>
-)
+    )
 }
