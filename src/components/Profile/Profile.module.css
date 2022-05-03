@@ -1,0 +1,133 @@
+.profilePage {
+    position: absolute;
+    width: 413px;
+    height: 540px;
+    left: 434px;
+    top: 84px;
+    background: #F9F9FE;
+    border-radius: 8px;
+}
+
+.titleBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 200px;
+}
+
+.title {
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    color: #2D2E46;
+}
+
+.personalPhotoBox {
+    width: 96px;
+    height: 96px;
+}
+
+.personalPhoto {
+    position: absolute;
+    width: 96px;
+    height: 96px;
+    border-radius: 50px;
+}
+
+.photoButtonBox {
+    margin-top: 65px;
+    margin-left: 60px;
+    position: absolute;
+    height: 32px;
+    width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.downloadPhotoButton {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    opacity: 50%;
+    background-color: gray;
+    border: 2px solid white;
+    border-radius: 50%;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.photoaparate {
+    position: absolute;
+    background: rgba(45, 46, 70, 0.5);
+    width: 20px;
+    z-index: 2;
+}
+
+.inputContainer {
+
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.inputValue {
+    font-family: 'SF UI Display';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #2D2E46;
+}
+
+.buttonContainer {
+    /*border: 1px solid;*/
+    height: 133px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nameBox {
+    display: flex;
+    flex-direction: column;
+}
+
+.button {
+    width: 127px;
+    height: 36px;
+    border-radius: 60px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.rowName {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 20px;
+    color: #24254A;
+    opacity: 1;
+}
+
+.personalText {
+    font-family: 'SF UI Display';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    color: #2D2E46;
+}
