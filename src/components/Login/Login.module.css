@@ -16,7 +16,7 @@
     border-radius: 8px;
 }
 .itIncubator {
-    position: absolute;
+    position: center;
     width: 163px;
     height: 39px;
     left: 559px;
@@ -31,7 +31,7 @@
     color: #2D2E46;
 }
 .signIn {
-    position: absolute;
+    position: center;
     width: 75px;
     height: 33px;
     left: 598px;
