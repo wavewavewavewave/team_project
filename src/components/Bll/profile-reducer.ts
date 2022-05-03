@@ -1,4 +1,10 @@
-export const profileReducer = (state: any, action: any) => {
+
+
+
+const initialState = {}
+
+
+export const profileReducer = (state = initialState, action: any) => {
     switch (action) {
 
 

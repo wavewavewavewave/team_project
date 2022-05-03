@@ -18,11 +18,11 @@ function App() {
             <SupInput/>
             <SupCheckbox/>
             <div>
-                <NavLink to={'/login'}>Login</NavLink>---
-                <NavLink to={'/registration'}>Registration</NavLink>---
-                <NavLink to={'/profile'}>Profile</NavLink>---
-                <NavLink to={'/setPassword'}>Password</NavLink>---
-                <NavLink to={'/recoveryPass'}>Recovery Password</NavLink>---
+                <NavLink to={'/login'}>Login</NavLink>
+                <NavLink to={'/registration'}>Registration</NavLink>
+                <NavLink to={'/profile'}>Profile</NavLink>
+                <NavLink to={'/setPassword'}>Password</NavLink>
+                <NavLink to={'/recoveryPass'}>Recovery Password</NavLink>
                 <NavLink to={'/404'}>404</NavLink>
 
                 <Routes>
