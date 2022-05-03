@@ -2,13 +2,7 @@ import React from 'react'
 import {Form, useFormik} from "formik";
 import s from './Login.module.css';
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
-
-export type LoginParamsType = {
-    email: string
-    password: string
-    rememberMe: boolean
-    captcha?: string
-}
+import { LoginParamsType } from './LoginAPI';
 
 export const Login = () => {
 
@@ -83,9 +77,9 @@ export const Login = () => {
                                         onChange={formik.handleChange}
                                         value={formik.values.rememberMe}
                                         name="rememberMe"/>}/>
-                                        <button  className={s.loginButton}>
-                                            Login
-                                        </button>
+                                    <button className={s.loginButton}>
+                                        Login
+                                    </button>
                                 </FormGroup>
                             </div>
                         </div>
