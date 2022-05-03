@@ -4,11 +4,10 @@ import m from "./Profile.module.css"
 import photoaparate from "../../img/Photoaparat.png"
 import {Button, FormControl, FormHelperText, Input, InputLabel} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootReducerType} from "../../store";
 import {editNameAC, editNameTC} from "../Bll/auth-reducer";
-
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
+import {AppRootReducerType} from "../Bll/store";
 
 const Profile = () => {
 

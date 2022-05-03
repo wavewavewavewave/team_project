@@ -1,8 +1,7 @@
 import {Dispatch} from "redux";
 import {cardsAPI} from "../api/cards-api";
-import {AxiosResponse} from "axios";
-import {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {AppRootReducerType} from "../../store";
+import {ThunkAction} from "redux-thunk";
+import {AppRootReducerType} from "./store";
 
 export type AuthStateType = {
     _id: string;
