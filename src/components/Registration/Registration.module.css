@@ -1,0 +1,118 @@
+
+body,
+html {
+	background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%);
+}
+
+.registrationBlock {
+	position: relative;
+	width: 1280px;
+	height: 720px;
+}
+
+.from {
+	position: absolute;
+	width: 413px;
+	height: 540px;
+	left: 434px;
+	top: 84px;
+
+	background: #F9F9FE;
+	border-radius: 8px;
+}
+
+label {
+	font-family: 'SF UI Display';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 13px;
+	line-height: 20px;
+	/* identical to box height, or 154% */
+	color: #24254A;
+}
+
+p {
+	position: relative;
+	margin-left: 33px;
+}
+
+input {
+	/*width: 339px; */
+	width: 339px;
+	border: none;
+	border-bottom: 1px solid #24254A;
+	background-color: transparent;
+	color: inherit;
+	outline: none;
+	opacity: 0.2;
+	z-index: 2;
+	position: relative;
+}
+
+span {
+	cursor: pointer;
+	right: 11%;
+	position: absolute;
+}
+
+.cancelButton {
+	background: #D7D8EF;
+	border-radius: 30px;
+	color: #21268F;
+	height: 36px;
+	width: 124px;
+	margin-left: 33px;
+
+	border: none;
+	font-style: '';
+	font-size: 17px;
+	cursor: pointer;
+}
+
+.registerButton {
+	color: white;
+	background: #21268F;
+	box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+	border-radius: 30px;
+	height: 36px;
+	width: 187px;
+	margin-right: 33px;
+	margin-left: 36px;
+	margin-top: 62px;
+	border: none;
+	font-size: 17px;
+	cursor: pointer;
+}
+
+.incubator {
+	/* It-incubator */
+	margin: 16px;
+	font-weight: 600;
+	font-size: 32px;
+	/* identical to box height */
+	text-align: center;
+	color: #2D2E46;
+}
+
+
+.signUp {
+	/* Sign Up */
+	margin: 20px;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 25px;
+	line-height: 33px;
+	/* identical to box height */
+
+	text-align: center;
+	color: #2D2E46;
+}
+
+
+
+.error {
+	color: red;
+	font-size: 13px;
+	margin: -11px 1px 1px 33px;
+	position: absolute;
+}

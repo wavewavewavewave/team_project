@@ -2,6 +2,7 @@ import {Dispatch} from "redux";
 import {cardsAPI} from "../api/cards-api";
 import {ThunkAction} from "redux-thunk";
 import {AppRootReducerType} from "./store";
+import {authAPI} from "../Registration/api";
 
 export type AuthStateType = {
     _id: string;
@@ -102,4 +103,9 @@ export const editNameTC = (name: string, avatar?: string | undefined): ThunkType
                 //выключаем крутилку
             })
     }
+}
+
+export const registerTC = (email: string, password: string) => async (dispatch: any) => {
+    const res = await authAPI.register(email, password)
+    console.log('erett', res)
 }
