@@ -6,8 +6,7 @@ import {profileReducer} from "./profile-reducer";
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    profile: profileReducer,
-
+    // profile: profileReducer,
 })
 
 
