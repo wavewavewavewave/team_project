@@ -17,6 +17,11 @@ export type ResponseEditNameType = {
     error?: string
 }
 
+export type ResponseDeleteType = {
+    info: string,
+    error: string;
+}
+
 // api
 export const cardsAPI = {
     editName(data: editNameDataType) {
@@ -25,4 +30,7 @@ export const cardsAPI = {
     me() {
         return instance.put<ResponseEditNameType>('auth/me', {});
     },
+    logout() {
+        return instance.delete<ResponseDeleteType>(`auth/me`, {})
+    }
 }
