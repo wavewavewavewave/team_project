@@ -1,10 +1,14 @@
 import React from 'react'
 import {Form, useFormik} from "formik";
 import s from './Login.module.css';
-import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
+import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
 import { LoginParamsType } from './LoginAPI';
+import {useDispatch} from "react-redux";
+import {loginTC} from "./login-reducer";
 
 export const Login = () => {
+
+    const dispatch = useDispatch()
 
     const formik = useFormik({
         initialValues: {
@@ -27,7 +31,9 @@ export const Login = () => {
             return errors;
         },
         onSubmit: values => {
-            alert(JSON.stringify(values));
+             // alert(JSON.stringify(values));
+            //@ts-ignore
+            dispatch(loginTC(values))
         },
     })
 
