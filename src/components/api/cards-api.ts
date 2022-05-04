@@ -22,6 +22,29 @@ export type ResponseDeleteType = {
     error: string;
 }
 
+export type LoginParamsType = {
+    email: string,
+    password: string,
+    rememberMe: boolean,
+}
+export type ResponseType = any
+
+    // _id: string,
+    // email: string,
+    // name: string,
+    // avatar?: string,
+    // publicCardPacksCount: number;
+    // //кол-во колод
+    //
+    // created: Date;
+    // updated: Date;
+    // isAdmin: boolean;
+    // verified: boolean;//подтвердил ли почту
+    // rememberMe: boolean;
+    //
+    // error?: string;
+
+
 // api
 export const cardsAPI = {
     editName(data: editNameDataType) {
@@ -32,5 +55,11 @@ export const cardsAPI = {
     },
     logout() {
         return instance.delete<ResponseDeleteType>(`auth/me`, {})
+    },
+    register(email: string, password: any) {
+        instance.post('auth/register', {email, password})
+    },
+    login(data: LoginParamsType) {
+        return instance.post<LoginParamsType, ResponseType>(`auth/login`, data)
     }
 }

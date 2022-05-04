@@ -1,50 +1,52 @@
-import {loginAPI, LoginParamsType} from "./LoginAPI";
 import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
 import {Dispatch} from "redux";
+import {cardsAPI, LoginParamsType} from "../api/cards-api";
 
-export const initialState = {
-    isLoggedIn: false,
-    user: null
+const initialState: AuthStateType = {
+    _id: "",
+    email: "",
+    name: "",
+    avatar: "https://placepic.ru/wp-content/uploads/2021/02/7d5fe7bafa.jpg",
+    publicCardPacksCount: 125,
+// количество колод
+    created: null,
+    updated: null,
+    isAdmin: false,
+    verified: false, // подтвердил ли почту
+    rememberMe: null,
+    error: "",
+
+    // isLogged: true,
 }
+export type AuthStateType = {
+    _id: string;
+    email: string;
+    name: string;
+    avatar?: string;
+    publicCardPacksCount: number | null;
+// количество колод
+    created: Date | null;
+    updated: Date | null;
+    isAdmin: boolean;
+    verified: boolean; // подтвердил ли почту
+    rememberMe: boolean | null;
+    error?: string;
 
-type UserType = {
-    _id: string,
-    email: string,
-    name: string,
-    avatar?: string,
-    publicCardPacksCount: number,
-
-    created: Date,
-    updated: Date,
-    isAdmin: boolean,
-    verified: boolean,//подтвердил ли почту
-    rememberMe: boolean,
-
-    error?: string,
+    // isLogged: boolean;
 }
-type InitialStateType = typeof initialState
+// type InitialStateType = UserType
 
-export const LoginReducer = (state: InitialStateType, action: ActionsType) => {
+export const LoginReducer = (state: AuthStateType = initialState , action: ActionsType) => {
     switch (action.type) {
-        case 'login/SET-IS-LOGGED-IN':
-            return {...state, isLoggedIn: action.value}
         case 'login/USER-LOGIN':
-            return {...state, user: action.user}
+            return {...state, ...action.user}
         default:
             return state
     }
 }
 
-export type SetIsLoggedInACType = ReturnType<typeof setIsLoggedInAC>
-export const setIsLoggedInAC = (value: boolean) => ({
-        type: 'login/SET-IS-LOGGED-IN',
-        value,
-    } as const
-)
-
 export type UserLoginACType = ReturnType<typeof userLoginAC>
-export const userLoginAC = (user: UserType) => ({
+export const userLoginAC = (user: AuthStateType) => ({
         type: 'login/USER-LOGIN',
         user,
     } as const
@@ -52,10 +54,11 @@ export const userLoginAC = (user: UserType) => ({
 
 export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsType>) => {
     //krutilka
-    loginAPI.login(data)
+    cardsAPI.login(data)
         .then(res => {
-            dispatch(setIsLoggedInAC(true))
-            dispatch(userLoginAC(res))
+            debugger
+            // dispatch(setIsLoggedInAC(true))
+            dispatch(userLoginAC(res.data))
             //wikluchaem krutilku
         })
        .catch(e => {
@@ -66,4 +69,4 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsTyp
 }
 
 
-type ActionsType = SetIsLoggedInACType | UserLoginACType
+type ActionsType =  UserLoginACType

@@ -18,11 +18,11 @@ const Profile = () => {
     // type AppDispatch = ThunkDispatch<AppRootReducerType, any, AnyAction>;
     const dispatch: any = useDispatch()
 
-       let nameState = useSelector<AppRootReducerType, string>((state) => state.auth.name)
-    let cardsValue = useSelector<AppRootReducerType, number | null>((state) => state.auth.publicCardPacksCount) // количество карт у пользователя потом доставать из UseSelector
-    let photoUrl = useSelector<AppRootReducerType, string | undefined>((state) => state.auth.avatar)
-    let textError = useSelector<AppRootReducerType, string | undefined>((state) => state.auth.error)
-    let isLogged = useSelector<AppRootReducerType, boolean>((state) => state.auth.isLogged)
+    let nameState = useSelector<AppRootReducerType, string>((state) => state.login.name)
+    let cardsValue = useSelector<AppRootReducerType, number | null>((state) => state.login.publicCardPacksCount) // количество карт у пользователя потом доставать из UseSelector
+    let photoUrl = useSelector<AppRootReducerType, string | undefined>((state) => state.login.avatar)
+    let textError = useSelector<AppRootReducerType, string | undefined>((state) => state.login.error)
+    //let isLogged = useSelector<AppRootReducerType, boolean>((state) => state.auth.isLogged)
 
 
     let [name, setName] = useState<string>(nameState)
@@ -41,9 +41,9 @@ const Profile = () => {
     //         })
     // },)
 
-    if (!isLogged) {
-        return <Navigate to={`/login`}/>
-    }
+    // if (!isLogged) {
+    //     return <Navigate to={`/login`}/>
+    // }
 
 
     let saveNameHandler = () => {
