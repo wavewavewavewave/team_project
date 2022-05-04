@@ -29,7 +29,7 @@ type ActionsType = EditNameActionType | ErrorActionType
 const initialState: AuthStateType = {
     _id: "",
     email: "",
-    name: "Roman",
+    name: "",
     avatar: "https://placepic.ru/wp-content/uploads/2021/02/7d5fe7bafa.jpg",
     publicCardPacksCount: 125,
 // количество колод
@@ -91,16 +91,17 @@ export const editNameTC = (name: string, avatar?: string | undefined): ThunkType
 
     return (dispatch: Dispatch<ActionsType>) => {
         // диспатчим крутилку
+        //дизэблим кнопку
         cardsAPI.editName({name, avatar})
             .then((res) => {
                 dispatch(editNameAC(res.data.updatedUser.name, res.data.updatedUser.avatar))
-                //выключаем крутилку
             })
             .catch((err) => {
-              dispatch(errorMessageAC("some error"))
+                dispatch(errorMessageAC("some error"))
             })
             .finally(() => {
                 //выключаем крутилку
+                //раздизебливаем кнопку
             })
     }
 }
@@ -109,3 +110,4 @@ export const registerTC = (email: string, password: string) => async (dispatch: 
     const res = await authAPI.register(email, password)
     console.log('erett', res)
 }
+

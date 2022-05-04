@@ -1,30 +1,42 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import s from "../../generalStyle/GeneralStyle.module.css"
 import m from "./Profile.module.css"
 import photoaparate from "../../img/Photoaparat.png"
 import {Button, FormControl, FormHelperText, Input, InputLabel} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {editNameAC, editNameTC} from "../Bll/auth-reducer";
-import { ThunkDispatch } from "redux-thunk";
-import { AnyAction } from "redux";
+import {ThunkDispatch} from "redux-thunk";
+import {AnyAction} from "redux";
 import {AppRootReducerType} from "../Bll/store";
+import {Navigate, useNavigate} from 'react-router-dom';
+import {cardsAPI} from "../api/cards-api";
 
 const Profile = () => {
 
-    //запрос на auth/me, в противном случае редирект на логин
-
-
-    //без этого не диспатчилась санка:
+      //без этого не диспатчилась санка:
     type AppDispatch = ThunkDispatch<AppRootReducerType, any, AnyAction>;
     const dispatch: AppDispatch = useDispatch()
 
+    const navigate = useNavigate()
 
     let nameState = useSelector<AppRootReducerType, string>((state) => state.auth.name)
     let cardsValue = useSelector<AppRootReducerType, number | null>((state) => state.auth.publicCardPacksCount) // количество карт у пользователя потом доставать из UseSelector
     let photoUrl = useSelector<AppRootReducerType, string | undefined>((state) => state.auth.avatar)
     let textError = useSelector<AppRootReducerType, string | undefined>((state) => state.auth.error)
 
-
+    useEffect(() => {
+        //показать крутилку
+        cardsAPI.me()
+            .then(() => {
+                // засэтать данные как при логинизации
+            })
+            .catch(() => {
+                navigate(`/login`)
+            })
+            .finally(() => {
+                //убрать крутилку
+            })
+    },)
 
     let [name, setName] = useState<string>(nameState)
     let [changeOn, setChangeOn] = useState(false)

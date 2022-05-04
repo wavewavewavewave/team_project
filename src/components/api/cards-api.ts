@@ -22,4 +22,7 @@ export const cardsAPI = {
     editName(data: editNameDataType) {
         return instance.put<ResponseEditNameType>('auth/me', data);
     },
+    me() {
+        return instance.put<ResponseEditNameType>('auth/me', {});
+    },
 }
