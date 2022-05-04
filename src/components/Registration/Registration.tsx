@@ -5,11 +5,17 @@ import styles from './Registration.module.css'
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useDispatch } from 'react-redux';
 import { registerTC } from '../Bll/auth-reducer';
-import { useTypedDispatch } from '../../store';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 
 export const Registration = () => {
+
+
+  // const isAuth = useSelector<AppRootStateType, boolean>(state => state.auth.isAuth)
+  const dispatch = useDispatch<any>()
+  const navigate = useNavigate()
+ 
 
   const [eye, setEye] = useState(true)
   const handleClick = () => {
@@ -20,8 +26,7 @@ export const Registration = () => {
     }
   }
 
-  const dispatch = useDispatch<any>()
-
+ 
 
   const validationsSchema = yup.object().shape({
     email: yup.string().email('Введите верный email').required('Обязательно'),
@@ -34,6 +39,7 @@ export const Registration = () => {
 
     dispatch(registerTC(values.email, values.password))
  }
+
 
   return (
     <div className={styles.registrationBlock}  >
@@ -100,9 +106,9 @@ export const Registration = () => {
 
             <div>
               <button className={styles.cancelButton}
-                disabled={!isValid || !dirty}
-                // onClick={() => handleSubmit()}
-                type={`submit`}
+                // disabled={!isValid || !dirty}
+                onClick={ () => navigate("/login") }
+                type="button"
               >Cancel</button>
 
               <button className={styles.registerButton}
