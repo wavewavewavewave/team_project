@@ -3,6 +3,7 @@ import {cardsAPI} from "../api/cards-api";
 import {ThunkAction} from "redux-thunk";
 import {AppRootReducerType} from "./store";
 import {authAPI} from "../Registration/api";
+import {brotliDecompress} from "zlib";
 
 export type AuthStateType = {
     _id: string;
@@ -17,6 +18,8 @@ export type AuthStateType = {
     verified: boolean; // подтвердил ли почту
     rememberMe: boolean | null;
     error?: string;
+
+    isLogged: boolean;
 }
 
 export type ResponseEditNameType = {
@@ -24,12 +27,12 @@ export type ResponseEditNameType = {
     error?: string
 }
 
-type ActionsType = EditNameActionType | ErrorActionType
+type ActionsType = EditNameActionType | ErrorActionType | LoggedActionType
 
 const initialState: AuthStateType = {
     _id: "",
     email: "",
-    name: "Roman",
+    name: "",
     avatar: "https://placepic.ru/wp-content/uploads/2021/02/7d5fe7bafa.jpg",
     publicCardPacksCount: 125,
 // количество колод
@@ -39,6 +42,8 @@ const initialState: AuthStateType = {
     verified: false, // подтвердил ли почту
     rememberMe: null,
     error: "",
+
+    isLogged: true,
 }
 
 export type EditNameActionType = {
@@ -54,11 +59,18 @@ export type ErrorActionType = {
         error: string,
     }
 }
+export type LoggedActionType = {
+    type: "SET-LOGGED"
+    payload: {
+        isLogged: boolean,
+    }
+}
 
 export const authReducer = (state: AuthStateType = initialState, action: ActionsType): AuthStateType => {
     switch (action.type) {
         case "EDIT-NAME":
         case "ERROR":
+        case "SET-LOGGED":
             return {...state, ...action.payload}
 
         default:
@@ -85,22 +97,51 @@ export const errorMessageAC = (error: string): ErrorActionType => {
     }
 }
 
+export const loggedAC = (isLogged: boolean): LoggedActionType => {
+    return {
+        type: "SET-LOGGED",
+        payload: {
+            isLogged
+        }
+    }
+}
+
 type ThunkType = ThunkAction<void, AppRootReducerType, unknown, ActionsType>
 
 export const editNameTC = (name: string, avatar?: string | undefined): ThunkType => {
 
     return (dispatch: Dispatch<ActionsType>) => {
         // диспатчим крутилку
+        //дизэблим кнопку
         cardsAPI.editName({name, avatar})
             .then((res) => {
                 dispatch(editNameAC(res.data.updatedUser.name, res.data.updatedUser.avatar))
-                //выключаем крутилку
             })
             .catch((err) => {
-              dispatch(errorMessageAC("some error"))
+                dispatch(errorMessageAC("some error"))
             })
             .finally(() => {
                 //выключаем крутилку
+                //раздизебливаем кнопку
+            })
+    }
+}
+
+export const LogoutTC = (): ThunkType => {
+
+    return (dispatch: Dispatch<ActionsType>) => {
+        // диспатчим крутилку
+        //дизэблим кнопку
+        cardsAPI.logout ()
+            .then((res) => {
+                dispatch(loggedAC(false))
+            })
+            .catch((err) => {
+                dispatch(errorMessageAC("some error"))
+            })
+            .finally(() => {
+                //выключаем крутилку
+                //раздизебливаем кнопку
             })
     }
 }
@@ -109,3 +150,4 @@ export const registerTC = (email: string, password: string) => async (dispatch: 
     const res = await authAPI.register(email, password)
     console.log('erett', res)
 }
+

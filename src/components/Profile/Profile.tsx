@@ -1,33 +1,50 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import s from "../../generalStyle/GeneralStyle.module.css"
 import m from "./Profile.module.css"
 import photoaparate from "../../img/Photoaparat.png"
 import {Button, FormControl, FormHelperText, Input, InputLabel} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {editNameAC, editNameTC} from "../Bll/auth-reducer";
-import { ThunkDispatch } from "redux-thunk";
-import { AnyAction } from "redux";
+import {editNameAC, editNameTC, loggedAC, LogoutTC} from "../Bll/auth-reducer";
+import {ThunkDispatch} from "redux-thunk";
+import {AnyAction} from "redux";
 import {AppRootReducerType} from "../Bll/store";
+import {Navigate, useNavigate} from 'react-router-dom';
+import {cardsAPI} from "../api/cards-api";
 
 const Profile = () => {
 
-    //запрос на auth/me, в противном случае редирект на логин
-
 
     //без этого не диспатчилась санка:
-    type AppDispatch = ThunkDispatch<AppRootReducerType, any, AnyAction>;
-    const dispatch: AppDispatch = useDispatch()
+    // type AppDispatch = ThunkDispatch<AppRootReducerType, any, AnyAction>;
+    const dispatch: any = useDispatch()
 
-
-    let nameState = useSelector<AppRootReducerType, string>((state) => state.auth.name)
+       let nameState = useSelector<AppRootReducerType, string>((state) => state.auth.name)
     let cardsValue = useSelector<AppRootReducerType, number | null>((state) => state.auth.publicCardPacksCount) // количество карт у пользователя потом доставать из UseSelector
     let photoUrl = useSelector<AppRootReducerType, string | undefined>((state) => state.auth.avatar)
     let textError = useSelector<AppRootReducerType, string | undefined>((state) => state.auth.error)
-
+    let isLogged = useSelector<AppRootReducerType, boolean>((state) => state.auth.isLogged)
 
 
     let [name, setName] = useState<string>(nameState)
     let [changeOn, setChangeOn] = useState(false)
+    // useEffect(() => {
+    //     //показать крутилку
+    //     cardsAPI.me()
+    //         .then(() => {
+    //             dispatch(loggedAC(true))
+    //         })
+    //         .catch(() => {
+    //             navigate(`/login`)
+    //         })
+    //         .finally(() => {
+    //             //убрать крутилку
+    //         })
+    // },)
+
+    if (!isLogged) {
+        return <Navigate to={`/login`}/>
+    }
+
 
     let saveNameHandler = () => {
         setChangeOn(false)
@@ -38,6 +55,8 @@ const Profile = () => {
     }
 
     let editNameHandler = () => dispatch(editNameTC(name, photoUrl))
+
+    let accountClose = () => dispatch(LogoutTC())
 
 
     return (
@@ -89,7 +108,7 @@ const Profile = () => {
                 </div>
 
                 <div className={m.buttonContainer}>
-                    <Button variant="outlined" className={m.button}>Logout</Button>
+                    <Button variant="outlined" className={m.button} onClick={accountClose}>Logout</Button>
                     <Button variant="contained" onClick={editNameHandler} className={m.button}>Save</Button>
                     {/*санка меняющая имя (запрос post на сервер, потом диспатч в стейт)*/}
                 </div>

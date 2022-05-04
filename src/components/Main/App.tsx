@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import s from './App.module.css';
 
 import {Navigate, NavLink, Route, Routes} from "react-router-dom";
@@ -9,7 +9,7 @@ import {RecoveryPassword} from "../Registration/Password/RecoveryPassword";
 import Profile from '../Profile/Profile';
 
 function App() {
-    return (
+     return (
         <div className={s.App}>
                 <NavLink to={'/login'}>Login</NavLink>---
                 <NavLink to={'/registration'}>Registration</NavLink>---
