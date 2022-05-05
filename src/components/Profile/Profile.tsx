@@ -4,46 +4,53 @@ import m from "./Profile.module.css"
 import photoaparate from "../../img/Photoaparat.png"
 import {Button, FormControl, FormHelperText, Input, InputLabel} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {editNameAC, editNameTC, loggedAC, LogoutTC} from "../Bll/auth-reducer";
-import {ThunkDispatch} from "redux-thunk";
-import {AnyAction} from "redux";
+import {loggedAC, LogoutTC} from "../Bll/auth-reducer";
 import {AppRootReducerType} from "../Bll/store";
-import {Navigate, useNavigate} from 'react-router-dom';
+import {editNameTC, loginTC, setUserAC} from "../Login/login-reducer";
 import {cardsAPI} from "../api/cards-api";
+import {Navigate} from "react-router-dom";
+
 
 const Profile = () => {
 
 
-    //без этого не диспатчилась санка:
-    // type AppDispatch = ThunkDispatch<AppRootReducerType, any, AnyAction>;
+
     const dispatch: any = useDispatch()
 
     let nameState = useSelector<AppRootReducerType, string>((state) => state.login.name)
-    let cardsValue = useSelector<AppRootReducerType, number | null>((state) => state.login.publicCardPacksCount) // количество карт у пользователя потом доставать из UseSelector
+    let cardsValue = useSelector<AppRootReducerType, number | null | string>((state) => state.login.publicCardPacksCount) // количество карт у пользователя потом доставать из UseSelector
     let photoUrl = useSelector<AppRootReducerType, string | undefined>((state) => state.login.avatar)
     let textError = useSelector<AppRootReducerType, string | undefined>((state) => state.login.error)
-    //let isLogged = useSelector<AppRootReducerType, boolean>((state) => state.auth.isLogged)
+    let email = useSelector<AppRootReducerType, string | undefined>((state) => state.login.email)
+    let isDisabledSaveButton = useSelector<AppRootReducerType, boolean>((state) => state.auth.isDisabledSaveButton)
+    let isDisabledLogoutButton = useSelector<AppRootReducerType, boolean>((state) => state.auth.isDisabledLogoutButton)
+    let isLogged = useSelector<AppRootReducerType, boolean>((state) => state.auth.isLogged)
 
 
     let [name, setName] = useState<string>(nameState)
     let [changeOn, setChangeOn] = useState(false)
-    // useEffect(() => {
-    //     //показать крутилку
-    //     cardsAPI.me()
-    //         .then(() => {
-    //             dispatch(loggedAC(true))
-    //         })
-    //         .catch(() => {
-    //             navigate(`/login`)
-    //         })
-    //         .finally(() => {
-    //             //убрать крутилку
-    //         })
-    // },)
+    useEffect(() => {
+        //показать крутилку
 
-    // if (!isLogged) {
-    //     return <Navigate to={`/login`}/>
-    // }
+
+        cardsAPI.me()
+            .then((res) => {
+                dispatch(setUserAC(res.data))
+                dispatch(loggedAC(true))
+                setName(res.data.name)
+            })
+            .catch(() => {
+
+                return <Navigate to={`/login`}/>
+            })
+            .finally(() => {
+                //убрать крутилку
+            })
+    },[])
+
+    if (!isLogged) {
+        return <Navigate to={`/login`}/>
+    }
 
 
     let saveNameHandler = () => {
@@ -54,7 +61,7 @@ const Profile = () => {
         setName(value.currentTarget.value)
     }
 
-    let editNameHandler = () => dispatch(editNameTC(name, photoUrl))
+    let editNameHandler = () => dispatch(editNameTC(name))
 
     let accountClose = () => dispatch(LogoutTC())
 
@@ -104,13 +111,18 @@ const Profile = () => {
                             <Input id="component-disabled" value={cardsValue}/>
                         </FormControl>
                     </div>
+                    <div style={{display: "flex"}}>
+                        <FormControl disabled variant="standard">
+                            <InputLabel className={m.rowName} htmlFor="component-disabled">E-mail:</InputLabel>
+                            <Input id="component-disabled" value={email}/>
+                        </FormControl>
+                    </div>
 
                 </div>
 
                 <div className={m.buttonContainer}>
-                    <Button variant="outlined" className={m.button} onClick={accountClose}>Logout</Button>
-                    <Button variant="contained" onClick={editNameHandler} className={m.button}>Save</Button>
-                    {/*санка меняющая имя (запрос post на сервер, потом диспатч в стейт)*/}
+                    <Button disabled={isDisabledLogoutButton} variant="outlined" className={m.button} onClick={accountClose}>Logout</Button>
+                    <Button disabled={isDisabledSaveButton} variant="contained" onClick={editNameHandler} className={m.button}>Save</Button>
                 </div>
             </div>
         </div>

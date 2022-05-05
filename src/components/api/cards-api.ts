@@ -13,8 +13,24 @@ export type editNameDataType = {
 
 
 export type ResponseEditNameType = {
-    updatedUser: AuthStateType, // все данные юзера
+    updatedUser: ResponseMeType, // все данные юзера
     error?: string
+}
+
+export type ResponseMeType = {
+    _id: string;
+    email: string;
+    name: string;
+    avatar?: string;
+    publicCardPacksCount: number; // количество колод
+
+    created: Date;
+    updated: Date;
+    isAdmin: boolean;
+    verified: boolean; // подтвердил ли почту
+    rememberMe: boolean;
+
+    error?: string;
 }
 
 export type ResponseDeleteType = {
@@ -29,20 +45,20 @@ export type LoginParamsType = {
 }
 export type ResponseType = any
 
-    // _id: string,
-    // email: string,
-    // name: string,
-    // avatar?: string,
-    // publicCardPacksCount: number;
-    // //кол-во колод
-    //
-    // created: Date;
-    // updated: Date;
-    // isAdmin: boolean;
-    // verified: boolean;//подтвердил ли почту
-    // rememberMe: boolean;
-    //
-    // error?: string;
+// _id: string,
+// email: string,
+// name: string,
+// avatar?: string,
+// publicCardPacksCount: number;
+// //кол-во колод
+//
+// created: Date;
+// updated: Date;
+// isAdmin: boolean;
+// verified: boolean;//подтвердил ли почту
+// rememberMe: boolean;
+//
+// error?: string;
 
 
 // api
@@ -51,7 +67,7 @@ export const cardsAPI = {
         return instance.put<ResponseEditNameType>('auth/me', data);
     },
     me() {
-        return instance.put<ResponseEditNameType>('auth/me', {});
+        return instance.post<ResponseMeType>('auth/me', {});
     },
     logout() {
         return instance.delete<ResponseDeleteType>(`auth/me`, {})

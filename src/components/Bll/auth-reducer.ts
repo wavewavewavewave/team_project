@@ -1,24 +1,16 @@
 import {Dispatch} from "redux";
-import {cardsAPI} from "../api/cards-api";
+import {cardsAPI, ResponseMeType} from "../api/cards-api";
 import {ThunkAction} from "redux-thunk";
 import {AppRootReducerType} from "./store";
-import {brotliDecompress} from "zlib";
+
 
 export type AuthStateType = {
-    _id: string;
-    email: string;
-    name: string;
-    avatar?: string;
-    publicCardPacksCount: number | null;
-// количество колод
-    created: Date | null;
-    updated: Date | null;
-    isAdmin: boolean;
-    verified: boolean; // подтвердил ли почту
-    rememberMe: boolean | null;
-    error?: string;
+    isDisabledSaveButton: boolean,
+    isDisabledLogoutButton: boolean,
 
-    isLogged: boolean;
+    error: string,
+    isLogged: boolean
+
 }
 
 export type ResponseEditNameType = {
@@ -26,32 +18,16 @@ export type ResponseEditNameType = {
     error?: string
 }
 
-type ActionsType = EditNameActionType | ErrorActionType | LoggedActionType
+type ActionsType = ErrorActionType | LoggedActionType | changeStatusSaveButtonActionType | changeStatusLogoutButtonActionType
 
 const initialState: AuthStateType = {
-    _id: "",
-    email: "",
-    name: "",
-    avatar: "https://placepic.ru/wp-content/uploads/2021/02/7d5fe7bafa.jpg",
-    publicCardPacksCount: 125,
-// количество колод
-    created: null,
-    updated: null,
-    isAdmin: false,
-    verified: false, // подтвердил ли почту
-    rememberMe: null,
+    isDisabledSaveButton: false,
+    isDisabledLogoutButton: false,
+
     error: "",
-
-    isLogged: true,
+    isLogged: false
 }
 
-export type EditNameActionType = {
-    type: "EDIT-NAME"
-    payload: {
-        name: string,
-        avatar: string | undefined,
-    }
-}
 export type ErrorActionType = {
     type: "ERROR"
     payload: {
@@ -67,7 +43,9 @@ export type LoggedActionType = {
 
 export const authReducer = (state: AuthStateType = initialState, action: ActionsType): AuthStateType => {
     switch (action.type) {
-        case "EDIT-NAME":
+        // case "EDIT-NAME":
+        case "PROFILE/SET-STATUS-SAVE-BUTTON":
+        case "PROFILE/SET-STATUS-LOGOUT-BUTTON":
         case "ERROR":
         case "SET-LOGGED":
             return {...state, ...action.payload}
@@ -77,15 +55,6 @@ export const authReducer = (state: AuthStateType = initialState, action: Actions
     }
 }
 
-export const editNameAC = (name: string, avatar: string | undefined): EditNameActionType => {
-    return {
-        type: "EDIT-NAME",
-        payload: {
-            name: name,
-            avatar: avatar,
-        }
-    }
-}
 
 export const errorMessageAC = (error: string): ErrorActionType => {
     return {
@@ -105,32 +74,43 @@ export const loggedAC = (isLogged: boolean): LoggedActionType => {
     }
 }
 
-type ThunkType = ThunkAction<void, AppRootReducerType, unknown, ActionsType>
-
-export const editNameTC = (name: string, avatar?: string | undefined): ThunkType => {
-
-    return (dispatch: Dispatch<ActionsType>) => {
-        // диспатчим крутилку
-        //дизэблим кнопку
-        cardsAPI.editName({name, avatar})
-            .then((res) => {
-                dispatch(editNameAC(res.data.updatedUser.name, res.data.updatedUser.avatar))
-            })
-            .catch((err) => {
-                dispatch(errorMessageAC("some error"))
-            })
-            .finally(() => {
-                //выключаем крутилку
-                //раздизебливаем кнопку
-            })
+export type changeStatusSaveButtonActionType = {
+    type: "PROFILE/SET-STATUS-SAVE-BUTTON",
+    payload: {
+        isDisabledSaveButton: boolean
     }
 }
+export const changeStatusSaveButtonAC = (status: boolean): changeStatusSaveButtonActionType => {
+    return {
+        type: "PROFILE/SET-STATUS-SAVE-BUTTON",
+        payload: {
+            isDisabledSaveButton: status
+        }
+    }
+}
+export type changeStatusLogoutButtonActionType = {
+    type: "PROFILE/SET-STATUS-LOGOUT-BUTTON",
+    payload: {
+        isDisabledSaveButton: boolean
+    }
+}
+export const changeStatusLogoutButtonAC = (status: boolean): changeStatusLogoutButtonActionType => {
+    return {
+        type: "PROFILE/SET-STATUS-LOGOUT-BUTTON",
+        payload: {
+            isDisabledSaveButton: status
+        }
+    }
+}
+
+type ThunkType = ThunkAction<void, AppRootReducerType, unknown, ActionsType>
+
 
 export const LogoutTC = (): ThunkType => {
 
     return (dispatch: Dispatch<ActionsType>) => {
         // диспатчим крутилку
-        //дизэблим кнопку
+       dispatch(changeStatusLogoutButtonAC(true))
         cardsAPI.logout ()
             .then((res) => {
                 dispatch(loggedAC(false))
@@ -140,7 +120,7 @@ export const LogoutTC = (): ThunkType => {
             })
             .finally(() => {
                 //выключаем крутилку
-                //раздизебливаем кнопку
+                dispatch(changeStatusLogoutButtonAC(false))
             })
     }
 }
