@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Form, useFormik} from "formik";
 import s from './Login.module.css';
 import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
@@ -7,11 +7,21 @@ import {loginTC} from "./login-reducer";
 import {LoginParamsType} from "../api/cards-api";
 import {AppRootReducerType} from "../Bll/store";
 import {Navigate} from "react-router-dom";
+import {FaEye, FaEyeSlash} from "react-icons/fa";
 
 export const Login = () => {
 
     const dispatch = useDispatch<any>()
     const isLoggedIn = useSelector<AppRootReducerType, boolean>(state => state.auth.isLogged)
+
+    const [eye, setEye] = useState(true)
+    const handleClick = () => {
+        if (eye) {
+            setEye(false);
+        } else {
+            setEye(true)
+        }
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -70,11 +80,17 @@ export const Login = () => {
                                             : null
                                     }
 
-                                    <TextField type="password"
+                                    <TextField type={eye ? `password` : 'text'}
                                                label="Password"
                                                margin="normal"
                                                variant="standard"
-                                               {...formik.getFieldProps('password')}/>
+                                               {...formik.getFieldProps('password')}
+                                    />
+                                    <div>
+                                        <span onClick={handleClick}>
+                                        {eye ? <FaEye/> : <FaEyeSlash/>}
+                                    </span>
+                                    </div>
 
                                     {
                                         formik.errors.password &&
@@ -103,3 +119,16 @@ export const Login = () => {
         </Grid>
     )
 }
+
+// const [eye, setEye] = useState(true)
+// const handleClick = () => {
+//     if (eye) {
+//         setEye(false);
+//     } else {
+//         setEye(true)
+//     }
+// }
+
+// <span onClick={handleClick} >
+//                 {eye ? <FaEye /> : <FaEyeSlash />}
+//               </span>
