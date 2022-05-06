@@ -125,8 +125,18 @@ export const LogoutTC = (): ThunkType => {
     }
 }
 
-export const registerTC = (email: string, password: string) => async (dispatch: any) => {
-    const res = await cardsAPI.register(email, password)
-    console.log('erett', res)
+// export const registerTC = (email: string, password: string) => async (dispatch: any) => {
+//     const res = await cardsAPI.register(email, password)
+//     console.log('erett', res)
+// }
+
+export const registerTC= (email: any, password: any) => (dispatch: any) => {
+    cardsAPI.register(email, password)
+        .then(res => {
+            dispatch(loggedAC(true))
+        })
+        .catch(err => {
+            dispatch(errorMessageAC(err.response.data.error))
+        })
 }
 
