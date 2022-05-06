@@ -2,13 +2,16 @@ import React from 'react'
 import {Form, useFormik} from "formik";
 import s from './Login.module.css';
 import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {loginTC} from "./login-reducer";
 import {LoginParamsType} from "../api/cards-api";
+import {AppRootReducerType} from "../Bll/store";
+import {Navigate} from "react-router-dom";
 
 export const Login = () => {
 
     const dispatch = useDispatch<any>()
+    const isLoggedIn = useSelector<AppRootReducerType, boolean>(state => state.auth.isLogged)
 
     const formik = useFormik({
         initialValues: {
@@ -35,7 +38,9 @@ export const Login = () => {
             dispatch(loginTC(values))
         },
     })
-
+    if (isLoggedIn) {
+        return <Navigate to={`/profile`}/>
+    }
 
     return (
         <Grid container justifyContent={'center'}>
