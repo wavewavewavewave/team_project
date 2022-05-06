@@ -78,15 +78,15 @@ export const Login = () => {
                                         formik.touched.email ?
                                             <div style={{color: "red"}}>{formik.errors.email}</div>
                                             : null
-                                    }
+                                            }
 
-                                    <TextField type={eye ? `password` : 'text'}
-                                               label="Password"
-                                               margin="normal"
-                                               variant="standard"
-                                               {...formik.getFieldProps('password')}
+                                            <TextField type={eye ? `password` : 'text'}
+                                                    label="Password"
+                                                    margin="normal"
+                                                    variant="standard"
+                                                    {...formik.getFieldProps('password')}
                                     />
-                                    <div>
+                                        <div>
                                         <span onClick={handleClick}>
                                         {eye ? <FaEye/> : <FaEyeSlash/>}
                                     </span>
