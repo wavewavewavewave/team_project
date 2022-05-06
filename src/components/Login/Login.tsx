@@ -34,7 +34,7 @@ export const Login = () => {
             return errors;
         },
         onSubmit: values => {
-             // alert(JSON.stringify(values));
+            // alert(JSON.stringify(values));
             dispatch(loginTC(values))
         },
     })
@@ -83,10 +83,14 @@ export const Login = () => {
                                             : null
                                     }
 
-                                    <FormControlLabel label={'Remember me'} control={<Checkbox
-                                        onChange={formik.handleChange}
-                                        value={formik.values.rememberMe}
-                                        name="rememberMe"/>}/>
+                                    <FormControlLabel label={'Remember me'}
+                                                      control={
+                                                          <div style={{marginLeft: "20px"}}>
+                                                              <Checkbox
+                                                                  onChange={formik.handleChange}
+                                                                  value={formik.values.rememberMe}
+                                                                  name="rememberMe"/>
+                                                          </div>}/>
                                     <button className={s.loginButton}>
                                         Login
                                     </button>
