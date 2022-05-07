@@ -74,7 +74,7 @@ export const cardsAPI = {
         return instance.delete<ResponseDeleteType>(`auth/me`, {})
     },
     register(email: string, password: any) {
-       return  instance.post('auth/register', {email, password})
+        instance.post('auth/register', {email, password})
     },
     login(data: LoginParamsType) {
         return instance.post<LoginParamsType, ResponseType>(`auth/login`, data)
