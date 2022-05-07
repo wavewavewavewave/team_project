@@ -7,6 +7,7 @@ import {Registration} from "../Registration/Registration";
 import {SetPassword} from "../Registration/Password/SetPassword";
 import {RecoveryPassword} from "../Registration/Password/RecoveryPassword";
 import Profile from '../Profile/Profile';
+import PacksList from "../PacksList/PacksList";
 
 function App() {
      return (
@@ -17,6 +18,7 @@ function App() {
                 <NavLink to={'/setPassword'}>Password</NavLink>---
                 <NavLink to={'/recoveryPass'}>Recovery Password</NavLink>---
                 <NavLink to={'/404'}>404</NavLink>
+                <NavLink to={'/packsList'}>Packs List</NavLink>
 
                 <Routes>
                     <Route path={'/registration'} element={<Registration/>}/>
@@ -26,6 +28,7 @@ function App() {
                     <Route path={'/recoveryPass'} element={<RecoveryPassword/>}/>
                     <Route path="/404" element={<h1 style={{textAlign: "center"}}>404: PAGE NOT FOUND</h1>}/>
                     <Route path="/" element={<Navigate to={"/profile"}/>}/>
+                    <Route path="/packsList" element={<PacksList/>}/>
                 </Routes>
             </div>
     );

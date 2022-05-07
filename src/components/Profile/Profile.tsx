@@ -13,8 +13,6 @@ import {Navigate} from "react-router-dom";
 
 const Profile = () => {
 
-
-
     const dispatch: any = useDispatch()
 
     let nameState = useSelector<AppRootReducerType, string>((state) => state.login.name)
@@ -46,7 +44,7 @@ const Profile = () => {
             .finally(() => {
                 //убрать крутилку
             })
-    },[])
+    }, [])
 
     if (!isLogged) {
         return <Navigate to={`/login`}/>
@@ -121,8 +119,10 @@ const Profile = () => {
                 </div>
 
                 <div className={m.buttonContainer}>
-                    <Button disabled={isDisabledLogoutButton} variant="outlined" className={m.button} onClick={accountClose}>Logout</Button>
-                    <Button disabled={isDisabledSaveButton} variant="contained" onClick={editNameHandler} className={m.button}>Save</Button>
+                    <Button disabled={isDisabledLogoutButton} variant="outlined" className={m.button}
+                            onClick={accountClose}>Logout</Button>
+                    <Button disabled={isDisabledSaveButton} variant="contained" onClick={editNameHandler}
+                            className={m.button}>Save</Button>
                 </div>
             </div>
         </div>

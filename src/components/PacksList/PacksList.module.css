@@ -1,0 +1,76 @@
+.packsPage {
+    position: absolute;
+    display: flex;
+
+    width: 1008px;
+    height: 636px;
+    left: 136px;
+    top: 84px;
+    background: #F9F9FE;
+    border-radius: 8px;
+}
+
+.cardsSettings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+    padding-top: 33px;
+    width: 243px;
+    /*height: 636px;*/
+    background: #ECECF9;
+}
+
+.packsList {
+    border: 1px solid black;
+    width: 636px;
+}
+
+.propertySelect {
+    border: 1px solid black;
+    height: 150px;
+    width: 200px;
+}
+
+.propertySelectTitle {
+    /*font-family: 'SF UI Display';*/
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+    color: #2D2E46;
+}
+
+.propertySelectGroup {
+    border: 1px solid black;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.propertySelectButtonAll {
+    color: #2D2E46;
+    width: 97px;
+    height: 36px;
+    background: #FFFFFF;
+    border-radius: 0px 2px 2px 0px;
+    border: none;
+    border-left: 1px solid #635D80;;
+}
+
+.propertySelectButtonMy {
+    color: #2D2E46;
+    width: 97px;
+    height: 36px;
+    background: #FFFFFF;
+    border-radius: 2px 0px 0px 2px;
+    border: none;
+    border-right: 1px solid #635D80;;
+}
+
+.propertySelectButtonIsActive {
+    background: #9A91C8;
+    color: #FFFFFF;
+}
