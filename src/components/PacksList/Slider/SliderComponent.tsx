@@ -23,8 +23,8 @@ const SliderComponent = () => {
                 getAriaLabel={() => 'Temperature range'}
                 value={value}
                 style={{width: "120px"}}
-                min={0}
-                max={100}
+                min={0} // придет с бэкенда maxCardsCount
+                max={100} // придет с бэкенда maxCardsCount
                 onChange={handleChange}
                 valueLabelDisplay="auto"
                 getAriaValueText={valuetext}

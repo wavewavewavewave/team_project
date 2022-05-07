@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import m from "../PacksList.module.css";
+import m from "../ButtonMyAll/ButtonMyAll.module.css";
 
 const ButtonMyAll = () => {
 

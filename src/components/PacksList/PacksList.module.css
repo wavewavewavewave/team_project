@@ -1,7 +1,6 @@
 .packsPage {
     position: absolute;
     display: flex;
-
     width: 1008px;
     height: 636px;
     left: 136px;
@@ -17,14 +16,63 @@
     border: 1px solid black;
     padding-top: 33px;
     width: 243px;
-    /*height: 636px;*/
     background: #ECECF9;
 }
 
 .packsList {
     border: 1px solid black;
-    width: 636px;
+    width: 765px;
 }
+.addPackBlock {
+    border: 1px solid black;
+    height: 120px;
+}
+.addPackTitle {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    color: #2D2E46;
+    margin-left: 20px;
+    padding-top: 10px;
+}
+
+.searchInput{
+    background: #ECECF9;
+    opacity: 0.5;
+    border: 1px solid #635D80;
+    border-radius: 2px;
+    margin-left: 20px;
+    width: 461px;
+    height: 36px;
+
+}
+.packsTable {
+    border: 1px solid black;
+    height: 430px;
+    padding-left: 20px;
+    margin-left: 20px;
+}
+.pagination {
+    border: 1px solid black;
+    height: 78px;
+    padding-left: 20px;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .propertySelect {
     border: 1px solid black;
@@ -33,12 +81,10 @@
 }
 
 .propertySelectTitle {
-    /*font-family: 'SF UI Display';*/
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
     line-height: 19px;
-    /* identical to box height */
     color: #2D2E46;
 }
 
@@ -48,29 +94,4 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.propertySelectButtonAll {
-    color: #2D2E46;
-    width: 97px;
-    height: 36px;
-    background: #FFFFFF;
-    border-radius: 0px 2px 2px 0px;
-    border: none;
-    border-left: 1px solid #635D80;;
-}
-
-.propertySelectButtonMy {
-    color: #2D2E46;
-    width: 97px;
-    height: 36px;
-    background: #FFFFFF;
-    border-radius: 2px 0px 0px 2px;
-    border: none;
-    border-right: 1px solid #635D80;;
-}
-
-.propertySelectButtonIsActive {
-    background: #9A91C8;
-    color: #FFFFFF;
 }

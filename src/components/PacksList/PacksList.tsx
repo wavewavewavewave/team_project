@@ -36,7 +36,19 @@ const PacksList = () => {
 
                 </div>
                 <div className={m.packsList}>
-                    <div className={m.addPackBlock}></div>
+                    <div className={m.addPackBlock}>
+                        <div className={m.addPackTitle}>Packs list</div>
+                        <div className={m.addPackTitle}>
+                            <input className={m.searchInput} placeholder={"Enter the name of the search waiting"}/>
+                            <button>Search</button>
+                            <button>Add new pack</button>
+                            {/*хард кодом добавить колоду
+                            сначала: axios.post('cards/pack', {cardsPack: {name: 'x'}})
+                            потом: get, получение всех колод завново с сортировкой которые были выбраны до этого
+                            */}
+                        </div>
+
+                    </div>
                     <div className={m.packsTable}></div>
                     <div className={m.pagination}></div>
 
