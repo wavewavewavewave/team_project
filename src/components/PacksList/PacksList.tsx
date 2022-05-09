@@ -1,14 +1,21 @@
 import React, {useState} from 'react';
 import s from "../../generalStyle/GeneralStyle.module.css"
 import m from "./PacksList.module.css"
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Slider from '@mui/material/Slider';
-import {Box} from "@mui/material";
+import {Box, Button, Paper} from "@mui/material";
 import SliderComponent from "./Slider/SliderComponent";
 import ButtonMyAll from "./ButtonMyAll/ButtonMyAll";
+import AddPackBlock from "./AddPackBlock/AddPackBlock";
+import TableTitle from "./TableTitle/TableTitle";
+import TableRow from "./TableRow/TableRow";
+import {AppRootReducerType} from "../Bll/store";
+import {cardPackType, PacksStateType} from "./packs-reducer";
 
 
 const PacksList = () => {
+
+    let packs = useSelector<AppRootReducerType, cardPackType[]>((state) => state.packs.cardPacks)
 
     const dispatch: any = useDispatch()
 
@@ -36,21 +43,25 @@ const PacksList = () => {
 
                 </div>
                 <div className={m.packsList}>
-                    <div className={m.addPackBlock}>
-                        <div className={m.addPackTitle}>Packs list</div>
-                        <div className={m.addPackTitle}>
-                            <input className={m.searchInput} placeholder={"Enter the name of the search waiting"}/>
-                            <button>Search</button>
-                            <button>Add new pack</button>
-                            {/*хард кодом добавить колоду
-                            сначала: axios.post('cards/pack', {cardsPack: {name: 'x'}})
-                            потом: get, получение всех колод завново с сортировкой которые были выбраны до этого
-                            */}
-                        </div>
-
-                    </div>
-                    <div className={m.packsTable}></div>
-                    <div className={m.pagination}></div>
+                    <AddPackBlock/>
+                    <div className={m.packsTable}>
+                        <TableTitle/>
+                        {
+                            packs.map((p, index) => {
+                                return <TableRow
+                                    key={index}
+                                    name={p.name}
+                                    cards={p.cardsCount}
+                                    updated = {p.updated}
+                                    created = {p.created}
+                                    id={p._id}
+                                    userId={p.user_id}
+                                    index = {index}
+                               />
+                            })
+                        }
+                                     </div>
+                    <div className={m.pagination}/>
 
                 </div>
             </div>

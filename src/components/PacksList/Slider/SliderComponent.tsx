@@ -5,7 +5,7 @@ import {Box} from "@mui/material";
 const SliderComponent = () => {
 
     const valuetext = (value: number) => {
-        return `${value}°C`;
+        return `${value}`;
     }
 
     const [value, setValue] = React.useState<number[]>([20, 37]);
@@ -20,7 +20,7 @@ const SliderComponent = () => {
 
             width: 110}}>
             <Slider
-                getAriaLabel={() => 'Temperature range'}
+                // getAriaLabel={() => 'Temperature range'}
                 value={value}
                 style={{width: "120px"}}
                 min={0} // придет с бэкенда maxCardsCount

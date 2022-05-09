@@ -1,0 +1,52 @@
+.addPackBlock {
+    border: 1px solid black;
+    height: 120px;
+}
+.addPackTitle {
+    display: flex;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    color: #2D2E46;
+    margin-left: 20px;
+    padding-top: 10px;
+}
+
+.searchInput{
+    background: #ECECF9;
+    opacity: 0.5;
+    /*border: 1px solid #635D80;*/
+    border-radius: 2px;
+    /*margin-left: 20px;*/
+    width: 300px;
+    height: 36px;
+    border-right: none;
+    border-bottom: none;
+
+}
+
+.buttonContainer {
+    /*height: 133px;*/
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.button {
+    width: 127px;
+    height: 36px;
+    border-radius: 60px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    /* identical to box height */
+    color: #ECECF9;
+    border: none;
+    background-color: #21268F;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+}

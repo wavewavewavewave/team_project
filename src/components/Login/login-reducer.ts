@@ -11,7 +11,7 @@ import {
 } from "../Bll/auth-reducer";
 
 const initialState: AuthStateType = {
-    _id: "",
+    _id: "5eb543f6bea3ad21480f1ee7",
     email: "Some e-mail",
     name: "Some name",
     avatar: "https://placepic.ru/wp-content/uploads/2021/02/7d5fe7bafa.jpg",

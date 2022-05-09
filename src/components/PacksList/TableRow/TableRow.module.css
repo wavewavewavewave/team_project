@@ -1,0 +1,50 @@
+.tableRow {
+    display: flex;
+    /*justify-content: space-between;*/
+    width: 669px;
+    height: 48px;
+    /*left: 427px;*/
+    /*top: 216px;*/
+    background: #ECECF9;
+}
+.tableRowStyle {
+    background: #FFFFFF;
+}
+.columnValues {
+    width: 135px;
+    display: flex;
+    align-items: center;
+    border: 1px solid;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 16px;
+    color: #000000;
+}
+
+.deleteButton {
+    background: #F1453D;
+    border-radius: 2px;
+    border: none;
+    height: 30px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+
+
+}
+.editButton {
+    background: #D7D8EF;
+    border-radius: 2px;
+    border: 1px solid #FFFFFF;
+    height: 30px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    color: #21268F;
+
+}

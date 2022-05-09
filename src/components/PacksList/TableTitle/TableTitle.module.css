@@ -1,0 +1,23 @@
+.tableTitle {
+    display: flex;
+    /*justify-content: space-between;*/
+    width: 669px;
+    height: 48px;
+    /*left: 427px;*/
+    /*top: 216px;*/
+    background: #ECECF9;
+}
+.columnNames {
+    width: 135px;
+    display: flex;
+    align-items: center;
+    border: 1px solid;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 16px;
+
+
+
+    color: #000000;
+}
