@@ -1,14 +1,15 @@
-import {Dispatch} from "redux";
-import {cardsAPI, ResponseMeType} from "../api/cards-api";
-import {ThunkAction} from "redux-thunk";
-import {AppRootReducerType} from "./store";
+import { Dispatch } from "redux";
+import { authAPI, cardsAPI, ResponseMeType } from "../api/cards-api";
+import { ThunkAction } from "redux-thunk";
+import { AppRootReducerType } from "./store";
+import { NavigateFunction } from "react-router-dom";
 
 
 export type AuthStateType = {
     isDisabledSaveButton: boolean,
     isDisabledLogoutButton: boolean,
 
-    error: string,
+    error: string | null,
     isLogged: boolean
 
 }
@@ -18,7 +19,12 @@ export type ResponseEditNameType = {
     error?: string
 }
 
-type ActionsType = ErrorActionType | LoggedActionType | changeStatusSaveButtonActionType | changeStatusLogoutButtonActionType
+type ActionsType = 
+ErrorActionType 
+| LoggedActionType 
+| changeStatusSaveButtonActionType 
+| changeStatusLogoutButtonActionType
+| SetEmailAddresUserACType
 
 const initialState: AuthStateType = {
     isDisabledSaveButton: false,
@@ -31,7 +37,7 @@ const initialState: AuthStateType = {
 export type ErrorActionType = {
     type: "ERROR"
     payload: {
-        error: string,
+        error: string | null,
     }
 }
 export type LoggedActionType = {
@@ -46,17 +52,17 @@ export const authReducer = (state: AuthStateType = initialState, action: Actions
         // case "EDIT-NAME":
         case "PROFILE/SET-STATUS-SAVE-BUTTON":
         case "PROFILE/SET-STATUS-LOGOUT-BUTTON":
+        case "AUTH/EMAIL-ADD-USER":
         case "ERROR":
-        case "SET-LOGGED":
-            return {...state, ...action.payload}
-
+        case "SET-LOGGED": 
+            return { ...state, ...action.payload }
         default:
             return state;
     }
 }
 
 
-export const errorMessageAC = (error: string): ErrorActionType => {
+export const errorMessageAC = (error: string | null): ErrorActionType => {
     return {
         type: "ERROR",
         payload: {
@@ -103,15 +109,22 @@ export const changeStatusLogoutButtonAC = (status: boolean): changeStatusLogoutB
     }
 }
 
-type ThunkType = ThunkAction<void, AppRootReducerType, unknown, ActionsType>
+export type SetEmailAddresUserACType = ReturnType<typeof setEmailAddresUserAC>
+export const setEmailAddresUserAC = (email: string) => ({
+    type: 'AUTH/EMAIL-ADD-USER',
+    payload: {
+        email
+    }
+} as const)
+
 
 
 export const LogoutTC = (): ThunkType => {
 
     return (dispatch: Dispatch<ActionsType>) => {
         // диспатчим крутилку
-       dispatch(changeStatusLogoutButtonAC(true))
-        cardsAPI.logout ()
+        dispatch(changeStatusLogoutButtonAC(true))
+        authAPI.logout()
             .then((res) => {
                 dispatch(loggedAC(false))
             })
@@ -125,18 +138,59 @@ export const LogoutTC = (): ThunkType => {
     }
 }
 
-// export const registerTC = (email: string, password: string) => async (dispatch: any) => {
-//     const res = await cardsAPI.register(email, password)
-//     console.log('erett', res)
-// }
 
-export const registerTC= (email: any, password: any) => (dispatch: any) => {
-    cardsAPI.register(email, password)
+export const register = (email: string, password: string): ThunkType => (dispatch) => {
+    authAPI.register(email, password)
         .then(res => {
             dispatch(loggedAC(true))
         })
         .catch(err => {
-            dispatch(errorMessageAC(err.response.data.error))
+            if(err.response.data.passwordRegExp) {
+                dispatch(errorMessageAC(err.response.data.passwordRegExp))
+            } else {
+                dispatch(errorMessageAC(err.response.data.error))
+            }
         })
 }
+
+
+export const forgot = (email: string, navigate: NavigateFunction) => (dispatch: Dispatch) => {
+    authAPI.forgot(email)
+        .then(res => {
+            dispatch(setEmailAddresUserAC(email))
+
+            navigate('/checkEmail');
+            setTimeout(() => {
+                navigate('/login')
+            }, 5000);
+        })
+        .catch(err => {
+            if(err.response.data.passwordRegExp) {
+                dispatch(errorMessageAC(err.response.data.passwordRegExp))
+            } else {
+                dispatch(errorMessageAC(err.response.data.error))
+            }
+        })
+}
+
+
+
+
+export const setNewPassword = (password: string, resetPasswordToken: string): ThunkType => (dispatch) => {
+   console.log(password, resetPasswordToken)
+    authAPI.setNewPassword(password, resetPasswordToken)
+        .then(res => {
+            // dispatch(loggedAC(true))
+        })
+        .catch(err => {
+            if(err.response.data.passwordRegExp) {
+                dispatch(errorMessageAC(err.response.data.passwordRegExp))
+            } else {
+                dispatch(errorMessageAC(err.response.data.error))
+            }
+        })
+}
+
+
+type ThunkType = ThunkAction<void, AppRootReducerType, unknown, ActionsType>
 

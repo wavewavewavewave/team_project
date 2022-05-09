@@ -2,18 +2,33 @@
     position: relative;
     width: 1280px;
     height: 720px;
-    background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%);
 }
 
 .inputField {
     position: absolute;
     width: 413px;
-    height: 600px;
+    height: 540px;
     left: 434px;
-    top: 60px;
+    top: 84px;
 
     background: rgba(249, 249, 254, 1);
     border-radius: 8px;
+}
+
+.FormGroup {
+    margin: 60px 33px 0 33px;
+}
+
+.TextField {
+    max-width: 347px;
+}
+
+.FormGroup a {
+    display: flex;
+    justify-content: end;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #2d2e46;
 }
 
 .itIncubator {
@@ -23,6 +38,7 @@
     text-align: center;
     color: #2D2E46;
 }
+
 
 .signIn {
     margin: 20px;
@@ -35,6 +51,7 @@
     color: #2D2E46;
 }
 
+
 .loginButton {
     color: white;
     background: #21268F;
@@ -42,14 +59,19 @@
     border-radius: 30px;
     height: 36px;
     width: 266px;
+	/* margin-right: 4px; */
+	/* margin-left: 173px; */
     border: none;
     font-size: 17px;
+    margin-right: 60px;
     cursor: pointer;
-    margin-left: 70px;
-    margin-top: 70px;
+    margin-left: 40px;
+    margin-top: 23px;
     transition: ease 250ms;
     outline: 0;
 }
+
+
 .loginButton:hover {
     background: green;
 }

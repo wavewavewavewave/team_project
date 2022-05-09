@@ -1,19 +1,16 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
-import s from "../../generalStyle/GeneralStyle.module.css"
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import m from "./Profile.module.css"
 import photoaparate from "../../img/Photoaparat.png"
-import {Button, FormControl, FormHelperText, Input, InputLabel} from "@mui/material";
-import {useDispatch, useSelector} from "react-redux";
-import {loggedAC, LogoutTC} from "../Bll/auth-reducer";
-import {AppRootReducerType} from "../Bll/store";
-import {editNameTC, loginTC, setUserAC} from "../Login/login-reducer";
-import {cardsAPI} from "../api/cards-api";
-import {Navigate} from "react-router-dom";
+import { Button, FormControl, FormHelperText, Grid, Input, InputLabel } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { loggedAC, LogoutTC } from "../Bll/auth-reducer";
+import { AppRootReducerType } from "../Bll/store";
+import { editNameTC, loginTC, setUserAC } from "../Login/login-reducer";
+import { authAPI, cardsAPI } from "../api/cards-api";
+import { Navigate } from "react-router-dom";
 
 
 const Profile = () => {
-
-
 
     const dispatch: any = useDispatch()
 
@@ -33,7 +30,7 @@ const Profile = () => {
         //показать крутилку
 
 
-        cardsAPI.me()
+        authAPI.me()
             .then((res) => {
                 dispatch(setUserAC(res.data))
                 dispatch(loggedAC(true))
@@ -41,16 +38,16 @@ const Profile = () => {
             })
             .catch(() => {
 
-                return <Navigate to={`/login`}/>
+                return <Navigate to={`/login`} />
             })
             .finally(() => {
                 //убрать крутилку
             })
-    },[])
+    }, [])
 
-    if (!isLogged) {
-        return <Navigate to={`/login`}/>
-    }
+    // if (!isLogged) {
+    //     return <Navigate to={`/login`}/>
+    // }
 
 
     let saveNameHandler = () => {
@@ -67,65 +64,69 @@ const Profile = () => {
 
 
     return (
-        <div className={s.backgroundPage}>
-            <div className={m.profilePage}>
-                <div className={m.titleBlock}>
-                    <span className={m.title}>Personal Information</span>
-                    <div className={m.personalPhotoBox}>
-                        <img className={m.personalPhoto} src={photoUrl} alt={"Personal Photo"}/>
-                        <div className={m.photoButtonBox}>
-                            <img className={m.downloadPhotoButton}/>
-                            <img className={m.photoaparate} src={photoaparate}/>
+        <Grid container justifyContent={'center'}>
+            <Grid item justifyContent={'center'}>
+                <div className={m.backgroundPage}>
+                    <div className={m.profilePage}>
+                        <div className={m.titleBlock}>
+                            <span className={m.title}>Personal Information</span>
+                            <div className={m.personalPhotoBox}>
+                                <img className={m.personalPhoto} src={photoUrl} alt={"Personal Photo"} />
+                                <div className={m.photoButtonBox}>
+                                    <img className={m.downloadPhotoButton} alt='' />
+                                    <img className={m.photoaparate} src={photoaparate} alt='' />
+                                </div>
+                            </div>
+                        </div>
+                        <div className={m.inputContainer}>
+                            <div className={m.nameBox}>
+                                {changeOn
+
+                                    ? <div style={{ display: "flex", flexDirection: "column" }}>
+                                        {/*<span className={m.rowName}>Nickname: </span>*/}
+                                        <FormControl variant="standard">
+                                            <InputLabel className={m.rowName} htmlFor="component-simple">Nickname</InputLabel>
+                                            <Input id="component-simple" onBlur={saveNameHandler} onChange={changeNameHandler}
+                                                autoFocus={true} value={name} />
+                                        </FormControl>
+                                    </div>
+
+                                    : <div style={{ display: "flex", flexDirection: "column" }}>
+                                        {/*<span className={m.rowName}>Nickname: </span>*/}
+                                        <FormControl disabled variant="standard">
+                                            <InputLabel className={m.rowName} htmlFor="component-disabled">Nickname</InputLabel>
+                                            <Input id="component-disabled" className={m.inputValue} value={name}
+                                                onDoubleClick={() => setChangeOn(true)} />
+                                            <FormHelperText>(double click to change)</FormHelperText>
+                                            <div style={{ color: "red" }}>{textError}</div>
+                                        </FormControl>
+                                    </div>
+                                }
+                            </div>
+
+                            <div style={{ display: "flex" }}>
+                                <FormControl disabled variant="standard">
+                                    <InputLabel className={m.rowName} htmlFor="component-disabled">Number of cards:</InputLabel>
+                                    <Input id="component-disabled" value={cardsValue} />
+                                </FormControl>
+                            </div>
+                            <div style={{ display: "flex" }}>
+                                <FormControl disabled variant="standard">
+                                    <InputLabel className={m.rowName} htmlFor="component-disabled">E-mail:</InputLabel>
+                                    <Input id="component-disabled" value={email} />
+                                </FormControl>
+                            </div>
+
+                        </div>
+
+                        <div className={m.buttonContainer}>
+                            <Button disabled={isDisabledLogoutButton} variant="outlined" className={m.button} onClick={accountClose}>Logout</Button>
+                            <Button disabled={isDisabledSaveButton} variant="contained" onClick={editNameHandler} className={m.button}>Save</Button>
                         </div>
                     </div>
                 </div>
-                <div className={m.inputContainer}>
-                    <div className={m.nameBox}>
-                        {changeOn
-
-                            ? <div style={{display: "flex", flexDirection: "column"}}>
-                                {/*<span className={m.rowName}>Nickname: </span>*/}
-                                <FormControl variant="standard">
-                                    <InputLabel className={m.rowName} htmlFor="component-simple">Nickname</InputLabel>
-                                    <Input id="component-simple" onBlur={saveNameHandler} onChange={changeNameHandler}
-                                           autoFocus={true} value={name}/>
-                                </FormControl>
-                            </div>
-
-                            : <div style={{display: "flex", flexDirection: "column"}}>
-                                {/*<span className={m.rowName}>Nickname: </span>*/}
-                                <FormControl disabled variant="standard">
-                                    <InputLabel className={m.rowName} htmlFor="component-disabled">Nickname</InputLabel>
-                                    <Input id="component-disabled" className={m.inputValue} value={name}
-                                           onDoubleClick={() => setChangeOn(true)}/>
-                                    <FormHelperText>(double click to change)</FormHelperText>
-                                    <div style={{color: "red"}}>{textError}</div>
-                                </FormControl>
-                            </div>
-                        }
-                    </div>
-
-                    <div style={{display: "flex"}}>
-                        <FormControl disabled variant="standard">
-                            <InputLabel className={m.rowName} htmlFor="component-disabled">Number of cards:</InputLabel>
-                            <Input id="component-disabled" value={cardsValue}/>
-                        </FormControl>
-                    </div>
-                    <div style={{display: "flex"}}>
-                        <FormControl disabled variant="standard">
-                            <InputLabel className={m.rowName} htmlFor="component-disabled">E-mail:</InputLabel>
-                            <Input id="component-disabled" value={email}/>
-                        </FormControl>
-                    </div>
-
-                </div>
-
-                <div className={m.buttonContainer}>
-                    <Button disabled={isDisabledLogoutButton} variant="outlined" className={m.button} onClick={accountClose}>Logout</Button>
-                    <Button disabled={isDisabledSaveButton} variant="contained" onClick={editNameHandler} className={m.button}>Save</Button>
-                </div>
-            </div>
-        </div>
+            </Grid>
+        </Grid>
     );
 };
 

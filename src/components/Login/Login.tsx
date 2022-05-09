@@ -1,20 +1,24 @@
-import React, {useState} from 'react'
-import {Form, useFormik} from "formik";
+import React, { useState } from 'react'
+import { useFormik } from "formik";
 import s from './Login.module.css';
-import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
-import {useDispatch, useSelector} from "react-redux";
-import {loginTC} from "./login-reducer";
-import {LoginParamsType} from "../api/cards-api";
-import {AppRootReducerType} from "../Bll/store";
-import {Navigate} from "react-router-dom";
-import {FaEye, FaEyeSlash} from "react-icons/fa";
+import { Checkbox, FormControl, FormControlLabel, FormGroup, Grid, TextField } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { loginTC } from "./login-reducer";
+import { LoginParamsType } from "../api/cards-api";
+import { AppRootReducerType } from "../Bll/store";
+import { Navigate } from "react-router-dom";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+
 
 export const Login = () => {
 
     const dispatch = useDispatch<any>()
     const isLoggedIn = useSelector<AppRootReducerType, boolean>(state => state.auth.isLogged)
 
-    const [eye, setEye] = useState(true)
+    const [eye, setEye] = useState(false)
     const handleClick = () => {
         if (eye) {
             setEye(false);
@@ -23,11 +27,12 @@ export const Login = () => {
         }
     }
 
+
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
-            rememberMe: false
+            rememberMe: false,
         },
         validate: (values) => {
             const errors: Partial<Omit<LoginParamsType, 'captcha'>> = {};
@@ -48,69 +53,72 @@ export const Login = () => {
             dispatch(loginTC(values))
         },
     })
-    if (isLoggedIn) {
-        return <Navigate to={`/profile`}/>
-    }
+    // if (isLoggedIn) {
+    //     return <Navigate to={`/profile`} />
+    // }
 
     return (
         <Grid container justifyContent={'center'}>
             <Grid item justifyContent={'center'}>
                 <form onSubmit={formik.handleSubmit}>
-                    <FormControl>
+                    <FormControl >
                         <div className={s.box}>
                             <div className={s.inputField}>
-                                <FormLabel>
-                                    <div className={s.itIncubator}>
-                                        <p>It-incubator</p>
-                                    </div>
-                                    <div className={s.signIn}>
-                                        <p>Sign In</p>
-                                    </div>
-                                </FormLabel>
-                                <FormGroup>
-                                    <TextField label="Email"
-                                               margin="normal"
-                                               variant="standard"
-                                               {...formik.getFieldProps('email')}/>
+                                <div className={s.itIncubator}> It-incubator</div>
+                                <div className={s.signIn}> Sign Up</div>
+                                <FormGroup className={s.FormGroup}>
+                                    <TextField className={s.TextField} label="Email"
+                                        margin="normal"
+                                        variant="standard"
+                                        {...formik.getFieldProps('email')} />
 
                                     {
                                         formik.errors.email &&
-                                        formik.touched.email ?
-                                            <div style={{color: "red"}}>{formik.errors.email}</div>
+                                            formik.touched.email ?
+                                            <div style={{ color: "red" }}>{formik.errors.email}</div>
                                             : null
-                                            }
+                                    }
 
-                                            <TextField type={eye ? `password` : 'text'}
-                                                    label="Password"
-                                                    margin="normal"
-                                                    variant="standard"
-                                                    {...formik.getFieldProps('password')}
+                                    <TextField className={s.TextField} type={eye ? `password` : 'text'}
+                                        label="Password"
+                                        margin="normal"
+                                        variant="standard"
+                                        {...formik.getFieldProps('password')}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        aria-label="toggle password visibility"
+                                                        onClick={handleClick}
+                                                    >
+                                                        {eye ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            )
+                                        }}
+
                                     />
-                                        <div>
-                                        <span onClick={handleClick}>
-                                        {eye ? <FaEye/> : <FaEyeSlash/>}
-                                    </span>
-                                    </div>
-
                                     {
                                         formik.errors.password &&
-                                        formik.touched.password ?
-                                            <div style={{color: "red"}}>{formik.errors.password}</div>
+                                            formik.touched.password ?
+                                            <div style={{ color: "red" }}>{formik.errors.password}</div>
                                             : null
                                     }
 
                                     <FormControlLabel label={'Remember me'}
-                                                      control={
-                                                          <div style={{marginLeft: "20px"}}>
-                                                              <Checkbox
-                                                                  onChange={formik.handleChange}
-                                                                  value={formik.values.rememberMe}
-                                                                  name="rememberMe"/>
-                                                          </div>}/>
+                                        control={
+                                            <div style={{ marginLeft: "20px" }}>
+                                                <Checkbox
+                                                    onChange={formik.handleChange}
+                                                    value={formik.values.rememberMe}
+                                                    name="rememberMe" />
+                                            </div>} />
+                                    <a href='#/forgotPas' > forgot password? </a>
                                     <button className={s.loginButton}>
                                         Login
                                     </button>
                                 </FormGroup>
+
                             </div>
                         </div>
                     </FormControl>
@@ -119,16 +127,3 @@ export const Login = () => {
         </Grid>
     )
 }
-
-// const [eye, setEye] = useState(true)
-// const handleClick = () => {
-//     if (eye) {
-//         setEye(false);
-//     } else {
-//         setEye(true)
-//     }
-// }
-
-// <span onClick={handleClick} >
-//                 {eye ? <FaEye /> : <FaEyeSlash />}
-//               </span>

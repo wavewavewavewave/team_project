@@ -1,8 +1,8 @@
-import {Simulate} from "react-dom/test-utils";
-import {Dispatch} from "redux";
-import {cardsAPI, LoginParamsType} from "../api/cards-api";
-import {ThunkAction} from "redux-thunk";
-import {AppRootReducerType} from "../Bll/store";
+import { Simulate } from "react-dom/test-utils";
+import { Dispatch } from "redux";
+import { authAPI, cardsAPI, LoginParamsType } from "../api/cards-api";
+import { ThunkAction } from "redux-thunk";
+import { AppRootReducerType } from "../Bll/store";
 import {
     changeStatusSaveButtonAC,
     changeStatusSaveButtonActionType,
@@ -16,7 +16,7 @@ const initialState: AuthStateType = {
     name: "Some name",
     avatar: "https://placepic.ru/wp-content/uploads/2021/02/7d5fe7bafa.jpg",
     publicCardPacksCount: "is unknown",
-// количество колод
+    // количество колод
     created: null,
     updated: null,
     isAdmin: false,
@@ -32,7 +32,7 @@ export type AuthStateType = {
     name: string;
     avatar?: string;
     publicCardPacksCount: number | null | string;
-// количество колод
+    // количество колод
     created: Date | null;
     updated: Date | null;
     isAdmin: boolean;
@@ -47,11 +47,11 @@ export type AuthStateType = {
 export const LoginReducer = (state: AuthStateType = initialState, action: ActionsType) => {
     switch (action.type) {
         case 'login/USER-LOGIN':
-            return {...state, ...action.user}
+            return { ...state, ...action.user }
         case "EDIT-NAME":
-            return {...state, ...action.payload}
+            return { ...state, ...action.payload }
         case "SET-USER":
-            return {...state, ...action.data}
+            return { ...state, ...action.data }
         default:
             return state
     }
@@ -59,26 +59,11 @@ export const LoginReducer = (state: AuthStateType = initialState, action: Action
 
 export type UserLoginACType = ReturnType<typeof userLoginAC>
 export const userLoginAC = (user: AuthStateType) => ({
-        type: 'login/USER-LOGIN',
-        user,
-    } as const
-)
+    type: 'login/USER-LOGIN',
+    user,
+} as const )
 
-export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsType>) => {
-    //krutilka
-    cardsAPI.login(data)
-        .then(res => {
-            // dispatch(setIsLoggedInAC(true))
-            dispatch(userLoginAC(res.data))
-            dispatch(loggedAC(true))
-            //wikluchaem krutilku
-        })
-        .catch(e => {
-            const error = e.response ? e.response.data.error : (e.message +
-                ',more details in console')
-            console.log('Error: ', {...e})
-        })
-}
+
 
 export type EditNameActionType = {
     type: "EDIT-NAME"
@@ -111,12 +96,31 @@ export const setUserAC = (data: any): SetUserActionType => {
 
 type ThunkType = ThunkAction<void, AppRootReducerType, unknown, ActionsType>
 
-export const editNameTC = (name: string, avatar?: string | undefined): ThunkType => {
 
+export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsType>) => {
+    //krutilka
+    authAPI.login(data)
+        .then(res => {
+            // dispatch(setIsLoggedInAC(true))
+            dispatch(userLoginAC(res.data))
+            dispatch(loggedAC(true))
+            //wikluchaem krutilku
+        })
+        .catch(err => {
+            if(err.response.data.passwordRegExp) {
+                dispatch(errorMessageAC(err.response.data.passwordRegExp))
+            } else {
+                dispatch(errorMessageAC(err.response.data.error))
+            }
+        })
+}
+
+
+export const editNameTC = (name: string, avatar?: string | undefined): ThunkType => {
     return (dispatch: Dispatch<ActionsType>) => {
         // диспатчим крутилку
         dispatch(changeStatusSaveButtonAC(true))
-        cardsAPI.editName({name, avatar})
+        cardsAPI.editName({ name, avatar })
             .then((res) => {
                 debugger
                 dispatch(editNameAC(res.data.updatedUser.name, res.data.updatedUser.avatar))
