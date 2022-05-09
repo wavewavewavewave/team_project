@@ -1,6 +1,6 @@
 import { Simulate } from "react-dom/test-utils";
 import { Dispatch } from "redux";
-import { authAPI, cardsAPI, LoginParamsType } from "../api/cards-api";
+import { cardsAPI, LoginParamsType } from "../api/cards-api";
 import { ThunkAction } from "redux-thunk";
 import { AppRootReducerType } from "../Bll/store";
 import {
@@ -99,7 +99,7 @@ type ThunkType = ThunkAction<void, AppRootReducerType, unknown, ActionsType>
 
 export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsType>) => {
     //krutilka
-    authAPI.login(data)
+    cardsAPI.login(data)
         .then(res => {
             // dispatch(setIsLoggedInAC(true))
             dispatch(userLoginAC(res.data))

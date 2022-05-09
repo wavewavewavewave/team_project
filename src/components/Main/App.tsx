@@ -1,13 +1,12 @@
 import React, {useEffect} from 'react';
 import s from './App.module.css';
-
 import {Navigate, NavLink, Route, Routes} from "react-router-dom";
 import {Login} from "../Login/Login";
 import {Registration} from "../Registration/Registration";
-import {SetPassword} from "../Registration/Password/SetPassword";
-import {RecoveryPassword} from "../Registration/Password/RecoveryPassword";
 import Profile from '../Profile/Profile';
 import PacksList from "../PacksList/PacksList";
+import {CreateNewPassword} from "../Registration/ForgotPassword/CreateNewPassword/CreateNewPassword";
+import {ForgotPassword} from "../Registration/ForgotPassword/ForgotPassword";
 
 function App() {
      return (
@@ -24,8 +23,8 @@ function App() {
                     <Route path={'/registration'} element={<Registration/>}/>
                     <Route path={"/login"} element={<Login/>}/>
                     <Route path={"/profile"} element={<Profile/>}/>
-                    <Route path={'/setPassword'} element={<SetPassword/>}/>
-                    <Route path={'/recoveryPass'} element={<RecoveryPassword/>}/>
+                    <Route path={'/setPassword'} element={<ForgotPassword/>}/>
+                    <Route path={'/recoveryPass'} element={<CreateNewPassword/>}/>
                     <Route path="/404" element={<h1 style={{textAlign: "center"}}>404: PAGE NOT FOUND</h1>}/>
                     <Route path="/" element={<Navigate to={"/profile"}/>}/>
                     <Route path="/packsList" element={<PacksList/>}/>
