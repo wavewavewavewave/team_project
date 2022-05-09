@@ -2,14 +2,24 @@ import axios, {AxiosResponse} from 'axios'
 import {AuthStateType} from "../Bll/auth-reducer";
 
 export const instance = axios.create({
-    baseURL: 'https://neko-back.herokuapp.com/2.0/',
-    // baseURL: 'http://localhost:7542/2.0/',
+    // baseURL: 'https://neko-back.herokuapp.com/2.0/',
+    baseURL: 'http://localhost:7542/2.0/',
     withCredentials: true,
 })
 
 export type editNameDataType = {
     name: string,
     avatar?: string // url or base64
+}
+
+export type getPacksDataType = {
+    packName: string, // не обязательно
+    min: number, // не обязательно
+    max: number, // не обязательно
+    sortPacks: string, //"0updated" // не обязательно
+    page: number, // не обязательно
+    pageCount: number, // не обязательно
+    user_id: string,  // чьи колоды не обязательно, или прийдут все
 }
 
 
@@ -60,7 +70,13 @@ export type ResponseType = any
 // rememberMe: boolean;
 //
 // error?: string;
-
+export type addPackDataType = {
+    cardsPack: {
+        name: string,
+        deckCover: string, // не обязателен
+        private: boolean, // если не отправить будет такой
+    }
+}
 
 // api
 export const cardsAPI = {
@@ -78,5 +94,14 @@ export const cardsAPI = {
     },
     login(data: LoginParamsType) {
         return instance.post<LoginParamsType, ResponseType>(`auth/login`, data)
+    },
+    getPacks(params: getPacksDataType) {
+
+        return instance.get<getPacksDataType, ResponseType>(`/cards/pack`, {params})
+    },
+    addNewPack(params: addPackDataType) {
+
+        return instance.post<getPacksDataType, ResponseType>(`/cards/pack`, params)
     }
+
 }

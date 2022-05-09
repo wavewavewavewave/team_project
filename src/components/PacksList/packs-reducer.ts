@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
-import {cardsAPI, ResponseMeType} from "../api/cards-api";
+import {addPackDataType, cardsAPI, getPacksDataType, ResponseMeType} from "../api/cards-api";
 import {ThunkAction} from "redux-thunk";
+import {AppRootReducerType} from "../Bll/store";
 
 
 export type cardPackType = {
@@ -24,10 +25,21 @@ export type PacksStateType = {
     page: number // выбранная страница
     pageCount: number
     // количество элементов на странице
-   // error: string,
+
+    getParams: {
+        packName: string, // не обязательно
+        min: number, // не обязательно
+        max: number, // не обязательно
+        sortPacks: string, //"0updated" // не обязательно
+        page: number, // не обязательно
+        pageCount: number, // не обязательно
+        user_id: string,  // чьи колоды не обязательно, или прийдут все
+    }
+
+    // error: string,
 }
 
-const initialPacksState : PacksStateType = {
+const initialPacksState: PacksStateType = {
     isDisabledSearchButton: false,
     isDisabledAddNewPackButton: false,
 
@@ -103,53 +115,37 @@ const initialPacksState : PacksStateType = {
     page: 1,
     pageCount: 8,
 
-   // error: string,
+    getParams: {
+        packName: "", // не обязательно
+        min: 0, // не обязательно
+        max: 9, // не обязательно
+        sortPacks: "0updated", // не обязательно
+        page: 1, // не обязательно
+        pageCount: 8, // не обязательно
+        user_id: "",  // чьи колоды не обязательно, или прийдут все
+    }
+
+    // error: string,
 }
 
 
+type ActionsType = setPacksACType | editSearchNameACType | showMyAllPacksACType
 
-
-type ActionsType = setPacksACType
-
-// export type GetPacksType = {
-//     type: "PACKS-LIST/GET-PACKS"
-//     payload: {
-//         packName: string, // не обязательно
-//         min:number, // не обязательно
-//         max: number, // не обязательно
-//         sortPacks: string, //"0updated" // не обязательно
-//         page: string, // не обязательно
-//         pageCount: number, // не обязательно
-//         user_id: string,  // чьи колоды не обязательно, или прийдут все
-//     }
-// }
-// export type GetPacksType = {
-//     type: "PACKS-LIST/GET-PACKS"
-//     payload: {
-//         packName: string, // не обязательно
-//         min:number, // не обязательно
-//         max: number, // не обязательно
-//         sortPacks: string, //"0updated" // не обязательно
-//         page: string, // не обязательно
-//         pageCount: number, // не обязательно
-//         user_id: string,  // чьи колоды не обязательно, или прийдут все
-//     }
-// }
-//
 //
 export const packsReducer = (state = initialPacksState, action: ActionsType): PacksStateType => {
     switch (action.type) {
         case "PACKS-LIST/SET-PACKS":
             return {...state, ...action.payload, cardPacks: action.payload.cardPacks}
+        case "PACKS-LIST/EDIT-SEARCH-VALUE":
+            return {...state, getParams: {...state.getParams, packName: action.value}}
+        case "PACKS-LIST/SHOW-MY-ALL-PACKS":
+            return {...state, getParams: {...state.getParams, user_id: action.value}}
 
 
         default:
             return state;
     }
 }
-//
-//
-
 export type setPacksDataType = {
     cardPacks: cardPackType[]
     cardPacksTotalCount: number
@@ -159,6 +155,18 @@ export type setPacksDataType = {
     page: number // выбранная страница
     pageCount: number
 }
+export type showMyAllPacksACType = {
+    type: "PACKS-LIST/SHOW-MY-ALL-PACKS",
+    value: string
+}
+
+export const showMyAllPacksAC = (value: string): showMyAllPacksACType => {
+    return {
+        type: "PACKS-LIST/SHOW-MY-ALL-PACKS",
+        value
+    }
+}
+
 export type setPacksACType = {
     type: "PACKS-LIST/SET-PACKS",
     payload: setPacksDataType
@@ -170,65 +178,59 @@ export const setPacksAC = (data: setPacksDataType): setPacksACType => {
         payload: data
     }
 }
+
+export type editSearchNameACType = {
+
+    type: "PACKS-LIST/EDIT-SEARCH-VALUE",
+    value: string,
+
+}
+export const editSearchNameAC = (value: string): editSearchNameACType => {
+    return {
+        type: "PACKS-LIST/EDIT-SEARCH-VALUE",
+        value
+    }
+}
+
 //
-// export const loggedAC = (isLogged: boolean): LoggedActionType => {
-//     return {
-//         type: "SET-LOGGED",
-//         payload: {
-//             isLogged
-//         }
-//     }
-// }
-//
-// export type changeStatusSaveButtonActionType = {
-//     type: "PROFILE/SET-STATUS-SAVE-BUTTON",
-//     payload: {
-//         isDisabledSaveButton: boolean
-//     }
-// }
-// export const changeStatusSaveButtonAC = (status: boolean): changeStatusSaveButtonActionType => {
-//     return {
-//         type: "PROFILE/SET-STATUS-SAVE-BUTTON",
-//         payload: {
-//             isDisabledSaveButton: status
-//         }
-//     }
-// }
-// export type changeStatusLogoutButtonActionType = {
-//     type: "PROFILE/SET-STATUS-LOGOUT-BUTTON",
-//     payload: {
-//         isDisabledLogoutButton: boolean
-//     }
-// }
-// export const changeStatusLogoutButtonAC = (status: boolean): changeStatusLogoutButtonActionType => {
-//     return {
-//         type: "PROFILE/SET-STATUS-LOGOUT-BUTTON",
-//         payload: {
-//             isDisabledLogoutButton: status
-//         }
-//     }
-// }
-//
-// type ThunkType = ThunkAction<void, AppRootReducerType, unknown, ActionsType>
+type ThunkType = ThunkAction<void, AppRootReducerType, unknown, ActionsType>
 //
 //
-// export const LogoutTC = (): ThunkType => {
-//
-//     return (dispatch: Dispatch<ActionsType>) => {
-//         // диспатчим крутилку
-//        dispatch(changeStatusLogoutButtonAC(true))
-//         cardsAPI.logout ()
-//             .then((res) => {
-//                 dispatch(loggedAC(false))
-//             })
-//             .catch((err) => {
-//                 dispatch(errorMessageAC("some error"))
-//             })
-//             .finally(() => {
-//                 //выключаем крутилку
-//                 dispatch(changeStatusLogoutButtonAC(false))
-//             })
-//     }
-// }
+export const getPacksTC = (): ThunkType => {
+
+    return (dispatch: Dispatch<ActionsType>, getState) => {
+        // диспатчим крутилку
+        let params = getState().packs.getParams
+
+        cardsAPI.getPacks(params)
+            .then((res) => {
+                dispatch(setPacksAC(res.data))
+            })
+            .catch((err) => {
+                // dispatch(errorMessageAC("some error"))
+            })
+            .finally(() => {
+                //выключаем крутилку
+            })
+    }
+}
+
+export const addNewPackTC = (params: addPackDataType): ThunkType => {
+
+    return (dispatch: Dispatch<any>) => {
+        // диспатчим крутилку
+        cardsAPI.addNewPack(params)
+            .then((res) => {
+                debugger
+                dispatch(getPacksTC())
+            })
+            .catch((err) => {
+                // dispatch(errorMessageAC("some error"))
+            })
+            .finally(() => {
+                //выключаем крутилку
+            })
+    }
+}
 
 

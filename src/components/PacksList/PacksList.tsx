@@ -1,30 +1,51 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import s from "../../generalStyle/GeneralStyle.module.css"
 import m from "./PacksList.module.css"
 import {useDispatch, useSelector} from "react-redux";
-import Slider from '@mui/material/Slider';
-import {Box, Button, Paper} from "@mui/material";
 import SliderComponent from "./Slider/SliderComponent";
 import ButtonMyAll from "./ButtonMyAll/ButtonMyAll";
 import AddPackBlock from "./AddPackBlock/AddPackBlock";
 import TableTitle from "./TableTitle/TableTitle";
 import TableRow from "./TableRow/TableRow";
 import {AppRootReducerType} from "../Bll/store";
-import {cardPackType, PacksStateType} from "./packs-reducer";
+import {cardPackType, getPacksTC} from "./packs-reducer";
+import {cardsAPI} from "../api/cards-api";
+import {setUserAC} from "../Login/login-reducer";
+import {loggedAC} from "../Bll/auth-reducer";
+import {Navigate} from "react-router-dom";
 
 
 const PacksList = () => {
 
     let packs = useSelector<AppRootReducerType, cardPackType[]>((state) => state.packs.cardPacks)
+    let packName = useSelector<AppRootReducerType, string>((state) => state.packs.getParams.packName)
+    let user_id = useSelector<AppRootReducerType, string>((state) => state.packs.getParams.user_id)
 
     const dispatch: any = useDispatch()
 
-    // это пригодиться позже:
+    useEffect(() => {
+        //показать крутилку
+        cardsAPI.me()
+            .then((res) => {
+                dispatch(setUserAC(res.data))
+                dispatch(loggedAC(true))
+            })
+            .catch((err)=> {
+                alert(err)
+            })
 
-    // let isLogged = useSelector<AppRootReducerType, boolean>((state) => state.auth.isLogged)
-    // if (!isLogged) {
-    //     return <Navigate to={`/login`}/>
-    // }
+        dispatch(getPacksTC())
+    }, [])
+    useEffect(() => {
+        //показать крутилку
+        dispatch(getPacksTC())
+    }, [packName, user_id])
+
+
+    let isLogged = useSelector<AppRootReducerType, boolean>((state) => state.auth.isLogged)
+    if (!isLogged) {
+        return <Navigate to={`/login`}/>
+    }
 
     return (
         <div className={s.backgroundPage}>
@@ -52,15 +73,15 @@ const PacksList = () => {
                                     key={index}
                                     name={p.name}
                                     cards={p.cardsCount}
-                                    updated = {p.updated}
-                                    created = {p.created}
+                                    updated={p.updated}
+                                    created={p.created}
                                     id={p._id}
                                     userId={p.user_id}
-                                    index = {index}
-                               />
+                                    index={index}
+                                />
                             })
                         }
-                                     </div>
+                    </div>
                     <div className={m.pagination}/>
 
                 </div>

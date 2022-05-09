@@ -1,8 +1,29 @@
-import React from 'react';
+import React, {useState} from 'react';
 import m from "./AddPackBlock.module.css";
 import {Button, Paper} from "@mui/material";
+import {useDispatch} from "react-redux";
+import {addNewPackTC, editSearchNameAC, getPacksTC} from "../packs-reducer";
 
 const AddPackBlock = () => {
+    const dispatch: any = useDispatch()
+
+    let [searchValue, setSearchValue] = useState<string>("")
+
+    const setNewValue = () => {
+        dispatch(editSearchNameAC(searchValue))
+        dispatch(getPacksTC())
+    }
+
+    const addNewPackTCHandler = () => {
+        dispatch(addNewPackTC({
+            cardsPack: { // потом эти данные брать из стейта или еще как
+                name: "Roman",
+                deckCover: "",
+                private: false,
+            }
+        }))
+    }
+
     return (
         <div className={m.addPackBlock}>
             <div className={m.addPackTitle}>Packs list</div>
@@ -15,13 +36,18 @@ const AddPackBlock = () => {
                     border: "1px solid #635D80",
                     backgroundColor: "#ECECF9"
                 }}>
-                    <input className={m.searchInput} placeholder={"Enter the name of the search waiting"}/>
+                    <input
+                        className={m.searchInput}
+                        placeholder={"Enter the name of the search waiting"}
+                        onChange={(e) => {setSearchValue(e.currentTarget.value)}}
+
+                    />
                     <Button
                         // disabled={isDisabledLogoutButton}
                         variant="text"
                         className={m.button}
                         style={{border: "none"}}
-                        // onClick={accountClose}
+                        onClick={setNewValue}
                     >Search
                     </Button>
                 </Paper>
@@ -34,6 +60,7 @@ const AddPackBlock = () => {
                         // onClick={editNameHandler}
                         className={m.button}
                         style={{width: "170px"}}
+                        onClick={addNewPackTCHandler}
                     >Add new pack</Button>
                 </div>
 
