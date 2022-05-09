@@ -59,8 +59,8 @@
     border-radius: 30px;
     height: 36px;
     width: 266px;
-	/* margin-right: 4px; */
-	/* margin-left: 173px; */
+    /* margin-right: 4px; */
+    /* margin-left: 173px; */
     border: none;
     font-size: 17px;
     margin-right: 60px;
@@ -74,4 +74,16 @@
 
 .loginButton:hover {
     background: green;
+}
+
+.account {
+    padding: 30px;
+    margin-right: 60px;
+    color: #2D2E46;
+    font-family: 'SF UI Display';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    opacity: 0.5;
 }

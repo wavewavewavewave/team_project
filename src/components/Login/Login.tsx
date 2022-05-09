@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginTC } from "./login-reducer";
 import { LoginParamsType } from "../api/cards-api";
 import { AppRootReducerType } from "../Bll/store";
-import { Navigate } from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -117,6 +117,9 @@ export const Login = () => {
                                     <button className={s.loginButton}>
                                         Login
                                     </button>
+                                    <div className={s.account}>
+                                        <NavLink to={'/registration'}>Don`t have an account?</NavLink>
+                                    </div>
                                 </FormGroup>
 
                             </div>
