@@ -1,0 +1,97 @@
+.packsPage {
+    position: absolute;
+    display: flex;
+    width: 1008px;
+    height: 636px;
+    left: 136px;
+    top: 84px;
+    background: #F9F9FE;
+    border-radius: 8px;
+}
+
+.cardsSettings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+    padding-top: 33px;
+    width: 243px;
+    background: #ECECF9;
+}
+
+.packsList {
+    border: 1px solid black;
+    width: 765px;
+}
+.addPackBlock {
+    border: 1px solid black;
+    height: 120px;
+}
+.addPackTitle {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    color: #2D2E46;
+    margin-left: 20px;
+    padding-top: 10px;
+}
+
+.searchInput{
+    background: #ECECF9;
+    opacity: 0.5;
+    border: 1px solid #635D80;
+    border-radius: 2px;
+    margin-left: 20px;
+    width: 461px;
+    height: 36px;
+
+}
+.packsTable {
+    border: 1px solid black;
+    height: 430px;
+    padding-left: 20px;
+    margin-left: 20px;
+}
+.pagination {
+    border: 1px solid black;
+    height: 78px;
+    padding-left: 20px;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.propertySelect {
+    border: 1px solid black;
+    height: 150px;
+    width: 200px;
+}
+
+.propertySelectTitle {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    color: #2D2E46;
+}
+
+.propertySelectGroup {
+    border: 1px solid black;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

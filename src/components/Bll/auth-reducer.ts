@@ -97,14 +97,14 @@ export const changeStatusSaveButtonAC = (status: boolean): changeStatusSaveButto
 export type changeStatusLogoutButtonActionType = {
     type: "PROFILE/SET-STATUS-LOGOUT-BUTTON",
     payload: {
-        isDisabledSaveButton: boolean
+        isDisabledLogoutButton: boolean
     }
 }
 export const changeStatusLogoutButtonAC = (status: boolean): changeStatusLogoutButtonActionType => {
     return {
         type: "PROFILE/SET-STATUS-LOGOUT-BUTTON",
         payload: {
-            isDisabledSaveButton: status
+            isDisabledLogoutButton: status
         }
     }
 }

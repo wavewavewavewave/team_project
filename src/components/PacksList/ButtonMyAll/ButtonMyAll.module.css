@@ -1,0 +1,32 @@
+.propertySelectGroup {
+    border: 1px solid black;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.propertySelectButtonAll {
+    color: #2D2E46;
+    width: 97px;
+    height: 36px;
+    background: #FFFFFF;
+    border-radius: 0px 2px 2px 0px;
+    border: none;
+    border-left: 1px solid #635D80;;
+}
+
+.propertySelectButtonMy {
+    color: #2D2E46;
+    width: 97px;
+    height: 36px;
+    background: #FFFFFF;
+    border-radius: 2px 0px 0px 2px;
+    border: none;
+    border-right: 1px solid #635D80;;
+}
+
+.propertySelectButtonIsActive {
+    background: #9A91C8;
+    color: #FFFFFF;
+}

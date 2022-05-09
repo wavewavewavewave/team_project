@@ -1,6 +1,5 @@
-import { errorMessageAC } from './../Bll/auth-reducer';
-import axios, { AxiosResponse } from 'axios'
-import { AuthStateType } from "../Bll/auth-reducer";
+import axios, {AxiosResponse} from 'axios'
+import {AuthStateType} from "../Bll/auth-reducer";
 
 export const instance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0/',
@@ -67,37 +66,17 @@ export type ResponseType = any
 export const cardsAPI = {
     editName(data: editNameDataType) {
         return instance.put<ResponseEditNameType>('auth/me', data);
-    }
-}
-
-export const authAPI = {
+    },
     me() {
         return instance.post<ResponseMeType>('auth/me', {});
-    },
-    register(email: string, password: string) {
-        return instance.post('auth/register', { email, password })
-    },
-    login(data: LoginParamsType) {
-        return instance.post<LoginParamsType, ResponseType>(`auth/login`, data)
     },
     logout() {
         return instance.delete<ResponseDeleteType>(`auth/me`, {})
     },
-    forgot(email: string) {
-        // debugger
-        const data = {
-            email,
-            from: "test-front-admin <ai73a@yandex.by>",
-            message: `
-                <div style="background-color: lime; padding: 15px">
-                password recovery link: 
-                <a href='http://localhost:3000/#/set-new-password/$token$'>link</a>
-                </div>
-            `
-        }
-        return instance.post(`auth/forgot`, { ...data })
+    register(email: string, password: any) {
+        return instance.post('auth/register', {email, password})
     },
-    setNewPassword(password: string, resetPasswordToken: string) {
-        return instance.post(`auth/set-new-password`, { password, resetPasswordToken })
+    login(data: LoginParamsType) {
+        return instance.post<LoginParamsType, ResponseType>(`auth/login`, data)
     }
 }

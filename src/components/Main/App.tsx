@@ -1,37 +1,34 @@
 import React, {useEffect} from 'react';
-import './App.css';
+import s from './App.module.css';
 
 import {Navigate, NavLink, Route, Routes} from "react-router-dom";
 import {Login} from "../Login/Login";
 import {Registration} from "../Registration/Registration";
-import {ForgotPassword} from "../Registration/ForgotPassword/ForgotPassword";
+import {SetPassword} from "../Registration/Password/SetPassword";
+import {RecoveryPassword} from "../Registration/Password/RecoveryPassword";
 import Profile from '../Profile/Profile';
-import { CreateNewPassword } from '../Registration/ForgotPassword/CreateNewPassword/CreateNewPassword';
-import { CheckEmail } from '../Registration/ForgotPassword/CheckEmail/CheckEmail';
-import { ErrorSnackbar } from '../ErrorSnackbar/ErrorSnackbar';
+import PacksList from "../PacksList/PacksList";
 
 function App() {
      return (
-        <div >
-             <ErrorSnackbar />
-
-                <NavLink to={'/login'}>Login</NavLink>
-                <NavLink to={'/registration'}>Registration</NavLink>
-                <NavLink to={'/profile'}>Profile</NavLink>
-                <NavLink to={'/forgotPas'}>Forgot password</NavLink>
-                <NavLink to={'/set-new-password'}>Create new password</NavLink>
+        <div className={s.App}>
+                <NavLink to={'/login'}>Login</NavLink>---
+                <NavLink to={'/registration'}>Registration</NavLink>---
+                <NavLink to={'/profile'}>Profile</NavLink>---
+                <NavLink to={'/setPassword'}>Password</NavLink>---
+                <NavLink to={'/recoveryPass'}>Recovery Password</NavLink>---
                 <NavLink to={'/404'}>404</NavLink>
+                <NavLink to={'/packsList'}>Packs List</NavLink>
 
                 <Routes>
                     <Route path={'/registration'} element={<Registration/>}/>
                     <Route path={"/login"} element={<Login/>}/>
                     <Route path={"/profile"} element={<Profile/>}/>
-                    <Route path={'/forgotPas'} element={<ForgotPassword/>}/>
-                    <Route path={'/set-new-password/:token'} element={<CreateNewPassword/>}/>
-                    <Route path={'/set-new-password'} element={<CreateNewPassword/>}/>
-                    <Route path={'/checkEmail'} element={<CheckEmail />}/>
+                    <Route path={'/setPassword'} element={<SetPassword/>}/>
+                    <Route path={'/recoveryPass'} element={<RecoveryPassword/>}/>
                     <Route path="/404" element={<h1 style={{textAlign: "center"}}>404: PAGE NOT FOUND</h1>}/>
                     <Route path="/" element={<Navigate to={"/profile"}/>}/>
+                    <Route path="/packsList" element={<PacksList/>}/>
                 </Routes>
             </div>
     );
