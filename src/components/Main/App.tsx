@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import s from './App.module.css';
+import './App.css'
 import {Navigate, NavLink, Route, Routes} from "react-router-dom";
 import {Login} from "../Login/Login";
 import {Registration} from "../Registration/Registration";
@@ -10,7 +10,7 @@ import {ForgotPassword} from "../Registration/ForgotPassword/ForgotPassword";
 
 function App() {
      return (
-        <div className={s.App}>
+        <div>
                 <NavLink to={'/login'}>Login</NavLink>---
                 <NavLink to={'/registration'}>Registration</NavLink>---
                 <NavLink to={'/profile'}>Profile</NavLink>---

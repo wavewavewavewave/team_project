@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import s from "../../generalStyle/GeneralStyle.module.css"
+// import s from "../../generalStyle/GeneralStyle.module.css"
 import m from "./Profile.module.css"
 import photoaparate from "../../img/Photoaparat.png"
 import {Button, FormControl, FormHelperText, Input, InputLabel} from "@mui/material";
@@ -65,7 +65,8 @@ const Profile = () => {
 
 
     return (
-        <div className={s.backgroundPage}>
+        <div>
+            {/*className={s.backgroundPage}*/}
             <div className={m.profilePage}>
                 <div className={m.titleBlock}>
                     <span className={m.title}>Personal Information</span>

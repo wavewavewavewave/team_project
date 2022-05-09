@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import s from "../../generalStyle/GeneralStyle.module.css"
+// import s from "../../generalStyle/GeneralStyle.module.css"
 import m from "./PacksList.module.css"
 import {useDispatch} from "react-redux";
 import Slider from '@mui/material/Slider';
@@ -20,7 +20,8 @@ const PacksList = () => {
     // }
 
     return (
-        <div className={s.backgroundPage}>
+        <div>
+            {/*className={s.backgroundPage}*/}
             <div className={m.packsPage}>
                 <div className={m.cardsSettings}>
                     <div className={m.propertySelect}>
