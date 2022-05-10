@@ -53,9 +53,9 @@ export const Login = () => {
             dispatch(loginTC(values))
         },
     })
-    // if (isLoggedIn) {
-    //     return <Navigate to={`/profile`} />
-    // }
+    if (isLoggedIn) {
+        return <Navigate to={`/profile`} />
+    }
 
     return (
         <Grid container justifyContent={'center'}>
@@ -91,7 +91,7 @@ export const Login = () => {
                                                         aria-label="toggle password visibility"
                                                         onClick={handleClick}
                                                     >
-                                                        {eye ? <VisibilityOff /> : <Visibility />}
+                                                        {eye ? <Visibility /> : <VisibilityOff />}
                                                     </IconButton>
                                                 </InputAdornment>
                                             )
