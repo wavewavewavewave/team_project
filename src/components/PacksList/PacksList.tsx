@@ -1,27 +1,41 @@
-import React, {useState} from 'react';
-// import s from "../../generalStyle/GeneralStyle.module.css"
+import React, {useEffect} from 'react';
+import s from "../../generalStyle/GeneralStyle.module.css"
 import m from "./PacksList.module.css"
-import {useDispatch} from "react-redux";
-import Slider from '@mui/material/Slider';
-import {Box} from "@mui/material";
+import {useDispatch, useSelector} from "react-redux";
 import SliderComponent from "./Slider/SliderComponent";
 import ButtonMyAll from "./ButtonMyAll/ButtonMyAll";
+import AddPackBlock from "./AddPackBlock/AddPackBlock";
+import TableTitle from "./TableTitle/TableTitle";
+import TableRow from "./TableRow/TableRow";
+import {AppRootReducerType} from "../Bll/store";
+import {cardPackType, getPacksTC} from "./packs-reducer";
+import {Navigate} from "react-router-dom";
+import Pagination from "./Pagination/Pagination";
 
 
 const PacksList = () => {
 
+    let packs = useSelector<AppRootReducerType, cardPackType[]>((state) => state.packs.cardPacks)
+    let packName = useSelector<AppRootReducerType, string>((state) => state.packs.getParams.packName)
+    let user_id = useSelector<AppRootReducerType, string>((state) => state.packs.getParams.user_id)
+    let sortPacks = useSelector<AppRootReducerType, string>((state) => state.packs.getParams.sortPacks)
+    let pageSize = useSelector<AppRootReducerType, number>((state) => state.packs.getParams.pageCount)
+
     const dispatch: any = useDispatch()
 
-    // это пригодиться позже:
+    useEffect(() => {
+        //показать крутилку
+        dispatch(getPacksTC())
+    }, [packName, user_id, sortPacks, pageSize])
 
-    // let isLogged = useSelector<AppRootReducerType, boolean>((state) => state.auth.isLogged)
-    // if (!isLogged) {
-    //     return <Navigate to={`/login`}/>
-    // }
+
+    let isLogged = useSelector<AppRootReducerType, boolean>((state) => state.auth.isLogged)
+    if (!isLogged) {
+        return <Navigate to={`/login`}/>
+    }
 
     return (
-        <div>
-            {/*className={s.backgroundPage}*/}
+        <div className={s.backgroundPage}>
             <div className={m.packsPage}>
                 <div className={m.cardsSettings}>
                     <div className={m.propertySelect}>
@@ -37,22 +51,25 @@ const PacksList = () => {
 
                 </div>
                 <div className={m.packsList}>
-                    <div className={m.addPackBlock}>
-                        <div className={m.addPackTitle}>Packs list</div>
-                        <div className={m.addPackTitle}>
-                            <input className={m.searchInput} placeholder={"Enter the name of the search waiting"}/>
-                            <button>Search</button>
-                            <button>Add new pack</button>
-                            {/*хард кодом добавить колоду
-                            сначала: axios.post('cards/pack', {cardsPack: {name: 'x'}})
-                            потом: get, получение всех колод завново с сортировкой которые были выбраны до этого
-                            */}
-                        </div>
-
+                    <AddPackBlock/>
+                    <div className={m.packsTable}>
+                        <TableTitle/>
+                        {
+                            packs.map((p, index) => {
+                                return <TableRow
+                                    key={index}
+                                    name={p.name}
+                                    cards={p.cardsCount}
+                                    updated={p.updated}
+                                    created={p.created}
+                                    id={p._id}
+                                    userId={p.user_id}
+                                    index={index}
+                                />
+                            })
+                        }
                     </div>
-                    <div className={m.packsTable}></div>
-                    <div className={m.pagination}></div>
-
+                    <Pagination/>
                 </div>
             </div>
         </div>

@@ -1,0 +1,10 @@
+.pagination {
+    border: 1px solid black;
+    height: 78px;
+    padding-left: 20px;
+
+}
+
+.selectedPage {
+    background-color: #9A91C8;
+    }

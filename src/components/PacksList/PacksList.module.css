@@ -2,7 +2,7 @@
     position: absolute;
     display: flex;
     width: 1008px;
-    height: 636px;
+    min-height: 636px;
     left: 136px;
     top: 84px;
     background: #F9F9FE;
@@ -23,54 +23,35 @@
     border: 1px solid black;
     width: 765px;
 }
-.addPackBlock {
-    border: 1px solid black;
-    height: 120px;
-}
-.addPackTitle {
-    font-style: normal;
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 33px;
-    color: #2D2E46;
-    margin-left: 20px;
-    padding-top: 10px;
-}
 
-.searchInput{
-    background: #ECECF9;
-    opacity: 0.5;
-    border: 1px solid #635D80;
-    border-radius: 2px;
-    margin-left: 20px;
-    width: 461px;
-    height: 36px;
-
-}
 .packsTable {
     border: 1px solid black;
-    height: 430px;
-    padding-left: 20px;
+    min-height: 430px;
     margin-left: 20px;
 }
-.pagination {
-    border: 1px solid black;
-    height: 78px;
-    padding-left: 20px;
+.tableTitle {
+    display: flex;
+    /*justify-content: space-between;*/
+     width: 669px;
+     height: 48px;
+     /*left: 427px;*/
+     /*top: 216px;*/
+     background: #ECECF9;
+ }
+.columnNames {
+    width: 135px;
+    display: flex;
+    align-items: center;
+ border: 1px solid;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 16px;
 
 
+
+    color: #000000;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

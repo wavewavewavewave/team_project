@@ -12,6 +12,16 @@ export type editNameDataType = {
     avatar?: string // url or base64
 }
 
+export type getPacksDataType = {
+    packName: string, // не обязательно
+    min: number, // не обязательно
+    max: number, // не обязательно
+    sortPacks: string, //"0updated" // не обязательно
+    page: number, // не обязательно
+    pageCount: number, // не обязательно
+    user_id: string,  // чьи колоды не обязательно, или прийдут все
+}
+
 
 export type ResponseEditNameType = {
     updatedUser: ResponseMeType, // все данные юзера
@@ -60,7 +70,13 @@ export type ResponseType = any
 // rememberMe: boolean;
 //
 // error?: string;
-
+export type addPackDataType = {
+    cardsPack: {
+        name: string,
+        deckCover: string, // не обязателен
+        private: boolean, // если не отправить будет такой
+    }
+}
 
 // api
 export const cardsAPI = {
@@ -78,5 +94,14 @@ export const cardsAPI = {
     },
     login(data: LoginParamsType) {
         return instance.post<LoginParamsType, ResponseType>(`auth/login`, data)
+    },
+    getPacks(params: getPacksDataType) {
+
+        return instance.get<getPacksDataType, ResponseType>(`/cards/pack`, {params})
+    },
+    addNewPack(params: addPackDataType) {
+
+        return instance.post<getPacksDataType, ResponseType>(`/cards/pack`, params)
     }
+
 }

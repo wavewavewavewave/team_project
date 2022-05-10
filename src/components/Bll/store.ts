@@ -3,11 +3,13 @@ import thunkMiddleware from 'redux-thunk'
 import { legacy_createStore as createStore} from 'redux'
 import {authReducer} from "./auth-reducer";
 import {LoginReducer} from "../Login/login-reducer";
+import {packsReducer} from "../PacksList/packs-reducer";
 
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    login: LoginReducer
+    login: LoginReducer,
+    packs: packsReducer,
 
 })
 
