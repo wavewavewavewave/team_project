@@ -18,7 +18,7 @@ export const Login = () => {
     const dispatch = useDispatch<any>()
     const isLoggedIn = useSelector<AppRootReducerType, boolean>(state => state.auth.isLogged)
 
-    const [eye, setEye] = useState(false)
+    const [eye, setEye] = useState(true)
     const handleClick = () => {
         if (eye) {
             setEye(false);
@@ -91,7 +91,7 @@ export const Login = () => {
                                                         aria-label="toggle password visibility"
                                                         onClick={handleClick}
                                                     >
-                                                        {eye ? <Visibility /> : <VisibilityOff />}
+                                                        {eye ? <VisibilityOff /> : <Visibility />}
                                                     </IconButton>
                                                 </InputAdornment>
                                             )
