@@ -3,6 +3,7 @@ import {addPackDataType, cardsAPI, getPacksDataType, ResponseMeType} from "../ap
 import {ThunkAction} from "redux-thunk";
 import {AppRootReducerType} from "../Bll/store";
 
+//Types
 
 export type cardPackType = {
     _id: string,
@@ -12,7 +13,6 @@ export type cardPackType = {
     created: string,
     updated: string,
 }
-
 export type PacksStateType = {
     isDisabledSearchButton: boolean,
     isDisabledAddNewPackButton: boolean,
@@ -38,6 +38,54 @@ export type PacksStateType = {
 
     // error: string,
 }
+export type setPacksDataType = {
+    cardPacks: cardPackType[]
+    cardPacksTotalCount: number
+    // количество колод
+    maxCardsCount: number
+    minCardsCount: number
+    page: number // выбранная страница
+    pageCount: number
+}
+export type showMyAllPacksACType = {
+    type: "PACKS-LIST/SHOW-MY-ALL-PACKS",
+    value: string
+}
+export type setPacksACType = {
+    type: "PACKS-LIST/SET-PACKS",
+    payload: setPacksDataType
+}
+export type editSearchNameACType = {
+
+    type: "PACKS-LIST/EDIT-SEARCH-VALUE",
+    value: string,
+
+}
+export type filterTableValue = "0updated" | "1updated"
+    | "0created" | "1created"
+    | "0cardsCount" | "1cardsCount"
+    | "0name" | "1name"
+export type filterTableACType = {
+    type: "PACKS-LIST/FILTER-TABLE",
+    filterValue: filterTableValue
+}
+export type currentPageChangeACType = {
+    type: "PACKS-LIST/CHANGE-CURRENT-PAGE",
+    pageNumber: number
+}
+export type sizePageChangeACType = {
+    type: "PACKS-LIST/CHANGE-SIZE-PAGE",
+    pageSize: number
+}
+
+type ActionsType = setPacksACType
+    | editSearchNameACType
+    | showMyAllPacksACType
+    | filterTableACType
+    | currentPageChangeACType
+    | sizePageChangeACType
+
+//State:
 
 const initialPacksState: PacksStateType = {
     isDisabledSearchButton: false,
@@ -128,15 +176,8 @@ const initialPacksState: PacksStateType = {
     // error: string,
 }
 
+//Reducer:
 
-type ActionsType = setPacksACType
-    | editSearchNameACType
-    | showMyAllPacksACType
-    | filterTableACType
-    | currentPageChangeACType
-| sizePageChangeACType
-
-//
 export const packsReducer = (state = initialPacksState, action: ActionsType): PacksStateType => {
     debugger
     switch (action.type) {
@@ -158,19 +199,8 @@ export const packsReducer = (state = initialPacksState, action: ActionsType): Pa
             return state;
     }
 }
-export type setPacksDataType = {
-    cardPacks: cardPackType[]
-    cardPacksTotalCount: number
-    // количество колод
-    maxCardsCount: number
-    minCardsCount: number
-    page: number // выбранная страница
-    pageCount: number
-}
-export type showMyAllPacksACType = {
-    type: "PACKS-LIST/SHOW-MY-ALL-PACKS",
-    value: string
-}
+
+//Action and Action Creators:
 
 export const showMyAllPacksAC = (value: string): showMyAllPacksACType => {
     return {
@@ -178,24 +208,11 @@ export const showMyAllPacksAC = (value: string): showMyAllPacksACType => {
         value
     }
 }
-
-export type setPacksACType = {
-    type: "PACKS-LIST/SET-PACKS",
-    payload: setPacksDataType
-}
-
 export const setPacksAC = (data: setPacksDataType): setPacksACType => {
     return {
         type: "PACKS-LIST/SET-PACKS",
         payload: data
     }
-}
-
-export type editSearchNameACType = {
-
-    type: "PACKS-LIST/EDIT-SEARCH-VALUE",
-    value: string,
-
 }
 export const editSearchNameAC = (value: string): editSearchNameACType => {
     return {
@@ -203,38 +220,18 @@ export const editSearchNameAC = (value: string): editSearchNameACType => {
         value
     }
 }
-
-export type filterTableValue = "0updated" | "1updated"
-    | "0created" | "1created"
-    | "0cardsCount" | "1cardsCount"
-    | "0name" | "1name"
-export type filterTableACType = {
-    type: "PACKS-LIST/FILTER-TABLE",
-    filterValue: filterTableValue
-}
-
 export const filterTableAC = (filterValue: filterTableValue): filterTableACType => {
     return {
         type: "PACKS-LIST/FILTER-TABLE",
         filterValue
     }
 }
-export type currentPageChangeACType = {
-    type: "PACKS-LIST/CHANGE-CURRENT-PAGE",
-    pageNumber: number
-}
-
 export const currentPageChangeAC = (pageNumber: number): currentPageChangeACType => {
     return {
         type: "PACKS-LIST/CHANGE-CURRENT-PAGE",
         pageNumber
     }
 }
-export type sizePageChangeACType = {
-    type: "PACKS-LIST/CHANGE-SIZE-PAGE",
-    pageSize: number
-}
-
 export const sizePageChangeAC = (pageSize: number): sizePageChangeACType => {
     return {
         type: "PACKS-LIST/CHANGE-SIZE-PAGE",
@@ -243,10 +240,10 @@ export const sizePageChangeAC = (pageSize: number): sizePageChangeACType => {
 }
 
 
-//
+//Thunk:
+
 type ThunkType = ThunkAction<void, AppRootReducerType, unknown, ActionsType>
-//
-//
+
 export const getPacksTC = (): ThunkType => {
 
     return (dispatch: Dispatch<ActionsType>, getState) => {
