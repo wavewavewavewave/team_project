@@ -129,7 +129,7 @@ const initialPacksState: PacksStateType = {
 }
 
 
-type ActionsType = setPacksACType | editSearchNameACType | showMyAllPacksACType
+type ActionsType = setPacksACType | editSearchNameACType | showMyAllPacksACType | filterTableACType
 
 //
 export const packsReducer = (state = initialPacksState, action: ActionsType): PacksStateType => {
@@ -140,6 +140,8 @@ export const packsReducer = (state = initialPacksState, action: ActionsType): Pa
             return {...state, getParams: {...state.getParams, packName: action.value}}
         case "PACKS-LIST/SHOW-MY-ALL-PACKS":
             return {...state, getParams: {...state.getParams, user_id: action.value}}
+        case "PACKS-LIST/FILTER-TABLE":
+            return {...state, getParams: {...state.getParams, sortPacks: action.filterValue}}
 
 
         default:
@@ -191,6 +193,23 @@ export const editSearchNameAC = (value: string): editSearchNameACType => {
         value
     }
 }
+
+export type filterTableValue = "0updated" | "1updated"
+    | "0created" | "1created"
+    | "0cardsCount" | "1cardsCount"
+    | "0name" | "1name"
+export type filterTableACType = {
+    type: "PACKS-LIST/FILTER-TABLE",
+    filterValue: filterTableValue
+}
+
+export const filterTableAC = (filterValue: filterTableValue): filterTableACType => {
+    return {
+        type: "PACKS-LIST/FILTER-TABLE",
+        filterValue
+    }
+}
+
 
 //
 type ThunkType = ThunkAction<void, AppRootReducerType, unknown, ActionsType>

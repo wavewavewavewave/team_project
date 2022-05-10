@@ -20,6 +20,7 @@ const PacksList = () => {
     let packs = useSelector<AppRootReducerType, cardPackType[]>((state) => state.packs.cardPacks)
     let packName = useSelector<AppRootReducerType, string>((state) => state.packs.getParams.packName)
     let user_id = useSelector<AppRootReducerType, string>((state) => state.packs.getParams.user_id)
+    let sortPacks = useSelector<AppRootReducerType, string>((state) => state.packs.getParams.sortPacks)
 
     const dispatch: any = useDispatch()
 
@@ -39,7 +40,7 @@ const PacksList = () => {
     useEffect(() => {
         //показать крутилку
         dispatch(getPacksTC())
-    }, [packName, user_id])
+    }, [packName, user_id, sortPacks])
 
 
     let isLogged = useSelector<AppRootReducerType, boolean>((state) => state.auth.isLogged)

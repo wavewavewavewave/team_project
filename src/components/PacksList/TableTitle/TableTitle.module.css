@@ -1,10 +1,7 @@
 .tableTitle {
     display: flex;
-    /*justify-content: space-between;*/
     width: 669px;
     height: 48px;
-    /*left: 427px;*/
-    /*top: 216px;*/
     background: #ECECF9;
 }
 .columnNames {
@@ -16,8 +13,22 @@
     font-weight: bold;
     font-size: 15px;
     line-height: 16px;
-
-
-
     color: #000000;
+}
+
+.downTriangle {
+    width:0;
+    height:0;
+    border-top: 10px solid #3ba3d0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom:0;
+}
+.upTriangle {
+    width:0;
+    height:0;
+    border-bottom: 10px solid #3ba3d0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top:0;
 }

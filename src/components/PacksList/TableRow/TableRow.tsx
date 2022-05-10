@@ -30,7 +30,7 @@ const TableRow = (props: TableRowPropsType) => {
 
     return (
         <div className={rowStyle}>
-            <div className={m.columnValues} style={{width: "175px"}}>{props.name}</div>
+            <div className={m.columnValues} style={{width: "175px"}}>{props.name} </div>
             <div className={m.columnValues} style={{justifyContent: "center", width: "80px"}}>{props.cards}</div>
             <div className={m.columnValues} style={{justifyContent: "center"}}>{updateDate}</div>
             <div className={m.columnValues} style={{justifyContent: "center"}}>{createdDate}</div>
