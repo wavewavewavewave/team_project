@@ -8,10 +8,13 @@ import {loggedAC, LogoutTC} from "../Bll/auth-reducer";
 import {AppRootReducerType} from "../Bll/store";
 import {editNameTC, loginTC, setUserAC} from "../Login/login-reducer";
 import {cardsAPI} from "../api/cards-api";
-import {Navigate} from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 
 
 const Profile = () => {
+
+    const params = useParams()
+    console.log(params)
 
     const dispatch: any = useDispatch()
 

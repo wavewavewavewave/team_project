@@ -26,19 +26,6 @@ const PacksList = () => {
 
     useEffect(() => {
         //показать крутилку
-        cardsAPI.me()
-            .then((res) => {
-                dispatch(setUserAC(res.data))
-                dispatch(loggedAC(true))
-            })
-            .catch((err)=> {
-                alert(err)
-            })
-
-        dispatch(getPacksTC())
-    }, [])
-    useEffect(() => {
-        //показать крутилку
         dispatch(getPacksTC())
     }, [packName, user_id, sortPacks])
 

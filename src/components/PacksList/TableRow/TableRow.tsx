@@ -2,6 +2,7 @@ import React from 'react';
 import m from "./TableRow.module.css";
 import {useSelector} from "react-redux";
 import {AppRootReducerType} from "../../Bll/store";
+import {NavLink} from "react-router-dom";
 
 type TableRowPropsType = {
     name: string,
@@ -30,7 +31,17 @@ const TableRow = (props: TableRowPropsType) => {
 
     return (
         <div className={rowStyle}>
-            <div className={m.columnValues} style={{width: "175px"}}>{props.name} </div>
+            <div className={m.columnValues} style={{width: "175px"}}>
+                <NavLink to={
+                    {
+                        pathname: '/profile', // нужно поменять на адрес компоненты карточкм
+                        search: `?id=${props.id}`
+                    }
+                }>
+                    {props.name}
+                </NavLink>
+
+            </div>
             <div className={m.columnValues} style={{justifyContent: "center", width: "80px"}}>{props.cards}</div>
             <div className={m.columnValues} style={{justifyContent: "center"}}>{updateDate}</div>
             <div className={m.columnValues} style={{justifyContent: "center"}}>{createdDate}</div>
