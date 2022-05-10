@@ -9,10 +9,8 @@ import TableTitle from "./TableTitle/TableTitle";
 import TableRow from "./TableRow/TableRow";
 import {AppRootReducerType} from "../Bll/store";
 import {cardPackType, getPacksTC} from "./packs-reducer";
-import {cardsAPI} from "../api/cards-api";
-import {setUserAC} from "../Login/login-reducer";
-import {loggedAC} from "../Bll/auth-reducer";
 import {Navigate} from "react-router-dom";
+import Pagination from "./Pagination/Pagination";
 
 
 const PacksList = () => {
@@ -21,13 +19,14 @@ const PacksList = () => {
     let packName = useSelector<AppRootReducerType, string>((state) => state.packs.getParams.packName)
     let user_id = useSelector<AppRootReducerType, string>((state) => state.packs.getParams.user_id)
     let sortPacks = useSelector<AppRootReducerType, string>((state) => state.packs.getParams.sortPacks)
+    let pageSize = useSelector<AppRootReducerType, number>((state) => state.packs.getParams.pageCount)
 
     const dispatch: any = useDispatch()
 
     useEffect(() => {
         //показать крутилку
         dispatch(getPacksTC())
-    }, [packName, user_id, sortPacks])
+    }, [packName, user_id, sortPacks, pageSize])
 
 
     let isLogged = useSelector<AppRootReducerType, boolean>((state) => state.auth.isLogged)
@@ -70,8 +69,7 @@ const PacksList = () => {
                             })
                         }
                     </div>
-                    <div className={m.pagination}/>
-
+                    <Pagination/>
                 </div>
             </div>
         </div>

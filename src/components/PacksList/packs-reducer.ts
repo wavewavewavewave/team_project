@@ -113,7 +113,7 @@ const initialPacksState: PacksStateType = {
     maxCardsCount: 4,
     minCardsCount: 0,
     page: 1,
-    pageCount: 8,
+    pageCount: 5,
 
     getParams: {
         packName: "", // не обязательно
@@ -121,7 +121,7 @@ const initialPacksState: PacksStateType = {
         max: 9, // не обязательно
         sortPacks: "0updated", // не обязательно
         page: 1, // не обязательно
-        pageCount: 8, // не обязательно
+        pageCount: 5, // не обязательно
         user_id: "",  // чьи колоды не обязательно, или прийдут все
     }
 
@@ -129,10 +129,16 @@ const initialPacksState: PacksStateType = {
 }
 
 
-type ActionsType = setPacksACType | editSearchNameACType | showMyAllPacksACType | filterTableACType
+type ActionsType = setPacksACType
+    | editSearchNameACType
+    | showMyAllPacksACType
+    | filterTableACType
+    | currentPageChangeACType
+| sizePageChangeACType
 
 //
 export const packsReducer = (state = initialPacksState, action: ActionsType): PacksStateType => {
+    debugger
     switch (action.type) {
         case "PACKS-LIST/SET-PACKS":
             return {...state, ...action.payload, cardPacks: action.payload.cardPacks}
@@ -142,6 +148,10 @@ export const packsReducer = (state = initialPacksState, action: ActionsType): Pa
             return {...state, getParams: {...state.getParams, user_id: action.value}}
         case "PACKS-LIST/FILTER-TABLE":
             return {...state, getParams: {...state.getParams, sortPacks: action.filterValue}}
+        case "PACKS-LIST/CHANGE-CURRENT-PAGE":
+            return {...state, getParams: {...state.getParams, page: action.pageNumber}}
+        case "PACKS-LIST/CHANGE-SIZE-PAGE":
+            return {...state, getParams: {...state.getParams, pageCount: action.pageSize}}
 
 
         default:
@@ -209,6 +219,28 @@ export const filterTableAC = (filterValue: filterTableValue): filterTableACType 
         filterValue
     }
 }
+export type currentPageChangeACType = {
+    type: "PACKS-LIST/CHANGE-CURRENT-PAGE",
+    pageNumber: number
+}
+
+export const currentPageChangeAC = (pageNumber: number): currentPageChangeACType => {
+    return {
+        type: "PACKS-LIST/CHANGE-CURRENT-PAGE",
+        pageNumber
+    }
+}
+export type sizePageChangeACType = {
+    type: "PACKS-LIST/CHANGE-SIZE-PAGE",
+    pageSize: number
+}
+
+export const sizePageChangeAC = (pageSize: number): sizePageChangeACType => {
+    return {
+        type: "PACKS-LIST/CHANGE-SIZE-PAGE",
+        pageSize
+    }
+}
 
 
 //
@@ -240,7 +272,7 @@ export const addNewPackTC = (params: addPackDataType): ThunkType => {
         // диспатчим крутилку
         cardsAPI.addNewPack(params)
             .then((res) => {
-                debugger
+
                 dispatch(getPacksTC())
             })
             .catch((err) => {
