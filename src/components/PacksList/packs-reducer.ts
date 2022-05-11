@@ -13,6 +13,17 @@ export type cardPackType = {
     created: string,
     updated: string,
 }
+
+export type GetParamsType = {
+    packName: string, // не обязательно
+    min: number, // не обязательно
+    max: number, // не обязательно
+    sortPacks: string, //"0updated" // не обязательно
+    page: number, // не обязательно
+    pageCount: number, // не обязательно
+    user_id: string,  // чьи колоды не обязательно, или прийдут все
+}
+
 export type PacksStateType = {
     isDisabledSearchButton: boolean,
     isDisabledAddNewPackButton: boolean,
@@ -26,15 +37,7 @@ export type PacksStateType = {
     pageCount: number
     // количество элементов на странице
 
-    getParams: {
-        packName: string, // не обязательно
-        min: number, // не обязательно
-        max: number, // не обязательно
-        sortPacks: string, //"0updated" // не обязательно
-        page: number, // не обязательно
-        pageCount: number, // не обязательно
-        user_id: string,  // чьи колоды не обязательно, или прийдут все
-    }
+    getParams: GetParamsType
 
     // error: string,
 }
@@ -50,6 +53,13 @@ export type setPacksDataType = {
 export type showMyAllPacksACType = {
     type: "PACKS-LIST/SHOW-MY-ALL-PACKS",
     value: string
+}
+export type editNumberOfCardsACType = {
+    type: "PACKS-LIST/EDIT-NUMBER-OF-CARDS",
+    payload: {
+        min: number,
+        max: number,
+    }
 }
 export type setPacksACType = {
     type: "PACKS-LIST/SET-PACKS",
@@ -84,6 +94,7 @@ type ActionsType = setPacksACType
     | filterTableACType
     | currentPageChangeACType
     | sizePageChangeACType
+    | editNumberOfCardsACType
 
 //State:
 
@@ -165,8 +176,8 @@ const initialPacksState: PacksStateType = {
 
     getParams: {
         packName: "", // не обязательно
-        min: 0, // не обязательно
-        max: 9, // не обязательно
+        min: 0, // двойной ползунок, не обязательно
+        max: 9, // двойной ползунок, не обязательно
         sortPacks: "0updated", // не обязательно
         page: 1, // не обязательно
         pageCount: 5, // не обязательно
@@ -193,7 +204,8 @@ export const packsReducer = (state = initialPacksState, action: ActionsType): Pa
             return {...state, getParams: {...state.getParams, page: action.pageNumber}}
         case "PACKS-LIST/CHANGE-SIZE-PAGE":
             return {...state, getParams: {...state.getParams, pageCount: action.pageSize}}
-
+        case "PACKS-LIST/EDIT-NUMBER-OF-CARDS":
+            return {...state, getParams: {...state.getParams, ...action.payload}}
 
         default:
             return state;
@@ -206,6 +218,15 @@ export const showMyAllPacksAC = (value: string): showMyAllPacksACType => {
     return {
         type: "PACKS-LIST/SHOW-MY-ALL-PACKS",
         value
+    }
+}
+export const editNumberOfCardsAC = (min: number, max: number): editNumberOfCardsACType => {
+    return {
+        type: "PACKS-LIST/EDIT-NUMBER-OF-CARDS",
+        payload: {
+            min,
+            max
+        }
     }
 }
 export const setPacksAC = (data: setPacksDataType): setPacksACType => {

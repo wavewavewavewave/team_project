@@ -34,7 +34,7 @@ const Pagination = () => {
 
     }
 
-    const portionSize = 5 // рамзер количества страниц для одновременного отображения
+    const portionSize = 5 // размер количества страниц для одновременного отображения
 
     let portionCount = Math.ceil(pagesCount / portionSize);
     let [portionNumber, setPortionNumber] = useState<number>(1)

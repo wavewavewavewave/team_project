@@ -1,10 +1,14 @@
 import React from 'react';
 import Slider from '@mui/material/Slider';
 import {Box} from "@mui/material";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppRootReducerType} from "../../Bll/store";
+import {editNumberOfCardsAC} from "../packs-reducer";
 
 const SliderComponent = () => {
+
+    const dispatch = useDispatch()
+
     let maxCardsCount = useSelector<AppRootReducerType, any>((state) => state.packs.maxCardsCount)
     let minCardsCount = useSelector<AppRootReducerType, any>((state) => state.packs.minCardsCount)
     const valuetext = (value: number) => {
@@ -20,21 +24,24 @@ const SliderComponent = () => {
 
     return (
         <Box sx={{ display: "flex",
+            flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
 
             width: 110}}>
             <Slider
-                // getAriaLabel={() => 'Temperature range'}
+
                 value={value}
-                // style={{width: "120px"}}
+                style={{width: "120px"}}
                 min={minCardsCount} // придет с бэкенда maxCardsCount
                 max={maxCardsCount} // придет с бэкенда maxCardsCount
                 onChange={handleChange}
-                valueLabelDisplay="auto"
+                valueLabelDisplay="on"
                 getAriaValueText={valuetext}
             />
-            <button>Select</button>
+            <button
+                onClick={() => dispatch(editNumberOfCardsAC(value[0], value[1]))}
+            >Select</button>
         </Box>
     );
 };
