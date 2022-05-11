@@ -13,7 +13,6 @@ export type cardPackType = {
     created: string,
     updated: string,
 }
-
 export type GetParamsType = {
     packName: string, // не обязательно
     min: number, // не обязательно
@@ -23,7 +22,6 @@ export type GetParamsType = {
     pageCount: number, // не обязательно
     user_id: string,  // чьи колоды не обязательно, или прийдут все
 }
-
 export type PacksStateType = {
     isDisabledSearchButton: boolean,
     isDisabledAddNewPackButton: boolean,
@@ -39,6 +37,7 @@ export type PacksStateType = {
 
     getParams: GetParamsType
 
+    circularProgress: boolean
     // error: string,
 }
 export type setPacksDataType = {
@@ -64,6 +63,12 @@ export type editNumberOfCardsACType = {
 export type setPacksACType = {
     type: "PACKS-LIST/SET-PACKS",
     payload: setPacksDataType
+}
+export type switchingProgressACType = {
+    type: "PACKS-LIST/SWITCH-PROGRESS",
+    payload: {
+        circularProgress: boolean
+    }
 }
 export type editSearchNameACType = {
 
@@ -95,6 +100,7 @@ type ActionsType = setPacksACType
     | currentPageChangeACType
     | sizePageChangeACType
     | editNumberOfCardsACType
+    | switchingProgressACType
 
 //State:
 
@@ -182,7 +188,9 @@ const initialPacksState: PacksStateType = {
         page: 1, // не обязательно
         pageCount: 5, // не обязательно
         user_id: "",  // чьи колоды не обязательно, или прийдут все
-    }
+    },
+
+    circularProgress: false,
 
     // error: string,
 }
@@ -190,7 +198,7 @@ const initialPacksState: PacksStateType = {
 //Reducer:
 
 export const packsReducer = (state = initialPacksState, action: ActionsType): PacksStateType => {
-    debugger
+
     switch (action.type) {
         case "PACKS-LIST/SET-PACKS":
             return {...state, ...action.payload, cardPacks: action.payload.cardPacks}
@@ -206,6 +214,8 @@ export const packsReducer = (state = initialPacksState, action: ActionsType): Pa
             return {...state, getParams: {...state.getParams, pageCount: action.pageSize}}
         case "PACKS-LIST/EDIT-NUMBER-OF-CARDS":
             return {...state, getParams: {...state.getParams, ...action.payload}}
+        case "PACKS-LIST/SWITCH-PROGRESS":
+            return {...state, ...action.payload}
 
         default:
             return state;
@@ -218,6 +228,14 @@ export const showMyAllPacksAC = (value: string): showMyAllPacksACType => {
     return {
         type: "PACKS-LIST/SHOW-MY-ALL-PACKS",
         value
+    }
+}
+export const switchingProgressAC = (circularProgress: boolean): switchingProgressACType => {
+    return {
+        type: "PACKS-LIST/SWITCH-PROGRESS",
+        payload: {
+            circularProgress
+        }
     }
 }
 export const editNumberOfCardsAC = (min: number, max: number): editNumberOfCardsACType => {
@@ -260,7 +278,6 @@ export const sizePageChangeAC = (pageSize: number): sizePageChangeACType => {
     }
 }
 
-
 //Thunk:
 
 type ThunkType = ThunkAction<void, AppRootReducerType, unknown, ActionsType>
@@ -268,7 +285,7 @@ type ThunkType = ThunkAction<void, AppRootReducerType, unknown, ActionsType>
 export const getPacksTC = (): ThunkType => {
 
     return (dispatch: Dispatch<ActionsType>, getState) => {
-        // диспатчим крутилку
+        dispatch(switchingProgressAC(true))
         let params = getState().packs.getParams
 
         cardsAPI.getPacks(params)
@@ -279,7 +296,7 @@ export const getPacksTC = (): ThunkType => {
                 // dispatch(errorMessageAC("some error"))
             })
             .finally(() => {
-                //выключаем крутилку
+                dispatch(switchingProgressAC(false))
             })
     }
 }
@@ -287,8 +304,25 @@ export const getPacksTC = (): ThunkType => {
 export const addNewPackTC = (params: addPackDataType): ThunkType => {
 
     return (dispatch: Dispatch<any>) => {
-        // диспатчим крутилку
+        dispatch(switchingProgressAC(true))
         cardsAPI.addNewPack(params)
+            .then((res) => {
+                dispatch(getPacksTC())
+            })
+            .catch((err) => {
+                // dispatch(errorMessageAC("some error"))
+            })
+            .finally(() => {
+                //выключаем крутилку
+            })
+    }
+}
+
+export const deletePackTC = (id: string): ThunkType => {
+
+    return (dispatch: Dispatch<any>) => {
+        dispatch(switchingProgressAC(true))
+        cardsAPI.deletePack(id)
             .then((res) => {
 
                 dispatch(getPacksTC())
@@ -297,7 +331,7 @@ export const addNewPackTC = (params: addPackDataType): ThunkType => {
                 // dispatch(errorMessageAC("some error"))
             })
             .finally(() => {
-                //выключаем крутилку
+
             })
     }
 }

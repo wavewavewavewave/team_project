@@ -1,6 +1,6 @@
 import React from 'react';
 import Slider from '@mui/material/Slider';
-import {Box} from "@mui/material";
+import {Box, Button} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootReducerType} from "../../Bll/store";
 import {editNumberOfCardsAC} from "../packs-reducer";
@@ -27,10 +27,8 @@ const SliderComponent = () => {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-
             width: 110}}>
             <Slider
-
                 value={value}
                 style={{width: "120px"}}
                 min={minCardsCount} // придет с бэкенда maxCardsCount
@@ -39,9 +37,17 @@ const SliderComponent = () => {
                 valueLabelDisplay="on"
                 getAriaValueText={valuetext}
             />
-            <button
+            <Button
                 onClick={() => dispatch(editNumberOfCardsAC(value[0], value[1]))}
-            >Select</button>
+                style={{
+                    width: "100px",
+                    backgroundColor: "#21268F",
+                    borderRadius: "60px",
+                    color: "#ECECF9",
+                    border: "none",
+                    textShadow: "0px 1px 1px rgba(0, 0, 0, 0.25)"
+                }}
+            >SELECT</Button>
         </Box>
     );
 };

@@ -102,6 +102,10 @@ export const cardsAPI = {
     addNewPack(params: addPackDataType) {
 
         return instance.post<getPacksDataType, ResponseType>(`/cards/pack`, params)
-    }
+    },
+    deletePack(idNumber: string) {
+
+        return instance.delete<getPacksDataType, ResponseType>(`/cards/pack/?id=${idNumber}`)
+    },
 
 }

@@ -13,19 +13,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     padding-top: 33px;
     width: 243px;
     background: #ECECF9;
 }
 
 .packsList {
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     width: 765px;
 }
 
 .packsTable {
-    border: 1px solid black;
+    /*border: 1px solid black;*/
+    margin-right: 76px;
     min-height: 430px;
     margin-left: 20px;
 }
@@ -42,21 +43,18 @@
     width: 135px;
     display: flex;
     align-items: center;
- border: 1px solid;
+ /*border: 1px solid;*/
     font-style: normal;
     font-weight: bold;
     font-size: 15px;
     line-height: 16px;
-
-
-
     color: #000000;
 }
 
 
 
 .propertySelect {
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     height: 150px;
     width: 200px;
 }
@@ -70,7 +68,7 @@
 }
 
 .propertySelectGroup {
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     height: 120px;
     display: flex;
     justify-content: center;
