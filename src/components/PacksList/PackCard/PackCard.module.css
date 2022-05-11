@@ -1,0 +1,73 @@
+.input {
+    display: flex;
+    left: 5.5%;
+    right: 5.5%;
+    top: 19.72%;
+    bottom: 75.73%;
+    background: #ECECF9;
+    opacity: 0.5;
+    border: 1px solid #635D80;
+    border-radius: 2px;
+    margin: 30px;
+}
+.inputBlock {
+    position: absolute;
+    display: flex;
+    width: 1008px;
+    min-height: 636px;
+    left: 136px;
+    top: 84px;
+    background: #F9F9FE;
+    border-radius: 8px;
+}
+.packName {
+    display: flex;
+    font-style: normal;
+    width: 128px;
+    height: 33px;
+    left: 194px;
+    top: 103px;
+    margin: 30px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    /* identical to box height */
+
+    color: #2D2E46;
+}
+.blockColumn {
+    display: flex;
+    width: 669px;
+    height: 48px;
+    background: #ECECF9;
+}
+.blockColumnNames {
+    width: 135px;
+    display: flex;
+    align-items: center;
+    /*border: 1px solid;*/
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 16px;
+    color: #000000;
+}
+.upTriangle {
+    width:0;
+    height:0;
+    border-bottom: 10px solid black;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top:0;
+}
+.downTriangle {
+    width:0;
+    height:0;
+    border-top: 10px solid black;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom:0;
+}

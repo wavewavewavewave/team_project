@@ -78,6 +78,28 @@ export type addPackDataType = {
     }
 }
 
+export type cardsPackType = {
+    cards: [
+        {
+            answer: string
+            question: string
+            cardsPack_id: string
+            grade: number
+            shots: number
+            user_id: string
+            created: string
+            updated: string
+            _id: string
+        },
+    ]
+    cardsTotalCount: number
+    maxGrade: number
+    minGrade: number
+    page: number
+    pageCount: number
+    packUserId: string
+}
+
 // api
 export const cardsAPI = {
     editName(data: editNameDataType) {
@@ -102,6 +124,9 @@ export const cardsAPI = {
     addNewPack(params: addPackDataType) {
 
         return instance.post<getPacksDataType, ResponseType>(`/cards/pack`, params)
+    },
+    getCards() {
+        return instance.get<cardsPackType>(`/cards/card`)
     }
 
 }
