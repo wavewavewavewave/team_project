@@ -17,7 +17,7 @@ const AddPackBlock = () => {
     const addNewPackTCHandler = () => {
         dispatch(addNewPackTC({
             cardsPack: { // потом эти данные брать из стейта или еще как
-                name: "Roman",
+                name: "New Pack",
                 deckCover: "",
                 private: false,
             }

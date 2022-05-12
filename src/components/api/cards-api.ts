@@ -78,6 +78,13 @@ export type addPackDataType = {
     }
 }
 
+export type myPackNameEditDataType = {
+    cardsPack: {
+        _id: string,
+        name: string,
+    }
+}
+
 // api
 export const cardsAPI = {
     editName(data: editNameDataType) {
@@ -102,6 +109,11 @@ export const cardsAPI = {
     addNewPack(params: addPackDataType) {
 
         return instance.post<getPacksDataType, ResponseType>(`/cards/pack`, params)
+    },
+
+    editNamePack(params: myPackNameEditDataType) {
+
+        return instance.put<getPacksDataType, ResponseType>(`/cards/pack`, params)
     },
     deletePack(idNumber: string) {
 

@@ -3,7 +3,7 @@ import m from "./TableRow.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootReducerType} from "../../Bll/store";
 import {NavLink} from "react-router-dom";
-import {deletePackTC} from "../packs-reducer";
+import {addNewPackTC, deletePackTC, myPackNameEditTC} from "../packs-reducer";
 
 type TableRowPropsType = {
     name: string,
@@ -37,6 +37,15 @@ const TableRow = (props: TableRowPropsType) => {
         dispatch(deletePackTC(id))
     }
 
+    const myPackNameEditTCHandler = (packId: string) => {
+        dispatch(myPackNameEditTC({
+            cardsPack: {
+                _id: packId,
+                name: "new name for Cards"
+            }
+        }))
+    }
+
     return (
         <div className={rowStyle}>
             <div className={m.columnValues} style={{width: "175px"}}>
@@ -58,7 +67,7 @@ const TableRow = (props: TableRowPropsType) => {
                     userId === props.userId
                         ? <div>
                             <button className={m.deleteButton} onClick={()=> cardDelete(props.id)}>Delete</button>
-                            <button className={m.editButton}>Edit</button>
+                            <button className={m.editButton} onClick={()=> myPackNameEditTCHandler(props.id)}>Edit</button>
                             <button className={m.editButton}>Learn</button>
 
                         </div>

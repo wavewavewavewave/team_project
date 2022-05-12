@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {addPackDataType, cardsAPI, getPacksDataType, ResponseMeType} from "../api/cards-api";
+import {addPackDataType, cardsAPI, getPacksDataType, myPackNameEditDataType, ResponseMeType} from "../api/cards-api";
 import {ThunkAction} from "redux-thunk";
 import {AppRootReducerType} from "../Bll/store";
 
@@ -306,6 +306,23 @@ export const addNewPackTC = (params: addPackDataType): ThunkType => {
     return (dispatch: Dispatch<any>) => {
         dispatch(switchingProgressAC(true))
         cardsAPI.addNewPack(params)
+            .then((res) => {
+                dispatch(getPacksTC())
+            })
+            .catch((err) => {
+                // dispatch(errorMessageAC("some error"))
+            })
+            .finally(() => {
+                //выключаем крутилку
+            })
+    }
+}
+
+export const myPackNameEditTC = (params: myPackNameEditDataType): ThunkType => {
+
+    return (dispatch: Dispatch<any>) => {
+        dispatch(switchingProgressAC(true))
+        cardsAPI.editNamePack(params)
             .then((res) => {
                 dispatch(getPacksTC())
             })
