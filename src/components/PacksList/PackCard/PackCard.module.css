@@ -71,3 +71,8 @@
     border-right: 10px solid transparent;
     border-bottom:0;
 }
+.cardsTable {
+    /*border: 1px solid black;*/
+    min-height: 430px;
+    margin-left: 1px;
+}

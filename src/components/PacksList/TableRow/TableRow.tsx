@@ -45,7 +45,7 @@ const TableRow = (props: TableRowPropsType) => {
             <div className={m.columnValues} style={{justifyContent: "center", width: "80px"}}>{props.cards}</div>
             <div className={m.columnValues} style={{justifyContent: "center"}}>{updateDate}</div>
             <div className={m.columnValues} style={{justifyContent: "center"}}>{createdDate}</div>
-            <div className={m.columnValues} style={{justifyContent: "space-around"}}>
+            <div className={m.columnValues} style={{justifyContent: "space-around"}}>g
                 {
                     userId === props.userId
                         ? <div>

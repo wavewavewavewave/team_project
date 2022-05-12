@@ -56,7 +56,8 @@ const PacksList = () => {
                         <TableTitle/>
                         {
                             packs.map((p, index) => {
-                                return <TableRow
+                                return (
+                                    <TableRow
                                     key={index}
                                     name={p.name}
                                     cards={p.cardsCount}
@@ -66,7 +67,7 @@ const PacksList = () => {
                                     userId={p.user_id}
                                     index={index}
                                 />
-                            })
+                                )})
                         }
                     </div>
                     <Pagination/>
