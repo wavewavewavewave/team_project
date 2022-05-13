@@ -1,4 +1,6 @@
 import React from 'react';
+import {Dispatch} from "redux";
+import {cardsAPI} from "../../api/cards-api";
 
 export type CardsType = {
     answer: string
@@ -100,9 +102,32 @@ const initialPacksCardState: initialPacksCardStateType = {
 }
 
 
-export const packsCardReducer = (state= initialPacksCardState, action: any): initialPacksCardStateType  => {
+export const packsCardReducer = (state = initialPacksCardState, action: ActionType): initialPacksCardStateType => {
     switch (action.type) {
+        case "PACKS-CARD/GET-CARDS" :
+            return {
+                ...state, cards: action.cards
+            }
         default:
             return state
+    }
+}
+
+export type PacksCardReducerACType = ReturnType<typeof packsCardReducerAC>
+export const packsCardReducerAC = (cards: CardsType[]) => {
+    return {
+        type: "PACKS-CARD/GET-CARDS",
+        cards
+    } as const
+}
+
+export type ActionType = PacksCardReducerACType
+export type ThunkType = Dispatch<ActionType>
+
+export const packsCardTC = () => {
+    return (dispatch: Dispatch<any>) => {
+        cardsAPI.getCards().then((res) => {
+           // dispatch(packsCardReducer(res.data.cards)
+        })
     }
 }

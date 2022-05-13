@@ -125,8 +125,8 @@ export const cardsAPI = {
 
         return instance.post<getPacksDataType, ResponseType>(`/cards/pack`, params)
     },
-    getCards(id: string) {
-        return instance.get<cardsPackResponseType>(`/cards/card${id}`)
+    getCards() {
+        return instance.get<cardsPackResponseType>(`/cards/card`)
     }
 
 }
