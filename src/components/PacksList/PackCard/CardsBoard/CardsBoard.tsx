@@ -19,7 +19,7 @@ export const CardsBoard = (props: CardsBoardType) => {
 
     return (
         <div className={rowStyle}>
-            <div>
+            <div className={s.columnQuestion} style={{justifyContent: "center"}}>
                 {props.question}
             </div>
             <div className={s.columnAnswer} style={{justifyContent: "center"}}>

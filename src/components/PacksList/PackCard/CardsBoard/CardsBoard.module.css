@@ -10,8 +10,32 @@
 .cardsRowStyle {
     background: #FFFFFF;
 }
+.columnQuestion {
+    width: 150px;
+    display: flex;
+    align-items: center;
+    /*border: 1px solid;*/
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 16px;
+    color: #000000;
+    margin-left: 20px;
+}
 .columnAnswer {
     width: 150px;
+    display: flex;
+    align-items: center;
+    border: 1px solid;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 16px;
+    color: #000000;
+    margin-left: 300px;
+}
+.columnUpdate {
+    width: 200px;
     display: flex;
     align-items: center;
     /*border: 1px solid;*/
@@ -21,18 +45,7 @@
     line-height: 16px;
     color: #000000;
     margin-left: 210px;
-}
-.columnUpdate {
-    width: 150px;
-    display: flex;
-    align-items: center;
-    /*border: 1px solid;*/
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 16px;
-    color: #000000;
-    margin-left: 150px;
+
 }
 .columnGrade {
     width: 150px;

@@ -34,7 +34,7 @@ const initialPacksCardState: initialPacksCardStateType = {
             shots: 1,
             user_id: "142151531535151",
             created: "2020-05-13T11:05:44.867Z",
-            updated: "2020-05-13T11:05:44.867Z",
+            updated: "2020-05-13",
             _id: "5ebbd48876810f1ad0e7ece3",
         },
         {
@@ -45,7 +45,7 @@ const initialPacksCardState: initialPacksCardStateType = {
             shots: 1,
             user_id: "142151531535151",
             created: "2020-05-13T11:05:44.867Z",
-            updated: "2020-05-13T11:05:44.867Z",
+            updated: "2020-05-13",
             _id: "5ebbd48876810f1ad0e7ece3",
         },
         {
@@ -56,7 +56,7 @@ const initialPacksCardState: initialPacksCardStateType = {
             shots: 1,
             user_id: "142151531535151",
             created: "2020-05-13T11:05:44.867Z",
-            updated: "2020-05-13T11:05:44.867Z",
+            updated: "2020-05-13",
             _id: "5ebbd48876810f1ad0e7ece3",
         },
         {
@@ -67,7 +67,7 @@ const initialPacksCardState: initialPacksCardStateType = {
             shots: 1,
             user_id: "142151531535151",
             created: "2020-05-13T11:05:44.867Z",
-            updated: "2020-05-13T11:05:44.867Z",
+            updated: "2020-05-13",
             _id: "5ebbd48876810f1ad0e7ece3",
         },
         {
@@ -78,7 +78,7 @@ const initialPacksCardState: initialPacksCardStateType = {
             shots: 1,
             user_id: "142151531535151",
             created: "2020-05-13T11:05:44.867Z",
-            updated: "2020-05-13T11:05:44.867Z",
+            updated: "2020-05-13",
             _id: "5ebbd48876810f1ad0e7ece3",
         },
         {
@@ -88,8 +88,8 @@ const initialPacksCardState: initialPacksCardStateType = {
             grade: 4.987525071790364,
             shots: 1,
             user_id: "142151531535151",
-            created: "2020-05-13T11:05:44.867Z",
-            updated: "2020-05-13T11:05:44.867Z",
+            created: "2020-05-13",
+            updated: "2020-05-13",
             _id: "5ebbd48876810f1ad0e7ece3",
         }
     ],
