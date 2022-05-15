@@ -12,27 +12,52 @@
 }
 .columnQuestion {
     width: 150px;
+    position: absolute;
     display: flex;
     align-items: center;
     /*border: 1px solid;*/
     font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
+    /*font-weight: normal;*/
+    /*font-size: 15px;*/
     line-height: 16px;
     color: #000000;
-    margin-left: 20px;
+    padding-top: 32px;
+    /*margin-left: 20px;*/
+    /*position: absolute;*/
+    /*align-items: center;*/
+    /*width: 182px;*/
+    /*height: 16px;*/
+    /*left: 50px;*/
+    /*top: 220px;*/
+    font-family: 'SF UI Display';
+    /*font-style: normal;*/
+    font-weight: 600;
+    font-size: 13px;
+    /*line-height: 16px;*/
 }
 .columnAnswer {
-    width: 150px;
+    width: 160px;
     display: flex;
     align-items: center;
-    border: 1px solid;
+    /*border: 1px solid;*/
     font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 16px;
+    /*font-weight: normal;*/
+    /*font-size: 15px;*/
+    /*line-height: 16px;*/
+    padding-top: 22px;
     color: #000000;
-    margin-left: 300px;
+    margin-left: 400px;
+    /*position: absolute;*/
+    /*width: 213px;*/
+    /*height: 16px;*/
+    /*left: 514.48px;*/
+    /*top: 280px;*/
+
+    font-family: 'SF UI Display';
+    /*font-style: normal;*/
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
 }
 .columnUpdate {
     width: 200px;
