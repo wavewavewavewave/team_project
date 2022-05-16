@@ -29,7 +29,7 @@ const PacksList = () => {
     } = useSelector<AppRootReducerType, GetParamsType>((state) => state.packs.getParams)
 
     const dispatch: any = useDispatch()
-
+//1111
     useEffect(() => {
         //показать крутилку
         dispatch(getPacksTC())
