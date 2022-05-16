@@ -17,7 +17,7 @@ const AddPackBlock = () => {
     const addNewPackTCHandler = () => {
         dispatch(addNewPackTC({
             cardsPack: { // потом эти данные брать из стейта или еще как
-                name: "Roman",
+                name: "New Pack",
                 deckCover: "",
                 private: false,
             }
@@ -40,7 +40,6 @@ const AddPackBlock = () => {
                         className={m.searchInput}
                         placeholder={"Enter the name of the search waiting"}
                         onChange={(e) => {setSearchValue(e.currentTarget.value)}}
-
                     />
                     <Button
                         // disabled={isDisabledLogoutButton}
@@ -52,23 +51,14 @@ const AddPackBlock = () => {
                     </Button>
                 </Paper>
                 <div className={m.buttonContainer}>
-
-
                     <Button
                         // disabled={isDisabledSaveButton}
                         variant="contained"
-                        // onClick={editNameHandler}
                         className={m.button}
-                        style={{width: "170px"}}
+                        style={{width: "170px", backgroundColor: "#21268F", borderRadius: "60px"}}
                         onClick={addNewPackTCHandler}
                     >Add new pack</Button>
                 </div>
-
-
-                {/*хард кодом добавить колоду
-                            сначала: axios.post('cards/pack', {cardsPack: {name: 'x'}})
-                            потом: get, получение всех колод завново с сортировкой которые были выбраны до этого
-                            */}
             </div>
 
         </div>

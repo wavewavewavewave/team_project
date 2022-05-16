@@ -8,25 +8,32 @@ import AddPackBlock from "./AddPackBlock/AddPackBlock";
 import TableTitle from "./TableTitle/TableTitle";
 import TableRow from "./TableRow/TableRow";
 import {AppRootReducerType} from "../Bll/store";
-import {cardPackType, getPacksTC} from "./packs-reducer";
+import {cardPackType, getPacksTC, GetParamsType} from "./packs-reducer";
 import {Navigate} from "react-router-dom";
 import Pagination from "./Pagination/Pagination";
+import {CircularProgress, Paper} from "@mui/material";
 
 
 const PacksList = () => {
 
     let packs = useSelector<AppRootReducerType, cardPackType[]>((state) => state.packs.cardPacks)
-    let packName = useSelector<AppRootReducerType, string>((state) => state.packs.getParams.packName)
-    let user_id = useSelector<AppRootReducerType, string>((state) => state.packs.getParams.user_id)
-    let sortPacks = useSelector<AppRootReducerType, string>((state) => state.packs.getParams.sortPacks)
-    let pageSize = useSelector<AppRootReducerType, number>((state) => state.packs.getParams.pageCount)
+    let circularProgress = useSelector<AppRootReducerType, boolean>((state) => state.packs.circularProgress)
+    let {
+        min,
+        max,
+        sortPacks,
+        user_id,
+        packName,
+        pageCount,
+        ...rest
+    } = useSelector<AppRootReducerType, GetParamsType>((state) => state.packs.getParams)
 
     const dispatch: any = useDispatch()
-
+//1111
     useEffect(() => {
         //показать крутилку
         dispatch(getPacksTC())
-    }, [packName, user_id, sortPacks, pageSize])
+    }, [packName, user_id, sortPacks, pageCount, min, max])
 
 
     let isLogged = useSelector<AppRootReducerType, boolean>((state) => state.auth.isLogged)
@@ -35,7 +42,17 @@ const PacksList = () => {
     }
 
     return (
+
         <div className={s.backgroundPage}>
+            {circularProgress &&
+                <CircularProgress style={{
+                    display: "block",
+                    position: "fixed",
+                    top: "50%",
+                    left: "50%",
+                    zIndex: "1"
+                }}/>}
+
             <div className={m.packsPage}>
                 <div className={m.cardsSettings}>
                     <div className={m.propertySelect}>
@@ -53,6 +70,7 @@ const PacksList = () => {
                 <div className={m.packsList}>
                     <AddPackBlock/>
                     <div className={m.packsTable}>
+                        <Paper elevation={6}>
                         <TableTitle/>
                         {
                             packs.map((p, index) => {
@@ -69,6 +87,7 @@ const PacksList = () => {
                                 />
                                 )})
                         }
+                        </Paper>
                     </div>
                     <Pagination/>
                 </div>

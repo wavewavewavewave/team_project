@@ -1,8 +1,9 @@
 import React from 'react';
 import m from "./TableRow.module.css";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppRootReducerType} from "../../Bll/store";
 import {NavLink} from "react-router-dom";
+import {addNewPackTC, deletePackTC, myPackNameEditTC} from "../packs-reducer";
 
 type TableRowPropsType = {
     name: string,
@@ -22,12 +23,28 @@ type TableRowPropsType = {
 
 const TableRow = (props: TableRowPropsType) => {
 
+    const dispatch: any = useDispatch()
+
     let updateDate = props.updated.slice(0, 10)
     let createdDate = props.created.slice(0, 10)
 
     let userId = useSelector<AppRootReducerType, string>((state) => state.login._id)
 
     let rowStyle = props.index % 2 != 0 ? `${m.tableRow}` : `${m.tableRow} + ${m.tableRowStyle}`
+
+
+    const cardDelete = (id: string) => {
+        dispatch(deletePackTC(id))
+    }
+
+    const myPackNameEditTCHandler = (packId: string) => {
+        dispatch(myPackNameEditTC({
+            cardsPack: {
+                _id: packId,
+                name: "new name for Cards"
+            }
+        }))
+    }
 
     return (
         <div className={rowStyle}>
@@ -49,8 +66,8 @@ const TableRow = (props: TableRowPropsType) => {
                 {
                     userId === props.userId
                         ? <div>
-                            <button className={m.deleteButton} disabled>Delete</button>
-                            <button className={m.editButton}>Edit</button>
+                            <button className={m.deleteButton} onClick={()=> cardDelete(props.id)}>Delete</button>
+                            <button className={m.editButton} onClick={()=> myPackNameEditTCHandler(props.id)}>Edit</button>
                             <button className={m.editButton}>Learn</button>
 
                         </div>
@@ -58,10 +75,6 @@ const TableRow = (props: TableRowPropsType) => {
 
                 }
 
-
-                {/*<button className={m.deleteButton} disabled>Delete</button>*/}
-                {/*<button className={m.editButton}>Edit</button>*/}
-                {/*<button className={m.editButton}>Learn</button>*/}
             </div>
         </div>
     );

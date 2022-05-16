@@ -52,7 +52,7 @@ const TableTitle = () => {
     return (
         <div className={m.tableTitle}>
             <div className={m.columnNames} style={{width: "175px"}}>
-                Name
+                <span style={{paddingLeft: "20px"}}>Name</span>
 
                 <div className={nameSort === "0name" ? m.upTriangle : m.downTriangle} onClick={editNameSortHandler}/>
 
@@ -75,7 +75,7 @@ const TableTitle = () => {
                      onClick={editCreatedSortHandler}/>
 
             </div>
-            <div className={m.columnNames}>Actions</div>
+            <div className={m.columnNames} style={{justifyContent: "center"}}>Actions</div>
         </div>
     );
 };

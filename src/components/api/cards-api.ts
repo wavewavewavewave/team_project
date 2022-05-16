@@ -2,7 +2,7 @@ import axios, {AxiosResponse} from 'axios'
 import {AuthStateType} from "../Bll/auth-reducer";
 
 export const instance = axios.create({
-     baseURL: 'https://neko-back.herokuapp.com/2.0/',
+    baseURL: 'https://neko-back.herokuapp.com/2.0/',
     // baseURL: 'http://localhost:7542/2.0/',
     withCredentials: true,
 })
@@ -78,37 +78,11 @@ export type addPackDataType = {
     }
 }
 
-export type cardsPackResponseType = {
-    cards: [
-        {
-            answer: string
-            question: string
-            cardsPack_id: string
-            grade: number
-            shots: number
-            user_id: string
-            created: string
-            updated: string
-            _id: string
-        },
-    ]
-    cardsTotalCount: number
-    maxGrade: number
-    minGrade: number
-    packUserId: string
-    page: number
-    pageCount: number
-}
-
-export type cardsGetType = {
-    // ?cardAnswer=english // не обязательно
-    // &cardQuestion=english // не обязательно
-    cardsPack_id: string
-    // &min=1 // не обязательно
-    // &max=4 // не обязательно
-    // &sortCards=0grade // не обязательно
-    // &page=1 // не обязательно
-    // &pageCount=7
+export type myPackNameEditDataType = {
+    cardsPack: {
+        _id: string,
+        name: string,
+    }
 }
 
 // api
@@ -136,8 +110,14 @@ export const cardsAPI = {
 
         return instance.post<getPacksDataType, ResponseType>(`/cards/pack`, params)
     },
-    getCards(params: string) {
-        return instance.get<cardsPackResponseType>(`/cards/card`,{params})
-    }
+
+    editNamePack(params: myPackNameEditDataType) {
+
+        return instance.put<getPacksDataType, ResponseType>(`/cards/pack`, params)
+    },
+    deletePack(idNumber: string) {
+
+        return instance.delete<getPacksDataType, ResponseType>(`/cards/pack/?id=${idNumber}`)
+    },
 
 }

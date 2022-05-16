@@ -1,5 +1,4 @@
 .addPackBlock {
-    border: 1px solid black;
     height: 120px;
 }
 .addPackTitle {
@@ -16,14 +15,10 @@
 .searchInput{
     background: #ECECF9;
     opacity: 0.5;
-    /*border: 1px solid #635D80;*/
     border-radius: 2px;
-    /*margin-left: 20px;*/
+    border: none;
     width: 300px;
     height: 36px;
-    border-right: none;
-    border-bottom: none;
-
 }
 
 .buttonContainer {
@@ -44,7 +39,6 @@
     line-height: 19px;
     text-align: center;
     letter-spacing: 0.01em;
-    /* identical to box height */
     color: #ECECF9;
     border: none;
     background-color: #21268F;
