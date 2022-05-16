@@ -126,8 +126,7 @@ export type ThunkType = Dispatch<ActionType>
 
 export const packsCardTC = (id: string) => {
     return (dispatch: Dispatch<any>) => {
-        cardsAPI.getCards(id).then((res) => {
+        //cardsAPI.getCards(id).then((res) => {
              //dispatch(packsCardReducer(res.data.cards)
-        })
+        }
     }
-}
