@@ -100,6 +100,17 @@ export type cardsPackResponseType = {
     pageCount: number
 }
 
+export type cardsGetType = {
+    // ?cardAnswer=english // не обязательно
+    // &cardQuestion=english // не обязательно
+    cardsPack_id: string
+    // &min=1 // не обязательно
+    // &max=4 // не обязательно
+    // &sortCards=0grade // не обязательно
+    // &page=1 // не обязательно
+    // &pageCount=7
+}
+
 // api
 export const cardsAPI = {
     editName(data: editNameDataType) {
@@ -125,8 +136,8 @@ export const cardsAPI = {
 
         return instance.post<getPacksDataType, ResponseType>(`/cards/pack`, params)
     },
-    getCards() {
-        return instance.get<cardsPackResponseType>(`/cards/card`)
+    getCards(params: string) {
+        return instance.get<cardsPackResponseType>(`/cards/card`,{params})
     }
 
 }
