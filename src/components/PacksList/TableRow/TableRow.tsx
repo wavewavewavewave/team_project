@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import m from "./TableRow.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootReducerType} from "../../Bll/store";
 import {NavLink} from "react-router-dom";
 import {addNewPackTC, deletePackTC, myPackNameEditTC} from "../packs-reducer";
+import DeleteModal from "../../common/Modal/DeleteModal/DeleteModal";
 
 type TableRowPropsType = {
     name: string,
@@ -32,11 +33,6 @@ const TableRow = (props: TableRowPropsType) => {
 
     let rowStyle = props.index % 2 != 0 ? `${m.tableRow}` : `${m.tableRow} + ${m.tableRowStyle}`
 
-
-    const cardDelete = (id: string) => {
-        dispatch(deletePackTC(id))
-    }
-
     const myPackNameEditTCHandler = (packId: string) => {
         dispatch(myPackNameEditTC({
             cardsPack: {
@@ -46,8 +42,14 @@ const TableRow = (props: TableRowPropsType) => {
         }))
     }
 
+    const [modalActive, setModalActive] = useState(false)
+
     return (
         <div className={rowStyle}>
+            <DeleteModal id={props.id} active={modalActive} setActive={setModalActive} name={props.name}/>
+
+
+
             <div className={m.columnValues} style={{width: "175px"}}>
                 <NavLink to={
                     {
@@ -66,15 +68,13 @@ const TableRow = (props: TableRowPropsType) => {
                 {
                     userId === props.userId
                         ? <div>
-                            <button className={m.deleteButton} onClick={()=> cardDelete(props.id)}>Delete</button>
+                            <button className={m.deleteButton} onClick={()=> setModalActive(true)}>Delete</button>
                             <button className={m.editButton} onClick={()=> myPackNameEditTCHandler(props.id)}>Edit</button>
                             <button className={m.editButton}>Learn</button>
 
                         </div>
                         : <button className={m.editButton}>Learn</button>
-
                 }
-
             </div>
         </div>
     );

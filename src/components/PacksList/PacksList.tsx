@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from "../../generalStyle/GeneralStyle.module.css"
 import m from "./PacksList.module.css"
 import {useDispatch, useSelector} from "react-redux";
@@ -12,7 +12,6 @@ import {cardPackType, getPacksTC, GetParamsType} from "./packs-reducer";
 import {Navigate} from "react-router-dom";
 import Pagination from "./Pagination/Pagination";
 import {CircularProgress, Paper} from "@mui/material";
-
 
 const PacksList = () => {
 
@@ -29,6 +28,8 @@ const PacksList = () => {
     } = useSelector<AppRootReducerType, GetParamsType>((state) => state.packs.getParams)
 
     const dispatch: any = useDispatch()
+
+
 //1111
     useEffect(() => {
         //показать крутилку
@@ -44,6 +45,7 @@ const PacksList = () => {
     return (
 
         <div className={s.backgroundPage}>
+
             {circularProgress &&
                 <CircularProgress style={{
                     display: "block",
@@ -71,22 +73,23 @@ const PacksList = () => {
                     <AddPackBlock/>
                     <div className={m.packsTable}>
                         <Paper elevation={6}>
-                        <TableTitle/>
-                        {
-                            packs.map((p, index) => {
-                                return (
-                                    <TableRow
-                                    key={index}
-                                    name={p.name}
-                                    cards={p.cardsCount}
-                                    updated={p.updated}
-                                    created={p.created}
-                                    id={p._id}
-                                    userId={p.user_id}
-                                    index={index}
-                                />
-                                )})
-                        }
+                            <TableTitle/>
+                            {
+                                packs.map((p, index) => {
+                                    return (
+                                        <TableRow
+                                            key={index}
+                                            name={p.name}
+                                            cards={p.cardsCount}
+                                            updated={p.updated}
+                                            created={p.created}
+                                            id={p._id}
+                                            userId={p.user_id}
+                                            index={index}
+                                        />
+                                    )
+                                })
+                            }
                         </Paper>
                     </div>
                     <Pagination/>
