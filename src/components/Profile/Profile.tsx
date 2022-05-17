@@ -14,7 +14,6 @@ import {Navigate, useParams} from "react-router-dom";
 const Profile = () => {
 
     const params = useParams()
-    console.log(params)
 
     const dispatch: any = useDispatch()
 
@@ -32,7 +31,6 @@ const Profile = () => {
     let [changeOn, setChangeOn] = useState(false)
     useEffect(() => {
         //показать крутилку
-
 
         cardsAPI.me()
             .then((res) => {

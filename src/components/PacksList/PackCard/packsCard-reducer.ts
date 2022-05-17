@@ -1,13 +1,15 @@
 import React from 'react';
 import {Dispatch} from "redux";
 import {cardsAPI} from "../../api/cards-api";
+import {AppRootReducerType} from "../../Bll/store";
+import {ThunkAction} from "redux-thunk";
 
 export type CardsType = {
     answer: string
     question: string
     cardsPack_id: string
-    grade: number
-    shots: number
+    grade: null
+    shots: null
     user_id: string
     created: string
     updated: string
@@ -22,83 +24,105 @@ export type initialPacksCardStateType = {
     packUserId: string
     page: number
     pageCount: number
+
+    getCards: {
+        cardAnswer: string,
+        cardQuestion: string,
+        cardsPack_id: string,
+        min: number,
+        max: number,
+        sortCard: string,
+        page: number,
+        pageCount: number,
+    }
 }
 
 const initialPacksCardState: initialPacksCardStateType = {
     cards: [
         {
             answer: "J.Cole",
-            question: "Who is The best Rapper",
-            cardsPack_id: "5eb6a2f72f849402d46c6ac4",
-            grade: 4.987525071790364,
-            shots: 1,
-            user_id: "142151531535151",
+            question: "",
+            cardsPack_id: "",
+            grade: null,
+            shots: null,
+            user_id: "",
+            created: "2020-05-13T11:05:44.867Z",
+            updated: "2020-05-13",
+            _id: "",
+        },
+        {
+            answer: "J.Cole",
+            question: "",
+            cardsPack_id: "",
+            grade: null,
+            shots: null,
+            user_id: "",
             created: "2020-05-13T11:05:44.867Z",
             updated: "2020-05-13",
             _id: "5ebbd48876810f1ad0e7ece3",
         },
         {
             answer: "J.Cole",
-            question: "Who is The best Rapper",
-            cardsPack_id: "5eb6a2f72f849402d46c6ac4",
-            grade: 4.987525071790364,
-            shots: 1,
-            user_id: "142151531535151",
+            question: "",
+            cardsPack_id: "",
+            grade: null,
+            shots: null,
+            user_id: "",
             created: "2020-05-13T11:05:44.867Z",
             updated: "2020-05-13",
-            _id: "5ebbd48876810f1ad0e7ece3",
+            _id: "",
         },
         {
             answer: "J.Cole",
-            question: "Who is The best Rapper",
-            cardsPack_id: "5eb6a2f72f849402d46c6ac4",
-            grade: 4.987525071790364,
-            shots: 1,
-            user_id: "142151531535151",
+            question: "",
+            cardsPack_id: "",
+            grade: null,
+            shots: null,
+            user_id: "",
             created: "2020-05-13T11:05:44.867Z",
             updated: "2020-05-13",
-            _id: "5ebbd48876810f1ad0e7ece3",
+            _id: "",
         },
         {
             answer: "J.Cole",
-            question: "Who is The best Rapper",
-            cardsPack_id: "5eb6a2f72f849402d46c6ac4",
-            grade: 4.987525071790364,
-            shots: 1,
+            question: "",
+            cardsPack_id: "",
+            grade: null,
+            shots: null,
             user_id: "142151531535151",
             created: "2020-05-13T11:05:44.867Z",
             updated: "2020-05-13",
-            _id: "5ebbd48876810f1ad0e7ece3",
+            _id: "",
         },
         {
             answer: "J.Cole",
-            question: "Who is The best Rapper",
-            cardsPack_id: "5eb6a2f72f849402d46c6ac4",
-            grade: 4.987525071790364,
-            shots: 1,
-            user_id: "142151531535151",
-            created: "2020-05-13T11:05:44.867Z",
-            updated: "2020-05-13",
-            _id: "5ebbd48876810f1ad0e7ece3",
-        },
-        {
-            answer: "J.Cole",
-            question: "Who is The best Rapper",
-            cardsPack_id: "5eb6a2f72f849402d46c6ac4",
-            grade: 4.987525071790364,
-            shots: 1,
-            user_id: "142151531535151",
+            question: "",
+            cardsPack_id: "",
+            grade: null,
+            shots: null,
+            user_id: "",
             created: "2020-05-13",
             updated: "2020-05-13",
-            _id: "5ebbd48876810f1ad0e7ece3",
+            _id: "",
         }
     ],
-    cardsTotalCount: 3,
+    cardsTotalCount: 6,
     maxGrade: 4.987525071790364,
     minGrade: 2.0100984354076568,
     page: 1,
-    pageCount: 4,
-    packUserId: "5eecf82a3ed8f700042f1186",
+    pageCount: 7,
+    packUserId: "",
+
+    getCards: {
+        cardAnswer: "",
+        cardQuestion: "",
+        cardsPack_id: "",
+        min: 1,
+        max: 4,
+        sortCard: "0grade",
+        page: 1,
+        pageCount: 7,
+    }
 }
 
 
@@ -122,12 +146,17 @@ export const packsCardReducerAC = (cards: CardsType[]) => {
 }
 
 export type ActionType = PacksCardReducerACType
-export type ThunkType = Dispatch<ActionType>
+export type ThunkType = ThunkAction<void, AppRootReducerType, unknown, ActionType>
 
-export const packsCardTC = (id: string) => {
-    return (dispatch: Dispatch<any>) => {
-        cardsAPI.getCards(id).then((res) => {
-             //dispatch(packsCardReducer(res.data.cards)
+export const packsCardTC = (id: any): ThunkType => {
+    return (dispatch: Dispatch<ActionType>, getState) => {
+        // let id = '60cf378d48b4de00041bef4b'
+        // let params = {cardsPack_id: id}
+         let params = id
+        cardsAPI.getCards(params).then((res) => {
+            //dispatch(packsCardReducer(res.data.packUserId))
+        }).catch((err) => {
+
         })
     }
 }

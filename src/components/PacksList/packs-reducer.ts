@@ -179,7 +179,7 @@ const initialPacksState: PacksStateType = {
 //Reducer:
 
 export const packsReducer = (state = initialPacksState, action: ActionsType): PacksStateType => {
-    debugger
+    //debugger
     switch (action.type) {
         case "PACKS-LIST/SET-PACKS":
             return {...state, ...action.payload, cardPacks: action.payload.cardPacks}

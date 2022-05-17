@@ -54,6 +54,7 @@ export const Login = () => {
         },
     })
     if (isLoggedIn) {
+        console.log('login')
         return <Navigate to={`/profile`} />
     }
 

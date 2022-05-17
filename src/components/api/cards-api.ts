@@ -2,8 +2,8 @@ import axios, {AxiosResponse} from 'axios'
 import {AuthStateType} from "../Bll/auth-reducer";
 
 export const instance = axios.create({
-     baseURL: 'https://neko-back.herokuapp.com/2.0/',
-    // baseURL: 'http://localhost:7542/2.0/',
+     // baseURL: 'https://neko-back.herokuapp.com/2.0/',
+    baseURL: 'http://localhost:7542/2.0/',
     withCredentials: true,
 })
 
@@ -136,8 +136,8 @@ export const cardsAPI = {
 
         return instance.post<getPacksDataType, ResponseType>(`/cards/pack`, params)
     },
-    getCards(params: string) {
-        return instance.get<cardsPackResponseType>(`/cards/card`,{params})
+    getCards(params: any) {
+        return instance.get<cardsPackResponseType>(`/cards/card`, {params})
     }
 
 }

@@ -21,7 +21,7 @@ type TableRowPropsType = {
 // let isDisabledLearnButton = useSelector<AppRootReducerType, boolean>((state) => state.auth.isDisabledLogoutButton)
 
 const TableRow = (props: TableRowPropsType) => {
-
+    console.log('props', props)
     let updateDate = props.updated.slice(0, 10)
     let createdDate = props.created.slice(0, 10)
 
@@ -34,8 +34,7 @@ const TableRow = (props: TableRowPropsType) => {
             <div className={m.columnValues} style={{width: "175px"}}>
                 <NavLink to={
                     {
-                        pathname: '/profile', // нужно поменять на адрес компоненты карточкм
-                        search: `?id=${props.id}`
+                        pathname: `/cardPack/${props.id}`, // нужно поменять на адрес компоненты карточкм
                     }
                 }>
                     {props.name}
