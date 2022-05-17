@@ -12,9 +12,13 @@ import {cardPackType, getPacksTC, GetParamsType} from "./packs-reducer";
 import {Navigate} from "react-router-dom";
 import Pagination from "./Pagination/Pagination";
 import {CircularProgress, Paper} from "@mui/material";
+import {cardsAPI} from "../api/cards-api";
+import {setUserAC} from "../Login/login-reducer";
+import {loggedAC} from "../Bll/auth-reducer";
+
 
 const PacksList = () => {
-
+    let isLogged = useSelector<AppRootReducerType, boolean>((state) => state.auth.isLogged)
     let packs = useSelector<AppRootReducerType, cardPackType[]>((state) => state.packs.cardPacks)
     let circularProgress = useSelector<AppRootReducerType, boolean>((state) => state.packs.circularProgress)
     let {
@@ -32,12 +36,19 @@ const PacksList = () => {
 
 //1111
     useEffect(() => {
-        //показать крутилку
-        dispatch(getPacksTC())
+        cardsAPI.me()
+            .then((res) => {
+                dispatch(loggedAC(true))
+                dispatch(getPacksTC())
+            })
+            .catch(() => {
+                return <Navigate to={`/login`}/>
+            })
+            .finally(() => {
+                //убрать крутилку
+            })
     }, [packName, user_id, sortPacks, pageCount, min, max])
 
-
-    let isLogged = useSelector<AppRootReducerType, boolean>((state) => state.auth.isLogged)
     if (!isLogged) {
         return <Navigate to={`/login`}/>
     }
@@ -76,9 +87,10 @@ const PacksList = () => {
                             <TableTitle/>
                             {
                                 packs.map((p, index) => {
+                                    const {v4: uuidv4} = require('uuid');
                                     return (
                                         <TableRow
-                                            key={index}
+                                            key={uuidv4()}
                                             name={p.name}
                                             cards={p.cardsCount}
                                             updated={p.updated}

@@ -1,0 +1,99 @@
+.modal {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modalActive {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modalContent {
+    padding: 20px;
+    border-radius: 2px;
+    background-color: #F9F9FE;
+    width: 350px;
+    transform: scale(0.5);
+    transition: 0.4s;
+}
+
+.modalContentActive {
+    transform: scale(1);
+}
+
+.modalTitle {
+    color: #2D2E46;
+    width: 300px;
+    height: 27px;
+    font-size: 18px;
+}
+
+.modalMessage {
+    color: #000000;
+    width: 343px;
+    height: 48px;
+    font-size: 14px;
+
+}
+
+.modalButtonGroup {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.modalSaveButton {
+    background-color: #F1453D;
+    box-shadow: 0px 4px 18px rgba(241, 69, 61, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    color: #ECECF9;
+    width: 127px;
+    height: 36px;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+
+}
+
+.modalSaveButton:hover {
+    background: lightcoral;
+    color: white;
+    box-shadow: inset 0 0 0 2px red;
+}
+.modalSaveButton:active {
+    box-shadow:1px 1px 2px rgba(0,0,0,0.4) inset;
+}
+
+.modalCloseButton {
+    background-color: #D7D8EF;
+    box-shadow: 0px 4px 18px #D7D8EF, inset 0px 1px 0px #D7D8EF;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    color: #21268F;
+    width: 127px;
+    height: 36px;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.modalCloseButton:hover {
+    color: #3949ab;
+    box-shadow: inset 0 0 0 2px #3949ab;
+}
+.modalCloseButton:active {
+    box-shadow:1px 1px 2px rgba(0,0,0,0.4) inset;
+}
+

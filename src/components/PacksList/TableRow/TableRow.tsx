@@ -5,6 +5,7 @@ import {AppRootReducerType} from "../../Bll/store";
 import {NavLink} from "react-router-dom";
 import {addNewPackTC, deletePackTC, myPackNameEditTC} from "../packs-reducer";
 import DeleteModal from "../../common/Modal/DeleteModal/DeleteModal";
+import EditNamePacksModal from "../../common/Modal/EditModal/EditNamePacksModal";
 
 type TableRowPropsType = {
     name: string,
@@ -33,22 +34,14 @@ const TableRow = (props: TableRowPropsType) => {
 
     let rowStyle = props.index % 2 != 0 ? `${m.tableRow}` : `${m.tableRow} + ${m.tableRowStyle}`
 
-    const myPackNameEditTCHandler = (packId: string) => {
-        dispatch(myPackNameEditTC({
-            cardsPack: {
-                _id: packId,
-                name: "new name for Cards"
-            }
-        }))
-    }
 
-    const [modalActive, setModalActive] = useState(false)
+    const [deleteModalActive, setDeleteModalActive] = useState(false)
+    const [editModalActive, setEditModalActive] = useState(false)
 
     return (
         <div className={rowStyle}>
-            <DeleteModal id={props.id} active={modalActive} setActive={setModalActive} name={props.name}/>
-
-
+            <DeleteModal id={props.id} active={deleteModalActive} setActive={setDeleteModalActive} name={props.name}/>
+            <EditNamePacksModal id={props.id} active={editModalActive} setActive={setEditModalActive} defaultName={props.name}/>
 
             <div className={m.columnValues} style={{width: "175px"}}>
                 <NavLink to={
@@ -68,8 +61,8 @@ const TableRow = (props: TableRowPropsType) => {
                 {
                     userId === props.userId
                         ? <div>
-                            <button className={m.deleteButton} onClick={()=> setModalActive(true)}>Delete</button>
-                            <button className={m.editButton} onClick={()=> myPackNameEditTCHandler(props.id)}>Edit</button>
+                            <button className={m.deleteButton} onClick={()=> setDeleteModalActive(true)}>Delete</button>
+                            <button className={m.editButton} onClick={()=> setEditModalActive(true)}>Edit</button>
                             <button className={m.editButton}>Learn</button>
 
                         </div>
