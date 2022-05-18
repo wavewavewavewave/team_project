@@ -23,6 +23,7 @@ const PacksList = () => {
 
     const dispatch: any = useDispatch()
 
+
     useEffect(() => {
         //показать крутилку
         dispatch(getPacksTC())

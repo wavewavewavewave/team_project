@@ -128,7 +128,7 @@ const initialPacksCardState: initialPacksCardStateType = {
 
 export const packsCardReducer = (state = initialPacksCardState, action: ActionType): initialPacksCardStateType => {
     switch (action.type) {
-        case "PACKS-CARD/GET-CARDS" :
+        case "CARDS/GET-CARDS" :
             return {
                 ...state, cards: action.cards
             }
@@ -140,7 +140,7 @@ export const packsCardReducer = (state = initialPacksCardState, action: ActionTy
 export type PacksCardReducerACType = ReturnType<typeof packsCardReducerAC>
 export const packsCardReducerAC = (cards: CardsType[]) => {
     return {
-        type: "PACKS-CARD/GET-CARDS",
+        type: "CARDS/GET-CARDS",
         cards
     } as const
 }
@@ -154,7 +154,8 @@ export const packsCardTC = (id: any): ThunkType => {
         // let params = {cardsPack_id: id}
          let params = id
         cardsAPI.getCards(params).then((res) => {
-            //dispatch(packsCardReducer(res.data.packUserId))
+            // console.log(res)
+            dispatch(packsCardReducerAC(res.data.cards))
         }).catch((err) => {
 
         })

@@ -7,7 +7,7 @@ export type CardsBoardType = {
     question: string
     answer: string
     update: string
-    // grade: number
+    grade: null
     index: number
 }
 
@@ -27,7 +27,7 @@ export const CardsBoard = (props: CardsBoardType) => {
                 {props.update}
             </div>
             <div className={s.columnGrade} style={{justifyContent: "center"}}>
-                {/*{props.grade}*/}
+                {props.grade}
             </div>
         </div>
     )

@@ -1,5 +1,6 @@
 import axios, {AxiosResponse} from 'axios'
 import {AuthStateType} from "../Bll/auth-reducer";
+import {CardsType} from "../PacksList/PackCard/packsCard-reducer";
 
 export const instance = axios.create({
      // baseURL: 'https://neko-back.herokuapp.com/2.0/',
@@ -79,19 +80,7 @@ export type addPackDataType = {
 }
 
 export type cardsPackResponseType = {
-    cards: [
-        {
-            answer: string
-            question: string
-            cardsPack_id: string
-            grade: number
-            shots: number
-            user_id: string
-            created: string
-            updated: string
-            _id: string
-        },
-    ]
+    cards:CardsType[]
     cardsTotalCount: number
     maxGrade: number
     minGrade: number
@@ -137,7 +126,7 @@ export const cardsAPI = {
         return instance.post<getPacksDataType, ResponseType>(`/cards/pack`, params)
     },
     getCards(params: any) {
-        return instance.get<cardsPackResponseType>(`/cards/card`, {params})
+        return instance.get<cardsPackResponseType>(`/cards/card?cardsPack_id=${params.id}`)
     }
 
 }
