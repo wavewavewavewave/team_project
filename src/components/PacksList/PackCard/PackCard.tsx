@@ -4,7 +4,6 @@ import m from "../PacksList.module.css"
 import c from './PackCard.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {CardsTask} from "./CardsTask/CardsTask";
-import Pagination from "../Pagination/Pagination";
 import {CardsBoard} from "./CardsBoard/CardsBoard";
 import {AppRootReducerType} from "../../Bll/store";
 import {cardPackType, getPacksTC} from "../packs-reducer";
@@ -12,6 +11,8 @@ import {CardsType, packsCardTC} from "./packsCard-reducer";
 import {Navigate, useParams} from "react-router-dom";
 import {cardsAPI} from "../../api/cards-api";
 import {loggedAC} from "../../Bll/auth-reducer";
+import {CardsPagination} from "./CardsPagination/CardsPagination";
+import {Grid} from "@mui/material";
 
 
 export const PackCard = () => {
@@ -28,58 +29,55 @@ export const PackCard = () => {
     // (tl => tl.id === action.id ? {...tl, entityStatus: action.status} : tl)
 
     const params = useParams<'id'>();
-    console.log('params', params)
     const id = params
     const dispatch = useDispatch<any>()
 
     useEffect(() => {
-        cardsAPI.me()
-            .then((res) => {
-                dispatch(loggedAC(true))
-                dispatch(packsCardTC(id))
-            })
-            .catch(() => {
-                return <Navigate to={`/login`}/>
-                })
-            .finally(() => {
-                    //убрать крутилку
-                })
-            }, [])
+        dispatch(loggedAC(true))
+        dispatch(packsCardTC(id))
+    }, [])
 
-        if (!isLogged) {
-            return <Navigate to={`/login`}/>
-            }
+    if (!isLogged) {
+        return <Navigate to={`/login`}/>
+    }
 
     // useEffect(() => {
     //     dispatch(packsCardTC(id))
     // }, [cardsPack_id, cardAnswer, update, cardQuestion])
 
     return (
-        <div className={s.backgroundPage}>
-            <div className={c.inputBlock}>
-                <div>
-                    <div className={c.packName}>Pack Name</div>
-                    <input className={c.input} placeholder={'Search...'}/>
-                    <div className={c.blockColumn} style={{marginLeft: "28px"}}>
-                        <div className={c.cardsTable}>
-                            <CardsTask/>
-                            {
-                                cards.map((p, index) => {
-                                    return (
-                                        <CardsBoard
-                                            question={p.question}
-                                            answer={p.answer}
-                                            update={p.updated}
-                                            grade={p.grade}
-                                            key={index}
-                                            index={index}/>
-                                    )
-                                })
-                            }
+        <Grid container justifyContent={'center'}>
+            <Grid item justifyContent={'center'}>
+                <div className={c.cardsBlock}>
+                    <div className={c.inputBlock}>
+                        <div>
+                            <div className={c.packName}>Pack Name</div>
+                            <input className={c.input} placeholder={'Search...'}/>
+                            <div className={c.blockColumn} style={{marginLeft: "28px"}}>
+                                <div className={c.cardsTable}>
+                                    <CardsTask/>
+                                    {
+                                        cards.map((p, index) => {
+                                            return (
+                                                <CardsBoard
+                                                    question={p.question}
+                                                    answer={p.answer}
+                                                    update={p.updated}
+                                                    grade={p.grade}
+                                                    key={index}
+                                                    index={index}/>
+                                            )
+                                        })
+                                    }
+                                </div>
+                                <div>
+                                    <CardsPagination/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </Grid>
+        </Grid>
     )
 }

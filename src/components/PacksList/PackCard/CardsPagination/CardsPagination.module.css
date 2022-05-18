@@ -1,0 +1,7 @@
+.pagination {
+    position: relative;
+    margin-top: 310px;
+    right: 850px;
+    /*margin-right: 200px;*/
+    transform: rotate(270deg)
+}

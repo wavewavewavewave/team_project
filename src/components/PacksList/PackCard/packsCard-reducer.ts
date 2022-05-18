@@ -3,6 +3,7 @@ import {Dispatch} from "redux";
 import {cardsAPI} from "../../api/cards-api";
 import {AppRootReducerType} from "../../Bll/store";
 import {ThunkAction} from "redux-thunk";
+import {currentPageChangeACType} from "../packs-reducer";
 
 export type CardsType = {
     answer: string
@@ -106,11 +107,11 @@ const initialPacksCardState: initialPacksCardStateType = {
             _id: "",
         }
     ],
-    cardsTotalCount: 6,
+    cardsTotalCount: 7,
     maxGrade: 4.987525071790364,
     minGrade: 2.0100984354076568,
     page: 1,
-    pageCount: 7,
+    pageCount: 5,
     packUserId: "",
 
     getCards: {
@@ -118,7 +119,7 @@ const initialPacksCardState: initialPacksCardStateType = {
         cardQuestion: "",
         cardsPack_id: "",
         min: 1,
-        max: 4,
+        max: 9,
         sortCard: "0grade",
         page: 1,
         pageCount: 7,
@@ -132,10 +133,21 @@ export const packsCardReducer = (state = initialPacksCardState, action: ActionTy
             return {
                 ...state, cards: action.cards
             }
+        case "CARDS/CHANGE-CARDS-SIZE-PAGE" :
+            return {
+                ...state, pageCount: action.pageSize
+            }
         default:
             return state
     }
 }
+
+// export const currentPageChangeAC = (pageNumber: number): currentPageChangeACType => {
+//     return {
+//         type: "PACKS-LIST/CHANGE-CURRENT-PAGE",
+//         pageNumber
+//     }
+// }
 
 export type PacksCardReducerACType = ReturnType<typeof packsCardReducerAC>
 export const packsCardReducerAC = (cards: CardsType[]) => {
@@ -145,14 +157,23 @@ export const packsCardReducerAC = (cards: CardsType[]) => {
     } as const
 }
 
+export type ChangeCardsSizePageACType = ReturnType<typeof changeCardsSizePageAC>
+export const changeCardsSizePageAC = (pageSize: number) => {
+    return {
+        type: "CARDS/CHANGE-CARDS-SIZE-PAGE",
+        pageSize
+    } as const
+}
+
 export type ActionType = PacksCardReducerACType
+    | ChangeCardsSizePageACType
 export type ThunkType = ThunkAction<void, AppRootReducerType, unknown, ActionType>
 
 export const packsCardTC = (id: any): ThunkType => {
     return (dispatch: Dispatch<ActionType>, getState) => {
         // let id = '60cf378d48b4de00041bef4b'
         // let params = {cardsPack_id: id}
-         let params = id
+        let params = id
         cardsAPI.getCards(params).then((res) => {
             // console.log(res)
             dispatch(packsCardReducerAC(res.data.cards))
