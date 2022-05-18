@@ -44,12 +44,10 @@ const EditNamePacksModal = ({active, setActive, id, defaultName}: EditNamePacksM
                     Enter a new deck name {<span
                     style={{fontWeight: "bolder"}}>{defaultName}</span>}
                 </div>
-
                 <input
                     autoFocus
                     defaultValue={name}
-                    onChange={(e)=> setName(e.currentTarget.value)}/>
-
+                    onChange={(e) => setName(e.currentTarget.value)}/>
                 <div className={styles.modalButtonGroup}>
                     <button className={styles.modalSaveButton} onClick={myPackNameEditTCHandler}>Save</button>
                     <button className={styles.modalCloseButton} onClick={closeModal}>Close</button>

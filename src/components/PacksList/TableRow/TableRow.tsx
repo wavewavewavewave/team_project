@@ -63,10 +63,10 @@ const TableRow = (props: TableRowPropsType) => {
                         ? <div>
                             <button className={m.deleteButton} onClick={()=> setDeleteModalActive(true)}>Delete</button>
                             <button className={m.editButton} onClick={()=> setEditModalActive(true)}>Edit</button>
-                            <button className={m.editButton}>Learn</button>
+                            {props.cards >0 ? <button className={m.editButton}>Learn</button> : null}
 
                         </div>
-                        : <button className={m.editButton}>Learn</button>
+                        : props.cards > 0 ? <button className={m.editButton}>Learn</button> : "No cards"
                 }
             </div>
         </div>

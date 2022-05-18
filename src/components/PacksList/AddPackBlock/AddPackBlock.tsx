@@ -3,29 +3,36 @@ import m from "./AddPackBlock.module.css";
 import {Button, Paper} from "@mui/material";
 import {useDispatch} from "react-redux";
 import {addNewPackTC, editSearchNameAC, getPacksTC} from "../packs-reducer";
+import AddNewPackModal from "../../common/Modal/AddNewPackModal/AddNewPackModal";
 
 const AddPackBlock = () => {
+
     const dispatch: any = useDispatch()
 
     let [searchValue, setSearchValue] = useState<string>("")
 
     const setNewValue = () => {
         dispatch(editSearchNameAC(searchValue))
-        dispatch(getPacksTC())
+        // dispatch(getPacksTC())
     }
 
-    const addNewPackTCHandler = () => {
-        dispatch(addNewPackTC({
-            cardsPack: { // потом эти данные брать из стейта или еще как
-                name: "New Pack",
-                deckCover: "",
-                private: false,
-            }
-        }))
-    }
+    // const addNewPackTCHandler = () => {
+    //     dispatch(addNewPackTC({
+    //         cardsPack: { // потом эти данные брать из стейта или еще как
+    //             name: "New Pack",
+    //             deckCover: "",
+    //             private: false,
+    //         }
+    //     }))
+    // }
+
+    const [addNewPackModalActive, setAddNewPackModalActive] = useState(false)
 
     return (
         <div className={m.addPackBlock}>
+
+            <AddNewPackModal active={addNewPackModalActive} setActive={setAddNewPackModalActive}/>
+
             <div className={m.addPackTitle}>Packs list</div>
             <div className={m.addPackTitle}>
                 <Paper elevation={6} style={{
@@ -46,7 +53,7 @@ const AddPackBlock = () => {
                         variant="text"
                         className={m.button}
                         style={{border: "none"}}
-                        onClick={setNewValue}
+                        onClick={() => setAddNewPackModalActive(true)}
                     >Search
                     </Button>
                 </Paper>
@@ -56,7 +63,7 @@ const AddPackBlock = () => {
                         variant="contained"
                         className={m.button}
                         style={{width: "170px", backgroundColor: "#21268F", borderRadius: "60px"}}
-                        onClick={addNewPackTCHandler}
+                        onClick={()=>setAddNewPackModalActive(true)}
                     >Add new pack</Button>
                 </div>
             </div>
