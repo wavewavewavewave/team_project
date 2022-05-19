@@ -27,6 +27,7 @@
 }
 .packName {
     display: flex;
+    flex-wrap: wrap;
     font-style: normal;
     width: 128px;
     height: 33px;

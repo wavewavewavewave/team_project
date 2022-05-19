@@ -26,7 +26,7 @@ const AddPackBlock = () => {
     //     }))
     // }
 
-    const [addNewPackModalActive, setAddNewPackModalActive] = useState(false)
+   const [addNewPackModalActive, setAddNewPackModalActive] = useState(false)
 
     return (
         <div className={m.addPackBlock}>

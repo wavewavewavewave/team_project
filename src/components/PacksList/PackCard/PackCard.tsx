@@ -9,6 +9,7 @@ import {Navigate, useParams} from "react-router-dom";
 import {loggedAC} from "../../Bll/auth-reducer";
 import {CardsPagination} from "./CardsPagination/CardsPagination";
 import {Grid} from "@mui/material";
+import {AddCard} from "./AddCard/AddCard";
 
 
 export const PackCard = () => {
@@ -53,7 +54,12 @@ export const PackCard = () => {
                 <div className={c.cardsBlock}>
                     <div className={c.inputBlock}>
                         <div>
-                            <div className={c.packName}>Pack Name</div>
+                            <div className={c.packName}>
+                                <div>
+                                    Pack Name
+                                </div>
+                                <div style={{marginLeft: '750px'}}><AddCard /></div>
+                            </div>
                             <input className={c.input} placeholder={'Search...'}/>
                             <div className={c.blockColumn} style={{marginLeft: "28px"}}>
                                 <div className={c.cardsTable}>
