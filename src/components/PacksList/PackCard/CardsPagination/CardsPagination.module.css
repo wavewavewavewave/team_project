@@ -1,0 +1,12 @@
+.pagination {
+    position: relative;
+    margin-top: 400px;
+    right: 850px;
+    /*margin-right: 200px;*/
+    /*transform: rotate(270deg)*/
+}
+
+.selectedPage {
+    background-color: #9A91C8;
+    font-weight: bold;
+}

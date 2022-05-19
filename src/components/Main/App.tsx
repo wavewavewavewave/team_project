@@ -30,7 +30,7 @@ function App() {
                 <Route path="/404" element={<h1 style={{textAlign: "center"}}>404: PAGE NOT FOUND</h1>}/>
                 <Route path="/" element={<Navigate to={"/profile"}/>}/>
                 <Route path="/packsList" element={<PacksList/>}/>
-                <Route path={'/cardPack'} element={<PackCard/>}/>
+                <Route path={'/cardPack/:id'} element={<PackCard/>}/>
             </Routes>
         </div>
     );
