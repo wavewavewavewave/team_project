@@ -11,7 +11,7 @@ import {AppRootReducerType} from "../Bll/store";
 import {cardPackType, getPacksTC, GetParamsType} from "./packs-reducer";
 import {Navigate} from "react-router-dom";
 import Pagination from "./Pagination/Pagination";
-import {CircularProgress, Paper} from "@mui/material";
+import {CircularProgress, Grid, Paper} from "@mui/material";
 import {cardsAPI} from "../api/cards-api";
 import {setUserAC} from "../Login/login-reducer";
 import {loggedAC} from "../Bll/auth-reducer";
@@ -54,60 +54,63 @@ const PacksList = () => {
     }
 
     return (
+        <Grid container justifyContent={'center'}>
+            <Grid item justifyContent={'center'}>
+                <div className={s.backgroundPage}>
 
-        <div className={s.backgroundPage}>
+                    {circularProgress &&
+                    <CircularProgress style={{
+                        display: "block",
+                        position: "fixed",
+                        top: "50%",
+                        left: "50%",
+                        zIndex: "1"
+                    }}/>}
 
-            {circularProgress &&
-                <CircularProgress style={{
-                    display: "block",
-                    position: "fixed",
-                    top: "50%",
-                    left: "50%",
-                    zIndex: "1"
-                }}/>}
+                    <div className={m.packsPage}>
+                        <div className={m.cardsSettings}>
+                            <div className={m.propertySelect}>
+                                <div className={m.propertySelectTitle}>Show packs cards</div>
+                                <ButtonMyAll/>
+                            </div>
+                            <div className={m.propertySelect}>
+                                <div className={m.propertySelectTitle}>Number of cards</div>
+                                <div className={m.propertySelectGroup}>
+                                    <SliderComponent/>
+                                </div>
+                            </div>
 
-            <div className={m.packsPage}>
-                <div className={m.cardsSettings}>
-                    <div className={m.propertySelect}>
-                        <div className={m.propertySelectTitle}>Show packs cards</div>
-                        <ButtonMyAll/>
-                    </div>
-                    <div className={m.propertySelect}>
-                        <div className={m.propertySelectTitle}>Number of cards</div>
-                        <div className={m.propertySelectGroup}>
-                            <SliderComponent/>
+                        </div>
+                        <div className={m.packsList}>
+                            <AddPackBlock/>
+                            <div className={m.packsTable}>
+                                <Paper elevation={6}>
+                                    <TableTitle/>
+                                    {
+                                        packs.map((p, index) => {
+                                            const {v4: uuidv4} = require('uuid');
+                                            return (
+                                                <TableRow
+                                                    key={uuidv4()}
+                                                    name={p.name}
+                                                    cards={p.cardsCount}
+                                                    updated={p.updated}
+                                                    created={p.created}
+                                                    id={p._id}
+                                                    userId={p.user_id}
+                                                    index={index}
+                                                />
+                                            )
+                                        })
+                                    }
+                                </Paper>
+                            </div>
+                            <Pagination/>
                         </div>
                     </div>
-
                 </div>
-                <div className={m.packsList}>
-                    <AddPackBlock/>
-                    <div className={m.packsTable}>
-                        <Paper elevation={6}>
-                            <TableTitle/>
-                            {
-                                packs.map((p, index) => {
-                                    const {v4: uuidv4} = require('uuid');
-                                    return (
-                                        <TableRow
-                                            key={uuidv4()}
-                                            name={p.name}
-                                            cards={p.cardsCount}
-                                            updated={p.updated}
-                                            created={p.created}
-                                            id={p._id}
-                                            userId={p.user_id}
-                                            index={index}
-                                        />
-                                    )
-                                })
-                            }
-                        </Paper>
-                    </div>
-                    <Pagination/>
-                </div>
-            </div>
-        </div>
+            </Grid>
+        </Grid>
     );
 };
 

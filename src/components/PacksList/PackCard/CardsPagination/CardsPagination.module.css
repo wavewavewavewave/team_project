@@ -2,6 +2,8 @@
     position: relative;
     margin-top: 400px;
     right: 850px;
+    height: 78px;
+    padding-left: 20px;
     /*margin-right: 200px;*/
     /*transform: rotate(270deg)*/
 }

@@ -1,5 +1,5 @@
 .packsPage {
-    position: absolute;
+    position: relative;
     display: flex;
     width: 1008px;
     min-height: 636px;

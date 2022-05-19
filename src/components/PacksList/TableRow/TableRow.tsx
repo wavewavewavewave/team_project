@@ -46,7 +46,7 @@ const TableRow = (props: TableRowPropsType) => {
             <div className={m.columnValues} style={{width: "175px"}}>
                 <NavLink to={
                     {
-                        pathname: '/profile', // нужно поменять на адрес компоненты карточкм
+                        pathname: `/cardPack/${props.id}`, // нужно поменять на адрес компоненты карточкм
                         search: `?id=${props.id}`
                     }
                 }>
