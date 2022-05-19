@@ -1,6 +1,6 @@
 import React from 'react';
 import {Dispatch} from "redux";
-import {cardsAPI} from "../../api/cards-api";
+import {cardsAPI, cardsPackResponseType, instance} from "../../api/cards-api";
 import {AppRootReducerType} from "../../Bll/store";
 import {ThunkAction} from "redux-thunk";
 import {currentPageChangeACType} from "../packs-reducer";
@@ -183,3 +183,6 @@ export const packsCardTC = (id: string | undefined, pageNumber: number, pageCoun
         })
     }
 }
+
+
+

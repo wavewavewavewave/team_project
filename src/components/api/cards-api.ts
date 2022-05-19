@@ -2,8 +2,8 @@ import axios, {AxiosResponse} from 'axios'
 import {AuthStateType} from "../Bll/auth-reducer";
 
 export const instance = axios.create({
-     baseURL: 'https://neko-back.herokuapp.com/2.0/',
-    // baseURL: 'http://localhost:7542/2.0/',
+    // baseURL: 'https://neko-back.herokuapp.com/2.0/',
+    baseURL: 'http://localhost:7542/2.0/',
     withCredentials: true,
 })
 
@@ -78,29 +78,14 @@ export type addPackDataType = {
     }
 }
 
-export type cardsPackResponseType = {
-    cards: [
-        {
-            answer: string
-            question: string
-            cardsPack_id: string
-            grade: number
-            shots: number
-            user_id: string
-            created: string
-            updated: string
-            _id: string
-        },
-    ]
-    cardsTotalCount: number
-    maxGrade: number
-    minGrade: number
-    packUserId: string
-    page: number
-    pageCount: number
+export type myPackNameEditDataType = {
+    cardsPack: {
+        _id: string,
+        name: string,
+    }
 }
 
-export type cardsGetType = {
+export type cardsPackResponseType = {
     // ?cardAnswer=english // не обязательно
     // &cardQuestion=english // не обязательно
     cardsPack_id: string
@@ -132,12 +117,21 @@ export const cardsAPI = {
 
         return instance.get<getPacksDataType, ResponseType>(`/cards/pack`, {params})
     },
+    getCards(params: any) {
+        return instance.get<cardsPackResponseType>(`/cards/card?cardsPack_id=${params.id}&page=${params.pageNumber}&pageCount=${params.pageCount}`)
+    },
     addNewPack(params: addPackDataType) {
 
         return instance.post<getPacksDataType, ResponseType>(`/cards/pack`, params)
     },
-    getCards(params: any) {
-        return instance.get<cardsPackResponseType>(`/cards/card`,{params})
-    }
+
+    editNamePack(params: myPackNameEditDataType) {
+
+        return instance.put<getPacksDataType, ResponseType>(`/cards/pack`, params)
+    },
+    deletePack(idNumber: string) {
+
+        return instance.delete<getPacksDataType, ResponseType>(`/cards/pack/?id=${idNumber}`)
+    },
 
 }
