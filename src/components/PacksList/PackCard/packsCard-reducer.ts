@@ -173,7 +173,7 @@ export const currentCardPageChangeAC = (pageNumber: number) => {
         pageNumber
     } as const
 }
-
+///
 export type ActionType = PacksCardReducerACType
     | ChangeCardsSizePageACType
     | CurrentCardPageChangeACType
