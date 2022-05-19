@@ -2,7 +2,6 @@ import React, {ChangeEvent, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import s from "./CardsPagination.module.css"
 import {AppRootReducerType} from "../../../Bll/store";
-import Pagination from "@mui/material/Pagination";
 import {currentCardPageChangeAC} from "../packsCard-reducer";
 
 type CardsPaginationPropsType = {

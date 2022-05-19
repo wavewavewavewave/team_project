@@ -9,8 +9,8 @@ export type CardsType = {
     answer: string
     question: string
     cardsPack_id: string
-    grade: null
-    shots: null
+    grade: number
+    shots: number
     user_id: string
     created: string
     updated: string
@@ -41,22 +41,22 @@ export type initialPacksCardStateType = {
 const initialPacksCardState: initialPacksCardStateType = {
     cards: [
         {
-            answer: "J.Cole",
+            answer: "",
             question: "",
             cardsPack_id: "",
-            grade: null,
-            shots: null,
+            grade: 0,
+            shots: 0,
             user_id: "",
-            created: "2020-05-13T11:05:44.867Z",
-            updated: "2020-05-13",
+            created: "",
+            updated: "",
             _id: "",
         },
         {
             answer: "J.Cole",
             question: "",
             cardsPack_id: "",
-            grade: null,
-            shots: null,
+            grade: 0,
+            shots: 0,
             user_id: "",
             created: "2020-05-13T11:05:44.867Z",
             updated: "2020-05-13",
@@ -66,8 +66,8 @@ const initialPacksCardState: initialPacksCardStateType = {
             answer: "J.Cole",
             question: "",
             cardsPack_id: "",
-            grade: null,
-            shots: null,
+            grade: 0,
+            shots: 0,
             user_id: "",
             created: "2020-05-13T11:05:44.867Z",
             updated: "2020-05-13",
@@ -77,8 +77,8 @@ const initialPacksCardState: initialPacksCardStateType = {
             answer: "J.Cole",
             question: "",
             cardsPack_id: "",
-            grade: null,
-            shots: null,
+            grade: 0,
+            shots: 0,
             user_id: "",
             created: "2020-05-13T11:05:44.867Z",
             updated: "2020-05-13",
@@ -88,8 +88,8 @@ const initialPacksCardState: initialPacksCardStateType = {
             answer: "J.Cole",
             question: "",
             cardsPack_id: "",
-            grade: null,
-            shots: null,
+            grade: 0,
+            shots: 0,
             user_id: "142151531535151",
             created: "2020-05-13T11:05:44.867Z",
             updated: "2020-05-13",
@@ -99,8 +99,8 @@ const initialPacksCardState: initialPacksCardStateType = {
             answer: "J.Cole",
             question: "",
             cardsPack_id: "",
-            grade: null,
-            shots: null,
+            grade: 0,
+            shots: 0,
             user_id: "",
             created: "2020-05-13",
             updated: "2020-05-13",
@@ -143,13 +143,6 @@ export const packsCardReducer = (state = initialPacksCardState, action: ActionTy
             return state
     }
 }
-
-// export const currentPageChangeAC = (pageNumber: number): currentPageChangeACType => {
-//     return {
-//         type: "PACKS-LIST/CHANGE-CURRENT-PAGE",
-//         pageNumber
-//     }
-// }
 
 export type PacksCardReducerACType = ReturnType<typeof packsCardReducerAC>
 export const packsCardReducerAC = (cards: CardsType[]) => {

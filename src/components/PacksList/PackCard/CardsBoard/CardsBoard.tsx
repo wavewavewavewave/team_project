@@ -7,7 +7,7 @@ export type CardsBoardType = {
     question: string
     answer: string
     update: string
-    grade: null
+    grade: number
     index: number
 }
 
