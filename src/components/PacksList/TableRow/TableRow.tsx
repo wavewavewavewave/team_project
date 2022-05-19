@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import m from "./TableRow.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootReducerType} from "../../Bll/store";
 import {NavLink} from "react-router-dom";
 import {addNewPackTC, deletePackTC, myPackNameEditTC} from "../packs-reducer";
+import DeleteModal from "../../common/Modal/DeleteModal/DeleteModal";
+import EditNamePacksModal from "../../common/Modal/EditModal/EditNamePacksModal";
 
 type TableRowPropsType = {
     name: string,
@@ -33,21 +35,14 @@ const TableRow = (props: TableRowPropsType) => {
     let rowStyle = props.index % 2 != 0 ? `${m.tableRow}` : `${m.tableRow} + ${m.tableRowStyle}`
 
 
-    const cardDelete = (id: string) => {
-        dispatch(deletePackTC(id))
-    }
-
-    const myPackNameEditTCHandler = (packId: string) => {
-        dispatch(myPackNameEditTC({
-            cardsPack: {
-                _id: packId,
-                name: "new name for Cards"
-            }
-        }))
-    }
+    const [deleteModalActive, setDeleteModalActive] = useState(false)
+    const [editModalActive, setEditModalActive] = useState(false)
 
     return (
         <div className={rowStyle}>
+            <DeleteModal id={props.id} active={deleteModalActive} setActive={setDeleteModalActive} name={props.name}/>
+            <EditNamePacksModal id={props.id} active={editModalActive} setActive={setEditModalActive} defaultName={props.name}/>
+
             <div className={m.columnValues} style={{width: "175px"}}>
                 <NavLink to={
                     {
@@ -66,15 +61,13 @@ const TableRow = (props: TableRowPropsType) => {
                 {
                     userId === props.userId
                         ? <div>
-                            <button className={m.deleteButton} onClick={()=> cardDelete(props.id)}>Delete</button>
-                            <button className={m.editButton} onClick={()=> myPackNameEditTCHandler(props.id)}>Edit</button>
-                            <button className={m.editButton}>Learn</button>
+                            <button className={m.deleteButton} onClick={()=> setDeleteModalActive(true)}>Delete</button>
+                            <button className={m.editButton} onClick={()=> setEditModalActive(true)}>Edit</button>
+                            {props.cards >0 ? <button className={m.editButton}>Learn</button> : null}
 
                         </div>
-                        : <button className={m.editButton}>Learn</button>
-
+                        : props.cards > 0 ? <button className={m.editButton}>Learn</button> : "No cards"
                 }
-
             </div>
         </div>
     );

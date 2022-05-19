@@ -1,8 +1,8 @@
-import { Simulate } from "react-dom/test-utils";
-import { Dispatch } from "redux";
-import { cardsAPI, LoginParamsType } from "../api/cards-api";
-import { ThunkAction } from "redux-thunk";
-import { AppRootReducerType } from "../Bll/store";
+import {Simulate} from "react-dom/test-utils";
+import {Dispatch} from "redux";
+import {cardsAPI, LoginParamsType} from "../api/cards-api";
+import {ThunkAction} from "redux-thunk";
+import {AppRootReducerType} from "../Bll/store";
 import {
     changeStatusSaveButtonAC,
     changeStatusSaveButtonActionType,
@@ -47,11 +47,11 @@ export type AuthStateType = {
 export const LoginReducer = (state: AuthStateType = initialState, action: ActionsType) => {
     switch (action.type) {
         case 'login/USER-LOGIN':
-            return { ...state, ...action.user }
+            return {...state, ...action.user}
         case "EDIT-NAME":
-            return { ...state, ...action.payload }
+            return {...state, ...action.payload}
         case "SET-USER":
-            return { ...state, ...action.data }
+            return {...state, ...action.data}
         default:
             return state
     }
@@ -61,8 +61,7 @@ export type UserLoginACType = ReturnType<typeof userLoginAC>
 export const userLoginAC = (user: AuthStateType) => ({
     type: 'login/USER-LOGIN',
     user,
-} as const )
-
+} as const)
 
 
 export type EditNameActionType = {
@@ -107,7 +106,7 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsTyp
             //wikluchaem krutilku
         })
         .catch(err => {
-            if(err.response.data.passwordRegExp) {
+            if (err.response.data.passwordRegExp) {
                 dispatch(errorMessageAC(err.response.data.passwordRegExp))
             } else {
                 dispatch(errorMessageAC(err.response.data.error))
@@ -120,9 +119,8 @@ export const editNameTC = (name: string, avatar?: string | undefined): ThunkType
     return (dispatch: Dispatch<ActionsType>) => {
         // диспатчим крутилку
         dispatch(changeStatusSaveButtonAC(true))
-        cardsAPI.editName({ name, avatar })
+        cardsAPI.editName({name, avatar})
             .then((res) => {
-                debugger
                 dispatch(editNameAC(res.data.updatedUser.name, res.data.updatedUser.avatar))
             })
             .catch((err) => {
@@ -135,4 +133,10 @@ export const editNameTC = (name: string, avatar?: string | undefined): ThunkType
     }
 }
 
-type ActionsType = UserLoginACType | EditNameActionType | ErrorActionType | SetUserActionType | changeStatusSaveButtonActionType | LoggedActionType
+type ActionsType =
+    UserLoginACType
+    | EditNameActionType
+    | ErrorActionType
+    | SetUserActionType
+    | changeStatusSaveButtonActionType
+    | LoggedActionType
