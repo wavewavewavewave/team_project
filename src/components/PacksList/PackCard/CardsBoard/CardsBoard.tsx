@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import s from "../CardsBoard/CardsBoard.module.css";
-import m from "../../TableRow/TableRow.module.css";
+
 
 
 export type CardsBoardType = {
@@ -17,16 +17,16 @@ export const CardsBoard = (props: CardsBoardType) => {
 
     return (
         <div className={rowStyle}>
-            <div className={s.columnQuestion} style={{justifyContent: "center"}}>
+            <div className={s.columnQuestion} >
                 {props.question}
             </div>
-            <div className={s.columnAnswer} style={{justifyContent: "center"}}>
+            <div className={s.columnAnswer} >
                 {props.answer}
             </div>
-            <div className={s.columnUpdate} style={{justifyContent: "center"}}>
+            <div className={s.columnUpdate} >
                 {props.update}
             </div>
-            <div className={s.columnGrade} style={{justifyContent: "center"}}>
+            <div className={s.columnGrade} >
                 {props.grade}
             </div>
         </div>

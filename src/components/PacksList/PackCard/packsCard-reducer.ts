@@ -137,6 +137,8 @@ export const packsCardReducer = (state = initialPacksCardState, action: ActionTy
             return {
                 ...state, pageCount: action.pageSize
             }
+        case "CARDS/CHANGE-CARDS-CURRENT-PAGE":
+            return {...state, page: action.pageNumber}
         default:
             return state
     }
@@ -164,18 +166,24 @@ export const changeCardsSizePageAC = (pageSize: number) => {
         pageSize
     } as const
 }
+export type CurrentCardPageChangeACType = ReturnType<typeof currentCardPageChangeAC>
+export const currentCardPageChangeAC = (pageNumber: number) => {
+    return {
+        type: "CARDS/CHANGE-CARDS-CURRENT-PAGE",
+        pageNumber
+    } as const
+}
 
 export type ActionType = PacksCardReducerACType
     | ChangeCardsSizePageACType
+    | CurrentCardPageChangeACType
 export type ThunkType = ThunkAction<void, AppRootReducerType, unknown, ActionType>
 
-export const packsCardTC = (id: any): ThunkType => {
-    return (dispatch: Dispatch<ActionType>, getState) => {
-        // let id = '60cf378d48b4de00041bef4b'
-        // let params = {cardsPack_id: id}
-        let params = id
+export const packsCardTC = (id: string | undefined, pageNumber: number, pageCount: number): ThunkType => {
+    return (dispatch: Dispatch<ActionType>) => {
+
+        let params = {id: id, pageNumber: pageNumber, pageCount: pageCount}
         cardsAPI.getCards(params).then((res) => {
-            // console.log(res)
             dispatch(packsCardReducerAC(res.data.cards))
         }).catch((err) => {
 
