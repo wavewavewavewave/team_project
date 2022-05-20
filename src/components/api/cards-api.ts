@@ -1,10 +1,10 @@
 import axios, {AxiosResponse} from 'axios'
 import {AuthStateType} from "../Bll/auth-reducer";
-import {CardsType} from "../PacksList/PackCard/packsCard-reducer";
+import {CardsType, initialPacksCardStateType} from "../PacksList/PackCard/packsCard-reducer";
 
 export const instance = axios.create({
-    // baseURL: 'https://neko-back.herokuapp.com/2.0/',
-    baseURL: 'http://localhost:7542/2.0/',
+    baseURL: 'https://neko-back.herokuapp.com/2.0/',
+    // baseURL: 'http://localhost:7542/2.0/',
     withCredentials: true,
 })
 
@@ -55,6 +55,19 @@ export type LoginParamsType = {
     password: string,
     rememberMe: boolean,
 }
+
+
+export type ForgotPasswordDataType = {
+    email: string
+    from: string
+    message: string
+}
+export type NewPasswordDataType = {
+    password: string
+    resetPasswordToken: string
+}
+
+
 export type ResponseType = any
 
 // _id: string,
@@ -106,22 +119,21 @@ export type cardsPackResponseType = {
     pageCount: number
 }
 
+
+
+export type updatedGradeType = {
+    _id: string
+    cardsPack_id: string
+    card_id: string
+    user_id: string
+    grade: number
+    shots: number
+}
+
 // api
 export const cardsAPI = {
     editName(data: editNameDataType) {
         return instance.put<ResponseEditNameType>('auth/me', data);
-    },
-    me() {
-        return instance.post<ResponseMeType>('auth/me', {});
-    },
-    logout() {
-        return instance.delete<ResponseDeleteType>(`auth/me`, {})
-    },
-    register(email: string, password: any) {
-        return instance.post('auth/register', {email, password})
-    },
-    login(data: LoginParamsType) {
-        return instance.post<LoginParamsType, ResponseType>(`auth/login`, data)
     },
     getPacks(params: getPacksDataType) {
 
@@ -143,5 +155,46 @@ export const cardsAPI = {
 
         return instance.delete<getPacksDataType, ResponseType>(`/cards/pack/?id=${idNumber}`)
     },
+    getCard(cardsPack_id: string, token: string) {
+        return instance.get<initialPacksCardStateType>(`/cards/card?token=${token}&cardsPack_id=${cardsPack_id}`);
+    },
+    gradeCards(grade: number, card_id: string) {
+        console.log(' "API" grade ', grade, 'card id', card_id)
+        return instance.put<updatedGradeType>('/cards/grade', { grade, card_id })
+    },
 
+}
+
+
+
+export const authAPI = {
+    me() {
+        return instance.post<ResponseMeType>('auth/me', {});
+    },
+    register(email: string, password: any) {
+        return instance.post('auth/register', { email, password })
+    },
+    login(data: LoginParamsType) {
+        return instance.post<LoginParamsType, ResponseType>(`auth/login`, data)
+    },
+    logout() {
+        return instance.delete<ResponseDeleteType>(`auth/me`, {})
+    },
+    forgotPassword(email: string) {
+        return instance.post<ForgotPasswordDataType>(`auth/forgot`,
+            {
+                email, from: 'ai73a@yandex.by',
+                message: `<div style="background-color: lime; padding: 15px">
+                password recovery link: 
+                <a href='http://localhost:3000/#/set-new-password/$token$'>
+                link</a>
+                </div>`
+            })
+    },
+    newPassword(password: string, resetPasswordToken: string) {
+        return instance.post<NewPasswordDataType>(`auth/set-new-password`, {
+            password,
+            resetPasswordToken
+        })
+    },
 }

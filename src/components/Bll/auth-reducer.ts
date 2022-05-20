@@ -1,3 +1,4 @@
+import { authAPI } from './../api/cards-api';
 import { Dispatch } from "redux";
 import { cardsAPI, ResponseMeType } from "../api/cards-api";
 import { ThunkAction } from "redux-thunk";
@@ -124,7 +125,7 @@ export const LogoutTC = (): ThunkType => {
     return (dispatch: Dispatch<ActionsType>) => {
         // диспатчим крутилку
         dispatch(changeStatusLogoutButtonAC(true))
-        cardsAPI.logout()
+        authAPI.logout()
             .then((res) => {
                 dispatch(loggedAC(false))
             })
@@ -140,7 +141,7 @@ export const LogoutTC = (): ThunkType => {
 
 
 export const register = (email: string, password: string): ThunkType => (dispatch) => {
-    cardsAPI.register(email, password)
+    authAPI.register(email, password)
         .then(res => {
             dispatch(loggedAC(true))
         })
@@ -155,22 +156,22 @@ export const register = (email: string, password: string): ThunkType => (dispatc
 
 
 export const forgot = (email: string, navigate: NavigateFunction) => (dispatch: Dispatch) => {
-    // cardsAPI.forgot(email)
-    //     .then(res => {
-    //         dispatch(setEmailAddresUserAC(email))
-    //
-    //         navigate('/checkEmail');
-    //         setTimeout(() => {
-    //             navigate('/login')
-    //         }, 5000);
-    //     })
-    //     .catch(err => {
-    //         if(err.response.data.passwordRegExp) {
-    //             dispatch(errorMessageAC(err.response.data.passwordRegExp))
-    //         } else {
-    //             dispatch(errorMessageAC(err.response.data.error))
-    //         }
-    //     })
+    authAPI.forgotPassword(email)
+        .then(res => {
+            dispatch(setEmailAddresUserAC(email))
+    
+            navigate('/checkEmail');
+            setTimeout(() => {
+                navigate('/login')
+            }, 5000);
+        })
+        .catch(err => {
+            if(err.response.data.passwordRegExp) {
+                dispatch(errorMessageAC(err.response.data.passwordRegExp))
+            } else {
+                dispatch(errorMessageAC(err.response.data.error))
+            }
+        })
 }
 
 
@@ -178,17 +179,17 @@ export const forgot = (email: string, navigate: NavigateFunction) => (dispatch: 
 
 export const setNewPassword = (password: string, resetPasswordToken: string): ThunkType => (dispatch) => {
    console.log(password, resetPasswordToken)
-    // cardsAPI.setNewPassword(password, resetPasswordToken)
-    //     .then(res => {
-    //         // dispatch(loggedAC(true))
-    //     })
-    //     .catch(err => {
-    //         if(err.response.data.passwordRegExp) {
-    //             dispatch(errorMessageAC(err.response.data.passwordRegExp))
-    //         } else {
-    //             dispatch(errorMessageAC(err.response.data.error))
-    //         }
-    //     })
+   authAPI.newPassword(password, resetPasswordToken)
+        .then(res => {
+            // dispatch(loggedAC(true))
+        })
+        .catch(err => {
+            if(err.response.data.passwordRegExp) {
+                dispatch(errorMessageAC(err.response.data.passwordRegExp))
+            } else {
+                dispatch(errorMessageAC(err.response.data.error))
+            }
+        })
 }
 
 

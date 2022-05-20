@@ -12,7 +12,7 @@ import {cardPackType, getPacksTC, GetParamsType} from "./packs-reducer";
 import {Navigate} from "react-router-dom";
 import Pagination from "./Pagination/Pagination";
 import {CircularProgress, Grid, Paper} from "@mui/material";
-import {cardsAPI} from "../api/cards-api";
+import {authAPI, cardsAPI} from "../api/cards-api";
 import {setUserAC} from "../Login/login-reducer";
 import {loggedAC} from "../Bll/auth-reducer";
 
@@ -36,7 +36,7 @@ const PacksList = () => {
 
 //1111
     useEffect(() => {
-        cardsAPI.me()
+        authAPI.me()
             .then((res) => {
                 dispatch(loggedAC(true))
                 dispatch(getPacksTC())

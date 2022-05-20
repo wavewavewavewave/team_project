@@ -62,50 +62,6 @@ const initialPacksCardState: initialPacksCardStateType = {
             updated: "2020-05-13",
             _id: "5ebbd48876810f1ad0e7ece3",
         },
-        {
-            answer: "J.Cole",
-            question: "",
-            cardsPack_id: "",
-            grade: 0,
-            shots: 0,
-            user_id: "",
-            created: "2020-05-13T11:05:44.867Z",
-            updated: "2020-05-13",
-            _id: "",
-        },
-        {
-            answer: "J.Cole",
-            question: "",
-            cardsPack_id: "",
-            grade: 0,
-            shots: 0,
-            user_id: "",
-            created: "2020-05-13T11:05:44.867Z",
-            updated: "2020-05-13",
-            _id: "",
-        },
-        {
-            answer: "J.Cole",
-            question: "",
-            cardsPack_id: "",
-            grade: 0,
-            shots: 0,
-            user_id: "142151531535151",
-            created: "2020-05-13T11:05:44.867Z",
-            updated: "2020-05-13",
-            _id: "",
-        },
-        {
-            answer: "J.Cole",
-            question: "",
-            cardsPack_id: "",
-            grade: 0,
-            shots: 0,
-            user_id: "",
-            created: "2020-05-13",
-            updated: "2020-05-13",
-            _id: "",
-        }
     ],
     cardsTotalCount: 7,
     maxGrade: 4.987525071790364,
@@ -184,5 +140,23 @@ export const packsCardTC = (id: string | undefined, pageNumber: number, pageCoun
     }
 }
 
+
+
+
+export const getCards = (id: string) => async (dispatch: Dispatch, getState: () => AppRootReducerType) => {
+
+    const { token } = getState().login
+
+    const res = await cardsAPI.getCard(id, token)
+    dispatch(packsCardReducerAC(res.data.cards))
+}
+
+
+export const gradeCards = (grade: number, cardId: string) => async (dispatch: Dispatch) => {
+
+    const res = await cardsAPI.gradeCards( grade, cardId )
+    //dispatch(packsCardReducerAC(res.data.cards))
+
+}
 
 

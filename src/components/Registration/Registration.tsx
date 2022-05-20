@@ -3,17 +3,19 @@ import { Formik } from 'formik'
 import * as yup from 'yup'
 import styles from './Registration.module.css'
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../Bll/auth-reducer';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Grid } from '@mui/material';
+import { AppRootReducerType } from '../Bll/store';
 
 
 export const Registration = () => {
 
     const dispatch = useDispatch<any>()
     const navigate = useNavigate()
-
+    
+    const isLoggedIn = useSelector<AppRootReducerType, boolean>(state => state.auth.isLogged)
 
     const [eye, setEye] = useState(true)
     const handleClick = () => {
@@ -41,7 +43,10 @@ export const Registration = () => {
         dispatch(register(values.email, values.password))
     }
 
-   
+
+    if (isLoggedIn) {
+        return <Navigate to={`/profile`} />
+    }
 
     return (
         <Grid container justifyContent={'center'}>
@@ -62,7 +67,7 @@ export const Registration = () => {
 
                                 <div className={styles.incubator}> It-incubator</div>
                                 <div className={styles.signUp}> Sign Up</div>
- 
+
                                 <p style={{ marginTop: '77px' }}>
                                     <label htmlFor={`email`}>Email</label><br />
                                     <input

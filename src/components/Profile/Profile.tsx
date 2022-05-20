@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {loggedAC, LogoutTC} from "../Bll/auth-reducer";
 import {AppRootReducerType} from "../Bll/store";
 import {editNameTC, loginTC, setUserAC} from "../Login/login-reducer";
-import {cardsAPI} from "../api/cards-api";
+import {authAPI, cardsAPI} from "../api/cards-api";
 import {Navigate, useParams} from "react-router-dom";
 
 
@@ -34,7 +34,7 @@ const Profile = () => {
         //показать крутилку
 
 
-        cardsAPI.me()
+        authAPI.me()
             .then((res) => {
                 dispatch(setUserAC(res.data))
                 dispatch(loggedAC(true))
